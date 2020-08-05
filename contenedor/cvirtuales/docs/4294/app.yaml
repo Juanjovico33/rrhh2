@@ -1,0 +1,22 @@
+runtime: php
+env: flex
+
+runtime_config:
+  document_root: sainc/
+
+#handlers:
+  #- url: /*
+  # static_dir: css
+
+manual_scaling:
+  instances: 1
+resources:
+  cpu: 1
+  memory_gb: 2
+  disk_size_gb: 50
+
+env_variables:
+  MYSQL_HOST: mysql:unix_socket=/cloudsql/pelagic-pod-279916:southamerica-east1:bdsainco
+  MYSQL_DB: sainc
+  MYSQL_USER: soporte
+  MYSQL_PASS: 12345
