@@ -59,15 +59,11 @@
                                 <i class="icon-feather-help-circle btns"></i> </a>
                             <div uk-drop="pos: bottom-right;mode : click">
                                 <div class="uk-card-default p-4">
-                                    <h4> Elementum tellus id mauris faucibuss soluta nobis </h4>
-                                    <p class="mt-2 mb-0">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                                        diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
-                                        volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
-                                        suscipit lobortis nisl ut aliquip ex ea commodo consequat. Nam liber tempor cum
-                                        soluta nobis eleifend option congue nihil imperdiet</p>
+                                    <h4> Acerca de las clases virtuales</h4>
+                                    <p class="mt-2 mb-0">Esta seccion listará todas las clases, materiales y tareas que el docente vaya registrando durante el periodo de avance académico.</p>
                                 </div>
                             </div>
-
+<!-- 
                             <a hred="#">
                                 <i class="icon-feather-more-vertical btns"></i>
                             </a>
@@ -90,7 +86,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
 
 
                         </div>
