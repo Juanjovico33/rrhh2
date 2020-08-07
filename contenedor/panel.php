@@ -52,7 +52,7 @@
                                     </td>                                    
                                 </tr-->
                                 <div>
-                                    <a href="#" onclick="ver_descmat('<?php echo $codmat ?>','<?php echo $codest ?>','<?php echo $per ?>','<?php echo $id_grupo ?>', '<?=$n_mat?>')">
+                                    <a href="#" onclick="ver_descmat('<?=$codmat;?>','<?=$codest;?>','<?=$per;?>','<?=$id_grupo;?>', '<?=$n_mat;?>')">
                                         <div class="course-card">
                                             <div class="course-card-thumbnail ">
                                                 <img src="img/materias/<?php echo $i+1; ?>.png">

@@ -1,9 +1,17 @@
 <?php 
+    include "../includes/_linkMeet.php";
     $id_grupo=$_REQUEST['_idgrupo']; 
     $codmat=$_REQUEST['_codmat'];
     $per=$_REQUEST['_periodo'];
     $codest=$_REQUEST['_codest'];
     $nb_materia=$_REQUEST['_nbmat'];
+
+    $o_enl=new linkMeet();
+    $o_enl->getDatosEnlace($id_grupo);
+    //enlace_meet ->preguntar si existe enlace meet
+    //si existe y el estudiante clic se debe registrar la asistencia
+    // echo $o_enl->getError();
+    // echo "<br>".$o_enl->getEnlace();
 ?>
 <div class="page-content">
 
@@ -41,14 +49,17 @@
 
                 <div class="uk-grid-large" uk-grid>
                     <div class="uk-width-3-4@m">
-
-                    <div class="course-card course-card-list">
+                    <!-- INSERTAR POR AQUI EL ENLACE MEET -->
+                    <?php
+                    if($o_enl->getEnlace()!=''){
+                        ?>
+                        <div id="div_googlemeet_link" class="course-card course-card-list">
                             <div class="course-card-thumbnail">
                                 <img src="img/iconos/googlemeet.png">
-                                <a href="course-intro.html" class="play-button-trigger"></a>
+                                <a href="<?=$o_enl->getEnlace();?>" onclick="registrar_asistencias_meet(<?=$id_grupo;?>,<?=$codest;?>)" target="_blank"></a>
                             </div>
                             <div class="course-card-body">
-                                <a href="https://meet.google.com/iea-rtyq-gwb" target="_blank">
+                                <a href="<?=$o_enl->getEnlace();?>" onclick="registrar_asistencias_meet(<?=$id_grupo;?>,<?=$codest;?>)" target="_blank">
                                     <h4> Enlace clase virtual</h4>
                                 </a>
                                 <p> Este enlace nos redirecciona al Google Meet, debemos tener abierta nuestra cuenta de correo institucional.</p>
@@ -64,17 +75,19 @@
                                         </li>
                                     </ul>
                                 </div>
-
                             </div>
+
                         </div>
+                        <?php 
+                    }
+                    ?>
+                    
 
                         <div class="course-card course-card-list">
                             <div class="course-card-thumbnail">
                                 <img src="img/iconos/recursos.png">
                                 <a href="#" class="play-button-trigger" onclick="ver_clasesvirtuales(<?=$id_grupo;?>, <?=$codest;?>)"></a>
                             </div>
-
-                            <!-- INSERTAR POR AQUI EL ENLACE MEET -->
 
                             <div class="course-card-body" >
                                 <a href="#" onclick="ver_clasesvirtuales(<?=$id_grupo;?>, <?=$codest;?>)">
@@ -101,10 +114,10 @@
                         <div class="course-card course-card-list">
                             <div class="course-card-thumbnail">
                                 <img src="img/iconos/planificacion.png">
-                                <a href="course-intro.html" class="play-button-trigger"></a>
+                                <a href="#" onclick="ver_plamat(<?=$id_grupo;?>)" class="play-button-trigger"></a>
                             </div>
                             <div class="course-card-body">
-                                <a href="course-intro.html">
+                                <a href="#" onclick="ver_plamat(<?=$id_grupo;?>)">
                                     <h4> Planificacion academica </h4>
                                 </a>
                                 <p>Visualizacion de la planificacion academica, cargada por el docente.</p>

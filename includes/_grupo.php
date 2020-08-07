@@ -86,7 +86,7 @@
                     $this->periodo=$row['periodo'];
                     $this->idcarrera=$row['CodCarrera'];
                     $this->semestre=$row['CodSemestre'];
-                    $this->idcarrera=$row['CodMateria'];
+                    $this->idmateria=$row['CodMateria'];
                     $this->iddocente=$row['CodDocente'];
                     $this->grupo=$row['Descripcion'];
                 }

@@ -144,6 +144,35 @@ function ver_descmat(codmat,codest,periodo,idgrupo, nbmat){
 	}
 	ajax.send(datos);
 }
-function hi(){
-	alert('hola mundo');
+function ver_plamat(idgrupo){
+	var resultado = document.getElementById('page-content-inner');
+
+	var datos = new FormData();
+	datos.append("_idgrupo", idgrupo);
+
+	resultado.innerHTML = "<img src='contenedor/js/carga.gif' class='img-fluid' alt='Responsive image'>";
+	ajax = objetoAjax();
+	ajax.open("POST", "contenedor/ver_planificacion_grupo.php", true);
+	ajax.onreadystatechange = function(){
+		if (ajax.readyState == 4) {
+			resultado.innerHTML = ajax.responseText;
+		}
+	}
+	ajax.send(datos);
+}
+
+function registrar_asistencias_meet(grupo,codest){
+	var resultado = document.getElementById('div_googlemeet_link');
+	var datos = new FormData();
+	datos.append("_idgrupo", grupo);
+	datos.append("_codest", codest);
+	resultado.innerHTML="Cargando...";
+	ajax = objetoAjax();
+	ajax.open("POST", "contenedor/cvirtuales/set_asistencia_enlacemeet.php", true);
+	ajax.onreadystatechange = function(){
+		if (ajax.readyState == 4) {
+			resultado.innerHTML=ajax.responseText;
+		}
+	}
+	ajax.send(datos);
 }
