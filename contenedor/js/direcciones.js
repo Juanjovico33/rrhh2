@@ -17,10 +17,8 @@ if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
 	return xmlhttp;
 }
 function terminos_condiciones(cod_act, cod_ban, codest, cod_gru_aux,hora_fin){		
-	var res = document.getElementById('cuerpo_modal');
-	var titu=document.getElementById('myModalLabel');
+	var res = document.getElementById('page-content-inner');	
 	res.innerHTML = "<img src='contenedor/js/carga.gif' width='50%' class='img-fluid' alt='Responsive image'>";	
-	titu.innerHTML="Primera Evaluación Online es de calificación inmediata por computadora";
 	ajax = objetoAjax();
 	ajax.open("GET", "contenedor/terminos_condiciones.php?cod_act="+cod_act+"&cod_ban="+cod_ban+"&codest="+codest+"&cod_gru_aux="+cod_gru_aux+"&hora_fin="+hora_fin+"", true);
 	//window.open("ver_actividades_eval.php?cod_eval="+cod_eval+"&cod_ban="+cod_ban+"&codest="+codest+"",'_blank');
@@ -69,10 +67,8 @@ function iniciar_evaluacion(cod_act, cod_ban, codest, cod_gru_aux,horacompleta,h
 	/*window.open("ver_actividades_evaluacion.php?cod_act="+cod_act+"&cod_ban="+cod_ban+"&codest="+codest+"&cod_gru_aux="+cod_gru_aux+"","_self");*/
 }
 function abrir_cerrar(codmat,codest,periodo,idgrupo){
-	var res = document.getElementById('page-content-inner');
-	//var titu=document.getElementById('myModalLabel');
-	res.innerHTML = "<img src='contenedor/js/carga.gif' class='img-fluid' alt='Responsive image'>";	
-	//titu.innerHTML="BOLETIN DE NOTAS";
+	var res = document.getElementById('page-content-inner');	
+	res.innerHTML = "<img src='contenedor/js/carga.gif' class='img-fluid' alt='Responsive image'>";		
 	otro = objetoAjax();
 	otro.open("GET", "contenedor/ver_boletin.php?_codmat="+codmat+"&_codest="+codest+"&_per="+periodo+"&_idgrupo="+idgrupo+"", true);
 	otro.onreadystatechange = function(){
@@ -175,4 +171,29 @@ function registrar_asistencias_meet(grupo,codest){
 		}
 	}
 	ajax.send(datos);
+}
+
+function inscripcion_online(codest,semestre,carrera){
+	var resultado = document.getElementById('page-content-inner');
+	resultado.innerHTML = "<img src='contenedor/js/carga.gif' class='img-fluid' alt='Responsive image'>";
+	ajax = objetoAjax();
+	ajax.open("GET", "contenedor/inscripcion_online.php?_codest="+codest+"&_semestre="+semestre+"&_carrera="+carrera+"", true);
+	ajax.onreadystatechange = function(){
+		if (ajax.readyState == 4) {
+			resultado.innerHTML = ajax.responseText;
+		}
+	}
+	ajax.send(null);
+}
+function reg_inscripcion_online(grupo,id_gestion,codest,codcarreraa,intsemestre,idresol){
+	var resultado = document.getElementById('page-content-inner');
+	resultado.innerHTML = "<img src='contenedor/js/carga.gif' class='img-fluid' alt='Responsive image'>";
+	ajax = objetoAjax();
+	ajax.open("GET", "contenedor/reg_inscripcion_online.php?_grupo="+grupo+"&_id_gestion="+id_gestion+"&_codest="+codest+"&_codcarreraa="+codcarreraa+"&_intsemestre="+intsemestre+"&_idresol="+idresol+"", true);
+	ajax.onreadystatechange = function(){
+		if (ajax.readyState == 4) {
+			resultado.innerHTML = ajax.responseText;
+		}
+	}
+	ajax.send(null);
 }

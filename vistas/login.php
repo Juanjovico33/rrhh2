@@ -77,7 +77,7 @@
 
                         <div class="mt-4 uk-flex-middle uk-grid-small" uk-grid>
                             <div class="uk-width-expand@s">
-                                <p> Te olvidaste la contraseña? <a href="page-register.html">Pulsa Aquí</a></p>
+                                <p> Te olvidaste la contraseña? <a href="#">Pulsa Aquí</a></p>
                             </div>
                             <div class="uk-width-auto@s">
                                 <button type="submit" class="btn btn-success">Iniciar Sesión</button>

@@ -10,7 +10,7 @@
     // $materias=$estudiante->getmateriasporperiodo($estudiante->getperiodosregistrados($gestion->getId()), $gestion->getperiodoactuales(), $gestion->getId()); 
     $materias=$estudiante->getmateriasporperiodo($estudiante->getperiodosregistrados($gestion->getId(), $gestion->getperiodoactuales()), $gestion->getId()); 
     // $estudiante->getperiodosregistrados($gestion->getId(), $gestion->getperiodoactuales());
-    // echo $estudiante->getError();
+    echo $estudiante->getError();
     
 ?>
     <h1>Materias Registradas</h1>

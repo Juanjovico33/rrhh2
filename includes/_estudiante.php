@@ -137,7 +137,6 @@
         function getperiodosregistrados($gestion, $per_encurso){
             // function getperiodosregistrados($gestion){
             include "conexion.php";
-            //agregar excepcion para algunas carreras modulares ver_materiasregistradas.php
             $gestion_anterior=0;
             
             $q_perregistrados='';
@@ -150,8 +149,7 @@
                 }
                 $periodosregistrados = $bdcon->prepare($q_perregistrados);
                 $periodosregistrados->execute();
-                // $this->error.=$q_perregistrados.'-'.$gestion;
-                // $this->error.=$q_perregistrados.'<br>'.$periodos;
+                // $this->error.=$q_perregistrados.'<br>';
             } catch (PDOException $e) {
                 $this->error .= 'La conexión para CLASS::Estudiante ha fallado, intente realizar su solicitud nuevamente: ' . $e->getMessage().'<br>';
             }
@@ -163,7 +161,7 @@
             include "conexion.php";
             $q_matxper='';
             $pMaterias=null;
-            if(!isset($periodos)){
+            if(!is_null($periodos)){
                 try{
                     while ($row = $periodos->fetch(PDO::FETCH_ASSOC)) {
                         $idperiodo=$row['periodo'];
@@ -179,7 +177,7 @@
                                 'materias_array'=>$this->getdatosgrupos($q_matxper)
                             );
                             // $this->error .="SELECT * from aca_registroestmat inner join aca_pensum on (aca_registroestmat.codmateria=aca_pensum.materia) where (aca_registroestmat.codest='$this->codestudiante' or aca_registroestmat.codest='$this->codest') and (aca_registroestmat.periodo='$per[0]' or aca_registroestmat.periodo='$per[1]' or aca_registroestmat.periodo='$per[2]') and aca_pensum.gestion='$idgestion' and aca_pensum.carrera='$this->cod_carrera';"; //Consulta con errores
-                            // $this->error .= $q_matxper . '<br>---';
+                            // $this->error .= $q_matxper ;
                         }
                     }
                 }catch (PDOException $e) {
@@ -188,7 +186,7 @@
             }else{
                 $pMaterias=null;
             }
-            
+            // $this->error.=var_dump($periodos);
             return $pMaterias;
         }
 

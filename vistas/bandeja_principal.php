@@ -81,6 +81,8 @@
             </div>
             <div class="page-menu-inner" data-simplebar>
                 <ul data-submenu-title="Menú">
+                <li><a href="index.php"><i class="icon-material-outline-person-pin"></i><span>Inicio</span></a></li>
+                    <li><a href="#" onclick="inscripcion_online('<?php echo $codigo;?>','<?php echo $semestre;?>','<?php echo $carrera;?>')"><i class="icon-line-awesome-credit-card"></i><span> Inscripciones Online</span></a></li>
                     <li><a href="#" onclick="ver_materias('<?php echo $codigo;?>')"><i class="uil-layer-group"></i><span> Materias Registradas</span></a> </li>
                     <li><a href="#" onclick="ver_materias_examenes('<?php echo $codigo;?>')"><i class="uil-edit-alt"></i> <span> Mis Exámenes</span></a> </li>
                     <li><a href="includes/logout.php"><i class="icon-feather-log-out"></i> <span> Salir</span></a> </li>
@@ -166,8 +168,7 @@
                                 uk-toggle="target: .header-widget ; cls: is-active"> </span>
 
 
-                            <a href="#" class="header-widget-icon"
-                                uk-tooltip="title: My Courses ; pos: bottom ;offset:21">
+                            <a href="#" class="header-widget-icon">
                                 <i class="uil-youtube-alt"></i>
                             </a>
 
@@ -185,10 +186,10 @@
                                 </div>
 
                                 <!-- notification contents -->
-                                <div class="dropdown-notifications-content" data-simplebar>
+                                <!-- <div class="dropdown-notifications-content" data-simplebar> -->
 
                                     <!-- notiviation list -->
-                                    <ul>
+                                    <!-- <ul>
                                         <li class="notifications-not-read">
                                             <a href="course-intro.html">
                                                 <span class="notification-image">
@@ -201,10 +202,10 @@
                                                         <span class="course-progressbar-filler"
                                                             style="width:95%"></span>
                                                     </span>
-                                                </span>
+                                                </span> -->
 
                                                 <!-- option menu -->
-                                                <span class="btn-option">
+                                                <!-- <span class="btn-option">
                                                     <i class="icon-feather-more-vertical"></i>
                                                 </span>
                                                 <div class="dropdown-option-nav"
@@ -242,10 +243,10 @@
                                                         <span class="course-progressbar-filler"
                                                             style="width:95%"></span>
                                                     </span>
-                                                </span>
+                                                </span> -->
 
                                                 <!-- option menu -->
-                                                <span class="btn-option">
+                                                <!-- <span class="btn-option">
                                                     <i class="icon-feather-more-vertical"></i>
                                                 </span>
                                                 <div class="dropdown-option-nav"
@@ -283,10 +284,10 @@
                                                         <span class="course-progressbar-filler"
                                                             style="width:95%"></span>
                                                     </span>
-                                                </span>
+                                                </span> -->
 
                                                 <!-- option menu -->
-                                                <span class="btn-option">
+                                                <!-- <span class="btn-option">
                                                     <i class="icon-feather-more-vertical"></i>
                                                 </span>
                                                 <div class="dropdown-option-nav"
@@ -323,10 +324,10 @@
                                                         <span class="course-progressbar-filler"
                                                             style="width:95%"></span>
                                                     </span>
-                                                </span>
+                                                </span> -->
 
                                                 <!-- option menu -->
-                                                <span class="btn-option">
+                                                <!-- <span class="btn-option">
                                                     <i class="icon-feather-more-vertical"></i>
                                                 </span>
                                                 <div class="dropdown-option-nav"
@@ -356,13 +357,12 @@
                                 </div>
                                 <div class="dropdown-notifications-footer">
                                     <a href="#"> sell all</a>
-                                </div>
+                                </div> -->
                             </div>
 
                             <!-- notificiation icon  -->
 
-                            <a href="#" class="header-widget-icon"
-                                uk-tooltip="title: Notificiation ; pos: bottom ;offset:21">
+                            <a href="#" class="header-widget-icon">
                                 <i class="uil-bell"></i>
                                 <span>4</span>
                             </a>
@@ -381,10 +381,10 @@
                                 </div>
 
                                 <!-- notification contents -->
-                                <div class="dropdown-notifications-content" data-simplebar>
+                                <!-- <div class="dropdown-notifications-content" data-simplebar> -->
 
                                     <!-- notiviation list -->
-                                    <ul>
+                                    <!-- <ul>
                                         <li class="notifications-not-read">
                                             <a href="#">
                                                 <span class="notification-icon btn btn-soft-danger disabled">
@@ -429,9 +429,9 @@
                                                 </span>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
 
-                                </div>
+                                <!-- </div> -->
 
 
                             </div>
@@ -441,7 +441,7 @@
 
                             <a href="#" class="header-widget-icon" uk-tooltip="title: Message ; pos: bottom ;offset:21">
                                 <i class="uil-envelope-alt"></i>
-                                <span>1</span>
+                                <!-- <span>1</span> -->
                             </a>
 
                             <!-- Message  notificiation dropdown -->
@@ -457,10 +457,10 @@
                                 </div>
 
                                 <!-- notification contents -->
-                                <div class="dropdown-notifications-content" data-simplebar>
+                                <!-- <div class="dropdown-notifications-content" data-simplebar> -->
 
                                     <!-- notiviation list -->
-                                    <ul>
+                                    <!-- <ul>
                                         <li class="notifications-not-read">
                                             <a href="#">
                                                 <span class="notification-avatar">
@@ -513,12 +513,12 @@
                                                 </div>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
 
-                                </div>
+                                <!-- </div>
                                 <div class="dropdown-notifications-footer">
                                     <a href="#"> sell all <i class="icon-line-awesome-long-arrow-right"></i> </a>
-                                </div>
+                                </div> -->
                             </div>
 
 
@@ -545,20 +545,20 @@
                                 <!-- User menu -->
 
                                 <ul class="dropdown-user-menu">
-                                    <li>
+                                    <!-- <li>
                                         <a href="#">
                                             <i class="icon-material-outline-dashboard"></i> Dashboard</a>
                                     </li>
                                     <li><a href="#">
                                             <i class="icon-feather-bookmark"></i> Bookmark </a>
+                                    </li> -->
+                                    <li><a href="#">
+                                            <i class="icon-feather-settings"></i> Editar Cuenta</a>
                                     </li>
-                                    <li><a href="profile-edit.html">
-                                            <i class="icon-feather-settings"></i> Account Settings</a>
-                                    </li>
-                                    <li><a href="#" style="color:#62d76b">
+                                    <!-- <li><a href="#" style="color:#62d76b">
                                             <i class="icon-feather-star"></i> Upgrade To Premium</a>
-                                    </li>
-                                    <li>
+                                    </li> -->
+                                    <!-- <li>
                                         <a href="#" id="night-mode" class="btn-night-mode">
                                             <i class="icon-feather-moon"></i> Night mode
                                             <span class="btn-night-mode-switch">
@@ -569,7 +569,7 @@
                                     <li class="menu-divider">
                                     <li><a href="#">
                                             <i class="icon-feather-help-circle"></i> Help</a>
-                                    </li>
+                                    </li> -->
                                     <li><a href="includes/logout.php">
                                             <i class="icon-feather-log-out"></i> Salir</a>
                                     </li>
@@ -765,48 +765,14 @@
                         </div> -->
                     </div>
                 </div>  
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">                
-                                <h4 class="modal-title" id="myModalLabel"></h4>
-                            </div>
-                            <div class="modal-body" id="cuerpo_modal">                    
-                            </div>
-                            <div class="modal-footer" id="myModal_footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>             
             </div>
-            <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="myModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" id="cuerpo_modal">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
              <!-- footer
                ================================================== -->
-                <div class="footer">
+                <!-- <div class="footer">
                     <div class="uk-grid-collapse" uk-grid>
                         <div class="uk-width-expand@s uk-first-column">
                             <p>© 2020 <strong>SAINCO - Plataforma Estudiante </strong>Dept.Sistemas - Todos los Derechos Reservados. </p>
-                        </div>
+                        </div> -->
                         <!--<div class="uk-width-auto@s">
                             <nav class="footer-nav-icon">
                                 <ul>
@@ -816,11 +782,11 @@
                                     <li><a href="#"><i class="icon-brand-twitter"></i></a></li>
                                 </ul>
                             </nav>
-                        </div>-->
+                        </div>
                     </div>
                 </div>
         </div>
-    </div>    
+    </div>   --> 
     <!-- javaScripts
     ================================================== -->
     <script src="js/framework.js"></script>
