@@ -61,7 +61,7 @@
                 $s_carrera->execute();
                 // $this->error="SELECT Codigo, Titulo, tiempo, IdCCosto, id_resolucion FROM carreras WHERE Titulo='$nb_carrera' and gestion='$gestion' limit=1";
             } catch (PDOException $e) {
-                $this->error = 'La conexión para CLASS::carreras, intente realizar su solicitud nuevamente: ' . $e->getMessage().'<br>';
+                $this->error .= 'La conexión para CLASS::carreras, intente realizar su solicitud nuevamente: ' . $e->getMessage().'<br>';
             }
             while ($row = $s_carrera->fetch(PDO::FETCH_ASSOC)) {
                 $this->codigo=$row['Codigo'];

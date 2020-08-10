@@ -134,41 +134,61 @@
             }
         }
 
-        function getperiodosregistrados($gestion){
+        function getperiodosregistrados($gestion, $per_encurso){
+            // function getperiodosregistrados($gestion){
             include "conexion.php";
+            //agregar excepcion para algunas carreras modulares ver_materiasregistradas.php
+            $gestion_anterior=0;
+            
+            $q_perregistrados='';
             try {
-                $periodosregistrados = $bdcon->prepare("SELECT periodo FROM aca_registroestgest WHERE (codest='$this->codest' or codest='$this->codestudiante') and gestion='$gestion' group by periodo");
+                if($this->getCodCarrera()=='02AUD' || $this->getCodCarrera()=='02DER' || $this->getCodCarrera()=='02ADM'){
+                    $gestion_anterior=$gestion-1;
+                    $q_perregistrados="SELECT periodo FROM aca_registroestgest WHERE (codest='$this->codest' or codest='$this->codestudiante') and (gestion='$gestion' or gestion='$gestion_anterior') and (periodo=$per_encurso[0] or periodo=$per_encurso[1] or periodo=$per_encurso[2]) group by periodo order by periodo";
+                }else{
+                    $q_perregistrados="SELECT periodo FROM aca_registroestgest WHERE (codest='$this->codest' or codest='$this->codestudiante') and gestion='$gestion' and (periodo=$per_encurso[0] or periodo=$per_encurso[1] or periodo=$per_encurso[2]) group by periodo order by periodo";
+                }
+                $periodosregistrados = $bdcon->prepare($q_perregistrados);
                 $periodosregistrados->execute();
+                // $this->error.=$q_perregistrados.'-'.$gestion;
+                // $this->error.=$q_perregistrados.'<br>'.$periodos;
             } catch (PDOException $e) {
                 $this->error .= 'La conexión para CLASS::Estudiante ha fallado, intente realizar su solicitud nuevamente: ' . $e->getMessage().'<br>';
             }
             return $periodosregistrados;
         }
 
-        function getmateriasporperiodo($periodos, $per, $idgestion){
+        function getmateriasporperiodo($periodos, $idgestion){
+            // function getmateriasporperiodo($periodos, $per, $idgestion){
             include "conexion.php";
-            $pMaterias;
-            try{
-                while ($row = $periodos->fetch(PDO::FETCH_ASSOC)) {
-                    $idperiodo=$row['periodo'];
-                    //---Oteniendo el nombre del periodo
-                    $selectnombreperiodo = $bdcon->prepare("select opcion from periodo where id=$idperiodo;");
-                    $selectnombreperiodo->execute();
-                    while ($rowper = $selectnombreperiodo->fetch(PDO::FETCH_ASSOC)) {
-                        $periodonombre=$rowper['opcion'];
-                        
-                        $pMaterias[] = array(
-                            'idperiodo'=>$idperiodo,
-                            'nbperiodo'=>$periodonombre,
-                            'materias_array'=>$this->getdatosgrupos("SELECT * from aca_registroestmat inner join aca_pensum on (aca_registroestmat.codmateria=aca_pensum.materia) where (aca_registroestmat.codest='$this->codestudiante' or aca_registroestmat.codest='$this->codest') and (aca_registroestmat.periodo='$idperiodo') and aca_pensum.gestion='$idgestion' and aca_pensum.carrera='$this->cod_carrera'")
-                        );
-                        // $this->error .="SELECT * from aca_registroestmat inner join aca_pensum on (aca_registroestmat.codmateria=aca_pensum.materia) where (aca_registroestmat.codest='$this->codestudiante' or aca_registroestmat.codest='$this->codest') and (aca_registroestmat.periodo='$per[0]' or aca_registroestmat.periodo='$per[1]' or aca_registroestmat.periodo='$per[2]') and aca_pensum.gestion='$idgestion' and aca_pensum.carrera='$this->cod_carrera';"; //Consulta con errores
-                        $this->error .= $this->cod_carrera . '---';
+            $q_matxper='';
+            $pMaterias=null;
+            if(!isset($periodos)){
+                try{
+                    while ($row = $periodos->fetch(PDO::FETCH_ASSOC)) {
+                        $idperiodo=$row['periodo'];
+                        //---Oteniendo el nombre del periodo
+                        $selectnombreperiodo = $bdcon->prepare("select opcion from periodo where id=$idperiodo;");
+                        $selectnombreperiodo->execute();
+                        while ($rowper = $selectnombreperiodo->fetch(PDO::FETCH_ASSOC)) {
+                            $periodonombre=$rowper['opcion'];
+                            $q_matxper="SELECT * from aca_registroestmat inner join aca_pensum on (aca_registroestmat.codmateria=aca_pensum.materia) where (aca_registroestmat.codest='$this->codestudiante' or aca_registroestmat.codest='$this->codest') and (aca_registroestmat.periodo='$idperiodo') and aca_pensum.gestion='$idgestion' and aca_pensum.carrera='$this->cod_carrera'";
+                            $pMaterias[] = array(
+                                'idperiodo'=>$idperiodo,
+                                'nbperiodo'=>$periodonombre,
+                                'materias_array'=>$this->getdatosgrupos($q_matxper)
+                            );
+                            // $this->error .="SELECT * from aca_registroestmat inner join aca_pensum on (aca_registroestmat.codmateria=aca_pensum.materia) where (aca_registroestmat.codest='$this->codestudiante' or aca_registroestmat.codest='$this->codest') and (aca_registroestmat.periodo='$per[0]' or aca_registroestmat.periodo='$per[1]' or aca_registroestmat.periodo='$per[2]') and aca_pensum.gestion='$idgestion' and aca_pensum.carrera='$this->cod_carrera';"; //Consulta con errores
+                            // $this->error .= $q_matxper . '<br>---';
+                        }
                     }
+                }catch (PDOException $e) {
+                    $this->error .= 'Error al desplegar los datos : ' . $e->getMessage();
                 }
-            }catch (PDOException $e) {
-                $this->error .= 'Error al desplegar los datos : ' . $e->getMessage();
+            }else{
+                $pMaterias=null;
             }
+            
             return $pMaterias;
         }
 

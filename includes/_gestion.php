@@ -4,6 +4,9 @@
         private $gestion;
         private $estado;
         private $nroanio;
+
+        private $error;
+
         public function getId() {
             return $this->id;
         }
@@ -27,21 +30,32 @@
         public function setEstado($estado) {
             $this->estado = $estado;
         }
+        public function getError() {
+            return $this->error;
+        }
+
+        public function setError($error) {
+            $this->error = $error;
+        }
 
         public function __construct(){
-            $id=0;
-            $gestion=0;
-            $estado=0;
-            $nroanio=0;
+            $this->id=0;
+            $this->gestion=0;
+            $this->estado=0;
+            $this->nroanio=0;
+            $this->error='';
         }
 
         function getgestionactual(){
             include "conexion.php";
+            $q_gestion='';
             try {
-                $s_gestion = $bdcon->prepare("SELECT * FROM sainc.gestion where opcion =  YEAR(now());");
+                $q_gestion="SELECT * FROM sainc.gestion where opcion =  YEAR(now())";
+                $s_gestion = $bdcon->prepare($q_gestion);
                 $s_gestion->execute();
+                // $this->error .=$q_gestion;
             } catch (PDOException $e) {
-                $this->error += 'La conexión para obtener la fecha actual ha fallado' . $e->getMessage().'<br>';
+                $this->error .= 'La conexión para obtener la fecha actual ha fallado' . $e->getMessage().'<br>';
             }
             try{
                 while ($row = $s_gestion->fetch(PDO::FETCH_ASSOC)) {
@@ -51,7 +65,7 @@
                     $this->nroanio=$row['anio'];
                 }
             }catch (PDOException $e) {
-                $this->error += 'Error al desplegar los datos : ' . $e->getMessage();
+                $this->error .= 'Error al desplegar los datos : ' . $e->getMessage();
             }
         }
 
@@ -59,7 +73,7 @@
             $periodos=array();
             $mes=date("m");
             $anio=$this->getGestion();
-
+            
             $periodos[0]=array($anio.'01', $anio.'06', $anio.'04');
             $periodos[1]=array($anio.'02', $anio.'08', $anio.'03');
             $n=0;
@@ -73,6 +87,7 @@
             }else{
                 $n=1;
             }
+            // $this->error.=$n.'<br>';
             return $periodos[$n];
         }
     }

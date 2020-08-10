@@ -7,7 +7,11 @@
     $gestion->getgestionactual();
     $estudiante->getdatosest($gestion->getGestion());
     $materias=null;
-    $materias=$estudiante->getmateriasporperiodo($estudiante->getperiodosregistrados($gestion->getId()), $gestion->getperiodoactuales(), $gestion->getId()); 
+    // $materias=$estudiante->getmateriasporperiodo($estudiante->getperiodosregistrados($gestion->getId()), $gestion->getperiodoactuales(), $gestion->getId()); 
+    $materias=$estudiante->getmateriasporperiodo($estudiante->getperiodosregistrados($gestion->getId(), $gestion->getperiodoactuales()), $gestion->getId()); 
+    // $estudiante->getperiodosregistrados($gestion->getId(), $gestion->getperiodoactuales());
+    // echo $estudiante->getError();
+    
 ?>
     <h1>Materias Registradas</h1>
 
@@ -90,4 +94,3 @@
         echo "<div class='alert alert-warning alert-danger'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>¡Error! </strong> No tiene materias registradas</div>";
     }  
         ?>
-          
