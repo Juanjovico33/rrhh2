@@ -12,7 +12,7 @@ class User extends DB{
     private $password;
     public function userExists($user, $pass){
        //$md5pass = md5($pass);
-        $query = $this->connect()->prepare('SELECT * FROM userest WHERE usuario = :user AND contrasena = :pass');
+        $query = $this->connect()->prepare('SELECT * FROM sainc.userest WHERE usuario = :user AND contrasena = :pass');
         $query->execute(['user' => $user, 'pass' => $pass]);
         if($query->rowCount()){
             return true;
@@ -21,7 +21,7 @@ class User extends DB{
         }
     }
     public function setUser($user){
-        $query = $this->connect()->prepare('SELECT nombres, apellidos, telefono, correo, nombcompleto, codest, carrera FROM estudiante WHERE codest = :user');
+        $query = $this->connect()->prepare('SELECT nombres, apellidos, telefono, correo, nombcompleto, codest, carrera FROM sainc.estudiante WHERE codest = :user');
         $query->execute(['user' => $user]);        
         foreach ($query as $currentUser) {
             $this->nombcompleto = $currentUser['nombcompleto'];
@@ -43,7 +43,7 @@ class User extends DB{
     }
 
     public function setSemestre($user){
-        $query = $this->connect()->prepare('SELECT semestre FROM aca_estudiantesemestre WHERE codest = :user ORDER BY semestre');
+        $query = $this->connect()->prepare('SELECT semestre FROM sainc.aca_estudiantesemestre WHERE codest = :user ORDER BY semestre');
         $query->execute(['user' => $user]);        
         foreach ($query as $currentUser) {
             $this->semestre = $currentUser['semestre'];           

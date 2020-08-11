@@ -198,6 +198,7 @@
                                 'nbperiodo'=>$periodonombre,
                                 'materias_array'=>$this->getdatosgrupos($q_matxper)
                             );
+                            // $this->error=$q_matxper;
                             // $this->error .="SELECT * from aca_registroestmat inner join aca_pensum on (aca_registroestmat.codmateria=aca_pensum.materia) where (aca_registroestmat.codest='$this->codestudiante' or aca_registroestmat.codest='$this->codest') and (aca_registroestmat.periodo='$per[0]' or aca_registroestmat.periodo='$per[1]' or aca_registroestmat.periodo='$per[2]') and aca_pensum.gestion='$idgestion' and aca_pensum.carrera='$this->cod_carrera';"; //Consulta con errores
                             // $this->error .= $q_matxper ;
                         }
@@ -219,13 +220,17 @@
                 $grupos = $bdcon->prepare($query);
                 $grupos->execute();
                     while ($row = $grupos->fetch(PDO::FETCH_ASSOC)) {
-
                         $idgrupo=$row['idgrupo'];
+
                         $codmateria=$row['codmateria'];
                         $grupo=$row['grupo'];
+                        $periodo=$row['periodo'];//--
+                        $gestion=$row['gestion'];//--
+                        $cod_carrera=$row['carrera'];
+                        $idgrupo=$this->getIdGrupoDb($gestion, $periodo, $cod_carrera, $codmateria, $grupo);
+
                         $semestre=$row['semestre'];
                         $nb_materia='';
-                        $cod_carrera=$row['carrera'];
                         $id_resolucion=$row['id_resolucion'];
 
                         $select_materia=$bdcon->prepare("SELECT Descripcion FROM sainc.materias WHERE CodCarrera='$cod_carrera' AND id_resolucion='$id_resolucion' AND Sigla='$codmateria'");
@@ -245,6 +250,24 @@
                 $this->error .= 'Error al estructurar los datos a base de la conexion : ' . $e->getMessage();
             }
             return $materias;
+        }
+
+        function getIdGrupoDb($gestion, $periodo, $carrera, $materia, $_txgrupo){
+            include "conexion.php";
+            $query="SELECT CodGrupo FROM grupos WHERE periodo=$periodo AND codmateria='$materia' AND gestion=$gestion AND Descripcion='$_txgrupo' AND CodCarrera='$carrera'";
+            $_idgrupo=0;
+            
+            try{
+                $_qcod = $bdcon->prepare($query);
+                $_qcod->execute();
+                    while ($row = $_qcod->fetch(PDO::FETCH_ASSOC)) {
+                        $_idgrupo=$row['CodGrupo'];
+                    }
+            }catch(PDOException $e){
+                return 0;
+                $this->error .= 'Error al estructurar los datos a base de la conexion : ' . $e->getMessage();
+            }
+            return $_idgrupo;
         }
     }
 ?>

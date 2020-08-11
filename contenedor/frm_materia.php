@@ -1,5 +1,6 @@
 <?php 
     include "../includes/_linkMeet.php";
+    include "../includes/_grupo.php";
     $id_grupo=$_REQUEST['_idgrupo']; 
     $codmat=$_REQUEST['_codmat'];
     $per=$_REQUEST['_periodo'];
@@ -7,7 +8,20 @@
     $nb_materia=$_REQUEST['_nbmat'];
 
     $o_enl=new linkMeet();
-    $o_enl->getDatosEnlace($id_grupo);
+    $grupo=new grupo();
+
+    
+    $grupo->getDatosGrupo($id_grupo);
+   
+    if($grupo->es_rama()){
+        // echo "Es rama";
+        $o_enl->getDatosEnlace($grupo->getIdramaRaiz());
+    }else{
+        // echo "NO es rama";
+        $o_enl->getDatosEnlace($id_grupo);
+    }
+    // echo $grupo->getError();
+    // exit;
     //enlace_meet ->preguntar si existe enlace meet
     //si existe y el estudiante clic se debe registrar la asistencia
     // echo $o_enl->getError();

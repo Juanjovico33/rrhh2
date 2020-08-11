@@ -88,8 +88,11 @@
             // }else{
             //     $n=1;
             // }
-
+            
             $all_periodos=array($anio.'01', $anio.'06', $anio.'03', $anio.'11', $anio.'12', $anio.'09', $anio.'02', $anio.'08', $anio.'04', $anio.'11', $anio.'13', $anio.'10');
+
+            //dev
+            // $all_periodos=array($anio.'02', $anio.'08', $anio.'04', $anio.'11', $anio.'13', $anio.'10');
 
             // $this->error.=$n.'<br>';
             // return $periodos[$n];

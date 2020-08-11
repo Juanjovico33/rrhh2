@@ -12,7 +12,7 @@
     // $materias=$estudiante->getmateriasporperiodo($estudiante->getperiodosregistrados($gestion->getId()), $gestion->getperiodoactuales(), $gestion->getId()); 
     $materias=$estudiante->getmateriasporperiodo($estudiante->getperiodosregistrados($gestion->getId(), $gestion->getperiodoactuales()), $gestion->getId()); 
     // $estudiante->getperiodosregistrados($gestion->getId(), $gestion->getperiodoactuales());
-    // echo $estudiante->getError().'<br>';
+    echo $estudiante->getError().'<br>';
     // var_dump($materias);
 ?>
     <h1>Materias Registradas</h1>
@@ -33,7 +33,7 @@
                             }else{
                                 $limite_mat=0;
                             }
-                            
+                            // print_r($materias[$j]['materias_array']);
                             for($i=0;$i<$limite_mat;$i++){
                                 $id_grupo=$materias[$j]['materias_array'][$i]['idgrupo'];
                                 ?>
