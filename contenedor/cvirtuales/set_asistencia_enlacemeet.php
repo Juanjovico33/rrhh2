@@ -19,7 +19,7 @@
     $msj='';
 
     try{
-        $q="INSERT INTO `sainc_stu`.`aca_asistencia`(`id_asis`,`periodo`,`materia`,`grupo`,`codest`,`fecha`,`asistencia`,`hora`,`cod_doc`,`tipo_clase`,`turno`,`carrera`,`codgrupo`,`cod_subgru`)VALUES(0,'$periodo','$materia','$g_descripcion',$estudiante,'$fecha',1,'$hora',$docente,1,1,'$carrera',$id_grupo,0)";
+        $q="INSERT INTO `aca_asistencia`(`id_asis`,`periodo`,`materia`,`grupo`,`codest`,`fecha`,`asistencia`,`hora`,`cod_doc`,`tipo_clase`,`turno`,`carrera`,`codgrupo`,`cod_subgru`)VALUES(0,'$periodo','$materia','$g_descripcion',$estudiante,'$fecha',1,'$hora',$docente,1,1,'$carrera',$id_grupo,0)";
         // echo $q;
         // exit;
         $resul = $bdcon->prepare($q);

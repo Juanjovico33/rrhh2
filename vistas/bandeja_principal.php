@@ -9,6 +9,7 @@
     $nombcompleto=$user->getNombcompleto();
     $telefono=$user->getTelefono();
     $correo=$user->getCorreo();
+    $password=$user->getPassword();
 ?>
 <head>
 
@@ -725,7 +726,10 @@
                                     <h6 class="uk-text-bold"> Celular </h6>
                                         <p> <?php echo $telefono;?> </p>
                                 </div>
-
+                                <div>
+                                    <h6 class="uk-text-bold"> Contraseña </h6>
+                                        <p> <?php echo $password;?></p>
+                                </div>
                             </div>
                         </div>
 

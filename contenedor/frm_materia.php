@@ -28,7 +28,7 @@
                             </ul>
                         </nav>
                     </div>
-                    <div class="section-header-right">
+                    <!-- <div class="section-header-right">
 
                         <div class="display-as">
                             <a href="courses.html" uk-tooltip="title: Course list; pos: top-right">
@@ -44,7 +44,7 @@
                             <option value="3">Premium</option>
                         </select>
 
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="uk-grid-large" uk-grid>

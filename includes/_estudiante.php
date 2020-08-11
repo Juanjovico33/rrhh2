@@ -138,22 +138,44 @@
             // function getperiodosregistrados($gestion){
             include "conexion.php";
             $gestion_anterior=0;
-            
+            $periodos_consulta='';
+            $periodos_consulta=$this->getCondicionORPeriodos($per_encurso);
             $q_perregistrados='';
             try {
                 if($this->getCodCarrera()=='02AUD' || $this->getCodCarrera()=='02DER' || $this->getCodCarrera()=='02ADM'){
                     $gestion_anterior=$gestion-1;
-                    $q_perregistrados="SELECT periodo FROM aca_registroestgest WHERE (codest='$this->codest' or codest='$this->codestudiante') and (gestion='$gestion' or gestion='$gestion_anterior') and (periodo=$per_encurso[0] or periodo=$per_encurso[1] or periodo=$per_encurso[2]) group by periodo order by periodo";
+                    $q_perregistrados="SELECT periodo FROM aca_registroestgest WHERE (codest='$this->codest' or codest='$this->codestudiante') and (gestion='$gestion' or gestion='$gestion_anterior') and ($periodos_consulta) group by periodo order by periodo";
+                    // periodo=$per_encurso[0] or periodo=$per_encurso[1] or periodo=$per_encurso[2] or periodo=$per_encurso[3] or periodo=$per_encurso[4] or periodo=$per_encurso[5]
                 }else{
-                    $q_perregistrados="SELECT periodo FROM aca_registroestgest WHERE (codest='$this->codest' or codest='$this->codestudiante') and gestion='$gestion' and (periodo=$per_encurso[0] or periodo=$per_encurso[1] or periodo=$per_encurso[2]) group by periodo order by periodo";
+                    $q_perregistrados="SELECT periodo FROM aca_registroestgest WHERE (codest='$this->codest' or codest='$this->codestudiante') and gestion='$gestion' and ($periodos_consulta) group by periodo order by periodo";
+                    // periodo=$per_encurso[0] or periodo=$per_encurso[1] or periodo=$per_encurso[2] or periodo=$per_encurso[3] or periodo=$per_encurso[4] or periodo=$per_encurso[5]
                 }
                 $periodosregistrados = $bdcon->prepare($q_perregistrados);
                 $periodosregistrados->execute();
+                // $this->error.= $periodos_consulta;
                 // $this->error.=$q_perregistrados.'<br>';
             } catch (PDOException $e) {
                 $this->error .= 'La conexión para CLASS::Estudiante ha fallado, intente realizar su solicitud nuevamente: ' . $e->getMessage().'<br>';
             }
             return $periodosregistrados;
+        }
+
+        function getCondicionORPeriodos($periodos){
+            $_consulta='';
+            if(!is_null($periodos)){
+                try{
+                    for($i=0;$i<count($periodos);$i++){
+                        if($i==0){
+                            $_consulta.='periodo='.$periodos[$i];
+                        }else{
+                            $_consulta.=' OR periodo='.$periodos[$i];
+                        }
+                    }
+                }catch(Exception $e){
+                    $this->error.="Error al obtener los periodos correspondientes:".$e->getMessage();
+                }
+            }
+            return $_consulta;
         }
 
         function getmateriasporperiodo($periodos, $idgestion){
@@ -191,7 +213,7 @@
         }
 
         function getdatosgrupos($query){
-            $materias;
+            $materias=null;
             include "conexion.php";
             try{
                 $grupos = $bdcon->prepare($query);

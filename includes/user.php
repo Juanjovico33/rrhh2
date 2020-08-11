@@ -9,6 +9,7 @@ class User extends DB{
     private $telefono;
     private $semestre;
     private $correo;
+    private $password;
     public function userExists($user, $pass){
        //$md5pass = md5($pass);
         $query = $this->connect()->prepare('SELECT * FROM userest WHERE usuario = :user AND contrasena = :pass');
@@ -29,9 +30,18 @@ class User extends DB{
             $this->nombres = $currentUser['nombres'];
             $this->apellidos = $currentUser['apellidos'];
             $this->telefono = $currentUser['telefono'];
-            $this->correo = $currentUser['correo'];
+            $this->getCorreoPlat($currentUser['codest']);
         }
     }
+    public function getCorreoPlat($codest){
+        $query = $this->connect()->prepare('SELECT * FROM sainc.plat_est_correos WHERE codest = :user');
+        $query->execute(['user' => $codest]);  
+        foreach ($query as $currentUser) {
+            $this->correo = $currentUser['correo'];
+            $this->password = $currentUser['password'];           
+        }
+    }
+
     public function setSemestre($user){
         $query = $this->connect()->prepare('SELECT semestre FROM aca_estudiantesemestre WHERE codest = :user ORDER BY semestre');
         $query->execute(['user' => $user]);        
@@ -62,6 +72,9 @@ class User extends DB{
     }
     public function getCorreo(){
         return $this->correo;
+    }
+    public function getPassword(){
+        return $this->password;
     }
 }
 

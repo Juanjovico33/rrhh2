@@ -73,22 +73,27 @@
             $periodos=array();
             $mes=date("m");
             $anio=$this->getGestion();
-            
-            $periodos[0]=array($anio.'01', $anio.'06', $anio.'04');
-            $periodos[1]=array($anio.'02', $anio.'08', $anio.'03');
-            $n=0;
-            if ($mes<8) {
-                if ($mes<=3) {
-                    $anio=$anio-1;
-                    $n=1;
-                }else{
-                    $n=0;
-                }
-            }else{
-                $n=1;
-            }
+
+            // $periodos[0]=array($anio.'01', $anio.'06', $anio.'03', $anio.'11', $anio.'12', $anio.'09');
+            // $periodos[1]=array($anio.'02', $anio.'08', $anio.'04', $anio.'11', $anio.'13', $anio.'10');
+           
+            // $n=0;
+            // if ($mes<8) {
+            //     if ($mes<=3) {
+            //         $anio=$anio-1;
+            //         $n=1;
+            //     }else{
+            //         $n=0;
+            //     }
+            // }else{
+            //     $n=1;
+            // }
+
+            $all_periodos=array($anio.'01', $anio.'06', $anio.'03', $anio.'11', $anio.'12', $anio.'09', $anio.'02', $anio.'08', $anio.'04', $anio.'11', $anio.'13', $anio.'10');
+
             // $this->error.=$n.'<br>';
-            return $periodos[$n];
+            // return $periodos[$n];
+            return $all_periodos;
         }
     }
 ?>

@@ -1,4 +1,6 @@
 <?php
+    require '../js/kint.phar';
+
     include "../includes/_estudiante.php";
     include "../includes/_gestion.php";
     $codest = $_GET['_codest'];
@@ -10,8 +12,8 @@
     // $materias=$estudiante->getmateriasporperiodo($estudiante->getperiodosregistrados($gestion->getId()), $gestion->getperiodoactuales(), $gestion->getId()); 
     $materias=$estudiante->getmateriasporperiodo($estudiante->getperiodosregistrados($gestion->getId(), $gestion->getperiodoactuales()), $gestion->getId()); 
     // $estudiante->getperiodosregistrados($gestion->getId(), $gestion->getperiodoactuales());
-    echo $estudiante->getError();
-    
+    // echo $estudiante->getError().'<br>';
+    // var_dump($materias);
 ?>
     <h1>Materias Registradas</h1>
 
@@ -25,8 +27,13 @@
             <div class="panel-body">
                         <div class="section-small">
                             <div class="uk-child-width-1-4@m uk-child-width-1-3@s course-card-grid" uk-grid>
-                        <?php                           
-                            $limite_mat=count($materias[$j]['materias_array']);
+                        <?php              
+                            if(!is_null($materias[$j]['materias_array'])){
+                                $limite_mat=count($materias[$j]['materias_array']);
+                            }else{
+                                $limite_mat=0;
+                            }
+                            
                             for($i=0;$i<$limite_mat;$i++){
                                 $id_grupo=$materias[$j]['materias_array'][$i]['idgrupo'];
                                 ?>

@@ -49,6 +49,7 @@
         function getDatosEnlace($_idgrupo){
             include "conexion.php";
             $q_lnk="SELECT * FROM plat_doc_meet WHERE idgrupo=".$_idgrupo;
+            $url="";
             try {
                 $lnk = $bdcon->prepare($q_lnk);
                 $lnk->execute();
@@ -60,7 +61,12 @@
                 while ($row = $lnk->fetch(PDO::FETCH_ASSOC)) {
                     $this->id=$row['cod'];
                     $this->idgrupo=$row['idgrupo'];
-                    $this->enlace=$row['url'];
+                    $url=$row['url'];
+                    $prim_let=substr($url, 0, 4);
+                    if ($prim_let!='http') {
+                        $url="https://".$url;
+                    }
+                    $this->enlace=$url;
                     $this->fecha=$row['fecha_reg'];
                 }
             }catch (PDOException $e) {
