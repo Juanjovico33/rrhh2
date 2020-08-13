@@ -347,8 +347,8 @@
                                                             $cons=$romats['Descripcion'];                         
                                                         } 
                                                           echo $mat." - ".$cons;
-                                                          echo "<br>";
-                                                            echo $codgru;
+                                                         // echo "<br>";
+                                                            //echo $codgru;
                                                         //echo $mat." - ".$cons->cons_simple('materias',"CodCarrera='$car' and Sigla='$mat' and sigla_pensum<>''",'Descripcion'); 
                                                      ?> 
                                                     </strong>
