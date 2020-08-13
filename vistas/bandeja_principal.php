@@ -365,7 +365,7 @@
 
                             <a href="#" class="header-widget-icon">
                                 <i class="uil-bell"></i>
-                                <span>4</span>
+                                
                             </a>
 
                             <!-- notificiation dropdown -->
@@ -524,23 +524,18 @@
 
 
                             <!-- profile-icon-->
-
                             <a href="#" class="header-widget-icon profile-icon">
                                 <img src="img/avatar-2.jpg" alt="" class="header-profile-icon">
                             </a>
-
                             <div uk-dropdown="pos: top-right ;mode:click" class="dropdown-notifications small">
 
                                 <!-- User Name / Avatar -->
                                 <a href="profile-1.html">
-
-                                    <div class="dropdown-user-details">
-                                        
+                                    <div class="dropdown-user-details">                                        
                                         <div class="dropdown-user-name">
                                             <?php echo $nombre; ?> <span><?php echo $carrera; ?></span>
                                         </div>
                                     </div>
-
                                 </a>
 
                                 <!-- User menu -->
@@ -691,45 +686,43 @@
                             </div>
                         </div> -->
 
-                    </div>
+                    </div>                   
                     <div class="uk-width-expand@m">
 
                         <div class="uk-card-default rounded">
                             <div class="uk-flex uk-flex-between uk-flex-middle py-3 px-4">
-                                <h5 class="mb-0"> Detalles del/la Estudiante </h5>
-                                    <a href="#" uk-tooltip="title:Editar Cuenta; pos: left"> <i
-                                            class="icon-feather-settings"></i> </a>
-                            </div>
-                            <hr class="m-0">
-                            <div class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid>
-                                <div>
-                                    <h6 class="uk-text-bold"> Nombres </h6>
-                                        <p> <?php echo $nombre;?> </p>
-                                </div>
-                                <div>
-                                    <h6 class="uk-text-bold"> Apellidos</h6>
-                                        <p> <?php echo $apellido;?> </p>
-                                </div>
-                                <div>
-                                    <h6 class="uk-text-bold"> Carrera </h6>
-                                        <p> <?php echo $carrera;?> </p>
-                                </div>
-                                <div>
-                                    <h6 class="uk-text-bold"> Código</h6>
-                                        <p> <?php echo $codigo;?> </p>
-                                </div>
-                                <div>
-                                    <h6 class="uk-text-bold"> Correo</h6>
-                                        <p> <?php echo $correo;?></p>
-                                </div>
-                                <div>
-                                    <h6 class="uk-text-bold"> Celular </h6>
-                                        <p> <?php echo $telefono;?> </p>
-                                </div>
-                                <div>
-                                    <h6 class="uk-text-bold"> Contraseña </h6>
-                                        <p> <?php echo $password;?></p>
-                                </div>
+                                <h6 class="uk-text-bold">Detalles Del/La Estudiante</h6>                                                                   
+                                <a href="#" uk-tooltip="title:Editar Cuenta; pos: left"> 
+                                    <i class="icon-feather-settings"></i> </a>
+                            </div>                            
+                            <hr class="m-0">                                
+                            <div class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid> 
+                                <table class="table ">
+                                    <tr>
+                                        <td colspan="2"><h6 class="uk-text-bold"> Nombre completo </h6></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><p> <?php echo $nombcompleto;?> </p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h6 class="uk-text-bold">Carrera</h6></td><td><h6 class="uk-text-bold">Código</h6></td>
+                                    </tr>
+                                    <tr>
+                                        <td><?php echo $carrera;?></td><td><?php echo $codigo;?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h6 class="uk-text-bold">Correo</h6></td><td><h6 class="uk-text-bold">Celular</h6></td>
+                                    </tr>
+                                    <tr>
+                                        <td><?php echo $correo;?></td><td><?php echo $telefono;?></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><h6 class="uk-text-bold"> Contraseña </h6></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><?php echo $password;?></td>
+                                    </tr>
+                                </table>                             
                             </div>
                         </div>
 

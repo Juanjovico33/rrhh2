@@ -2,6 +2,7 @@
     include "../includes/conexion.php";
     include "../includes/_estudiante.php";
     include "../includes/_gestion.php";
+    
     function nombre_periodos($nb){
                 if($nb=="TUTO"){
                     $nbper="CURSO TUTORIAL";
@@ -319,7 +320,7 @@
                             <div class="col-md-12">
                                 <h6> <?php echo nombre_periodos($per);?></h6>
                                 <p><?php echo $hr_act;?></p>
-                                
+
                             </div>  
                             <?php
                                 $per_aux=$per;
