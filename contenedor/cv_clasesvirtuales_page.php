@@ -1,16 +1,32 @@
 <?php
     include ("../includes/_actividades.php");
+    // include ("../includes/_grupo.php");
+
     $id_grupo=$_POST['_idgrupo'];
+    $id_grupoRaiz=$_POST['_idgrupoRaiz'];
     $cod_est=$_POST['_codest'];
-    // $codmat=$_POST['_codmat'];
-    // $per=$_POST['_per'];
 
     $act=new actividad();
+    
+    $_idgrupoRaiz=0;
+
     $clase=0;
-    $act->getClasesVirtuales($id_grupo);
+    if($id_grupoRaiz==0){
+        // echo "idgrupo=".$id_grupo;
+        $_idgrupoRaiz=0;
+        $act->getClasesVirtuales($id_grupo);
+    }else{
+        // echo "idgrupo=".$id_grupo.'-Raiz='.$id_grupoRaiz;
+        $grupo=new grupo();
+        $grupo->getDatosGrupo($id_grupo);
+        $_idgrupoRaiz=$grupo->getIdramaRaiz();
+        $act->getClasesVirtuales($id_grupoRaiz);
+    }
 
     $_actividades=null;
     $_actividades=$act->getClases();
+
+    if(!is_null($_actividades)){
 ?>
 <!doctype html>
 <html lang="en">
@@ -216,3 +232,13 @@
 </body>
 
 </html>
+<?php
+    }
+    else{?> 
+        <div class="course-sidebar-title">
+            <div style="align-items:right;"><a href="#" onclick="regresarA_bandejaprincipal()">Regresar</div>
+        </div>
+        <div style="align-items:center;text-color:red;">NO EXISTEN CLASES REGISTRADAS EN ESTE GRUPO</div>
+<?php
+    }
+?>

@@ -92,16 +92,24 @@
 
     }   
 ?>
-        <div class="row">
-               
+        <div class="panel-body">
+         <div class="section-small">
+            <div class="uk-child-width-1-4@m uk-child-width-1-3@s course-card-grid" uk-grid>
+                <div class="col-md-12" align="center">
+                                <h4> Exámenes Programados</h4>
+                </div> 
                     <?php
                             $i=1;
                             $pagado=0;
                             $tot_deu=0;
                             $tot_pag=0;
                             $per_aux="";
-                            $fec_act=date("Y-m-d");
-                            $hr_act=date("H:i");
+                            $fecha=new DateTime();
+                            $fecha->setTimezone(new DateTimeZone('America/La_Paz'));
+                            $fec_act=$fecha->format('Y-m-d');
+                            $hr_act=$fecha->format('H:i');
+                            //$fec_act=date("Y-m-d");
+                            //$hr_act=date("H:i");
                             $cod_gru_aux=0;    
                     //while($fcons=mysql_fetch_array($qrg)){                           
                      while ($fcons = $qrg->fetch(PDO::FETCH_ASSOC)) {
@@ -125,7 +133,7 @@
                             $query_codgrup->execute();
                             while ($rowgrup = $query_codgrup->fetch(PDO::FETCH_ASSOC)) {       
                                 $codgru=$rowgrup['CodGrupo'];                         
-                            }  
+                            }                              
                         //$codgru=$cons->cons_simple('grupos',"periodo='$peri' and CodCarrera='$car' and CodMateria='$mat' and Descripcion='$gru'",'CodGrupo');
                             if ($codgru=='') {
                                 $query_mat_nm= $bdcon->prepare("SELECT sigla_mn FROM materias_equivalencia WHERE codca_ma='$car' and sigla_ma='$mat'");
@@ -233,7 +241,7 @@
                         $fec_fin="";
                         $hr_ini="";
                         $hr_fin="";
-                        //echo $codgru;
+                      
                         //$q_act=mysql_query("SELECT id, desde, hasta, hora_d, hora_h, id_cat, parcial, obser FROM plat_doc_actividades WHERE idgrupo='$codgru' and (desde<='$fec_act' and hasta>='$fec_act') and parcial='$parcial' ORDER BY id");
                         $q_act= $bdcon->prepare("SELECT id, desde, hasta, hora_d, hora_h, id_cat, parcial, obser FROM plat_doc_actividades WHERE idgrupo='$codgru' and (desde<='$fec_act' and hasta>='$fec_act') ORDER BY id");
                         $q_act->execute();
@@ -286,7 +294,7 @@
                                     $quercar->execute();
                                     while ($roca= $quercar->fetch(PDO::FETCH_ASSOC)) {       
                                         $car_nm=$roca['codca_mn'];                         
-                                    } 
+                                    }                                   
                             //$car_nm=$cons->cons_simple('materias_equivalencia',"codca_ma='$car' and sigla_ma='$mat'",'codca_mn');
                                     $q_crono= $bdcon->prepare("SELECT hora, fecha_programada FROM aca_cronograma WHERE periodo='$peri' and parcial='$parcial' and materia='$mat_nm' and grupo='$gru' and carrera='$car_nm'");
                                     $q_crono->execute();
@@ -307,71 +315,56 @@
                             }
                         }
                         if ($per!=$per_aux) {
-                            ?>
-                            <div class="col-md-12" class="uk-child-width-1-3@s uk-child-width-1-4@m" uk-grid>               
-                                <div>
-                                    <a href="#" class="skill-card">
-                                        <!-- <i class="icon-brand-react skill-card-icon" style="color:#74defb"></i>-->
-                                            <div>
-                                                <h4><?php echo nombre_periodos($per);?></h4>
-                                            </div>
-                                        <!--<div class="section-header-right">
-                                            <a href="#" class="see-all"> See all</a>
-                                        </div>-->
-                                    </a>
-                                </div> 
-                            </div>    
+                            ?>                            
+                            <div class="col-md-12">
+                                <h6> <?php echo nombre_periodos($per);?></h6>
+                                <p><?php echo $hr_act;?></p>
+                                
+                            </div>  
                             <?php
                                 $per_aux=$per;
                         }
                             ?>
-                        <div class="col-md-3" class="uk-child-width-1-3@s uk-child-width-1-4@m" uk-grid>               
-                            <div>
-                                <a href="#" class="skill-card">
-                                   <i class="icon-brand-react skill-card-icon" style="color:#74defb"></i>
-                                        <div>
-                                            <p class="skill-card-subtitle">
-                                                <strong> 
-                                                <?php 
-                                                    $qnbmat= $bdcon->prepare("SELECT Descripcion FROM materias WHERE CodCarrera='$car' and Sigla='$mat' and sigla_pensum<>''");
-                                                    $qnbmat->execute();
-                                                    while ($romats= $qnbmat->fetch(PDO::FETCH_ASSOC)) {       
-                                                        $cons=$romats['Descripcion'];                         
-                                                    } 
-                                                      echo $mat." - ".$cons;
-                                                    //echo $mat." - ".$cons->cons_simple('materias',"CodCarrera='$car' and Sigla='$mat' and sigla_pensum<>''",'Descripcion'); 
-                                                 ?> 
-                                                </strong>
-                                            </p>
-                                            <div class="course-path-card-footer">
-                                                <p class="skill-card-subtitle"> Grupo - <?php echo $gru; ?><span class="skill-card-bullet"></span></p>
-                                            </div>
-                                            <p class="skill-card-subtitle">
+                                <div>
+                                    <a href="#">
+                                        <div class="course-card">   
+                                            <!--<div class="course-card-thumbnail ">
+                                                <img src="img/materias/<?php //echo $i+1; ?>.png">
+                                                <span class="play-button-trigger"></span>
+                                            </div>-->                                            
+                                            <div align="center"><i class="icon-feather-edit skill-card-icon" style="color:#64d25d"></i>
+                                                                                        
+                                            <div class="course-card-body">
+                                                 <div class="course-card-info">
+                                                    <strong> 
+                                                    <?php 
+                                                        $qnbmat= $bdcon->prepare("SELECT Descripcion FROM materias WHERE CodCarrera='$car' and Sigla='$mat' and sigla_pensum<>''");
+                                                        $qnbmat->execute();
+                                                        while ($romats= $qnbmat->fetch(PDO::FETCH_ASSOC)) {       
+                                                            $cons=$romats['Descripcion'];                         
+                                                        } 
+                                                          echo $mat." - ".$cons;
+                                                          echo "<br>";
+                                                            echo $codgru;
+                                                        //echo $mat." - ".$cons->cons_simple('materias',"CodCarrera='$car' and Sigla='$mat' and sigla_pensum<>''",'Descripcion'); 
+                                                     ?> 
+                                                    </strong>
+                                                </div>                                          
+                                                <p> Grupo - <?php echo $gru; ?></p>
                                                 <?php
                                                     if ($fec_ini=='') {
-                                                        echo "No programado";  
+                                                        echo "<p style='color:red;'>No programado</p>";  
                                                     }else{
-                                                        echo $fec_ini;
-                                                        echo "<br>";
-                                                        echo $fec_fin;
-                                                        }
-                                                    ?>                                                
-                                            </p> 
-                                            <div class="course-path-card-footer">
-                                                <p class="skill-card-subtitle">
-                                                    <span class="skill-card-bullet">
-                                                        <?php 
-                                                            if ($hr_ini=='') {
-                                                                echo "";
-                                                            }else{
-                                                                echo $hr_ini;
-                                                                echo "<br>";
-                                                                echo $hr_fin;
-                                                            }
-                                                        ?>
-                                                    </span>
-                                                </p> 
-                                            </div>
+                                                        echo "<p style='color:green;'><strong>".$fec_fin."</strong></p>";
+                                                    }
+                                                    ?>                                             
+                                                <?php 
+                                                    if ($hr_ini=='') {
+                                                        echo "";
+                                                    }else{
+                                                        echo "<p style='color:green;'><strong>".$hr_ini." a ".$hr_fin."</strong></p>";
+                                                    }
+                                                ?> 
                             <!-- aqui iniciaba otro td-->
                                 <?php
                                 if ($fec_ini=='') {
@@ -402,8 +395,12 @@
                                                         if($querep->rowCount()>0){                                                       
                                                             echo "<font color='red'>No reprogramado</font>";
                                                         }else{
-                                                            ?>
-                                                            <button data-toggle="modal" data-target="#exampleModal" class="btn btn-success btn-sm" onclick="terminos_condiciones('<?php echo $cod_act; ?>','<?php echo $id_ban; ?>','<?php echo $codest; ?>','<?php echo $cod_gru_aux; ?>','<?php echo $hr_fin; ?>')">INICIAR</button>
+                                                            ?>                                                           
+                                                            <div class="course-card-footer">
+                                                                <div align="center">
+                                                                     <button class="btn btn-success btn-sm" onclick="terminos_condiciones('<?php echo $cod_act; ?>','<?php echo $id_ban; ?>','<?php echo $codest; ?>','<?php echo $cod_gru_aux; ?>','<?php echo $hr_fin; ?>')">INICIAR</button>
+                                                                </div>
+                                                            </div>                                                       
                                                             <?php
                                                         }
                                                     }else{
@@ -420,13 +417,22 @@
                                                             if ($hay==0) {
                                                                 echo "<font color='red'>No registrado a 2da Instancia</font>";
                                                             }else{
-                                                                ?>
-                                                                <button  data-toggle="modal" data-target="#myModal" class="btn btn-success btn-sm" onclick="terminos_condiciones('<?php echo $cod_act; ?>','<?php echo $id_ban; ?>','<?php echo $codest; ?>','<?php echo $cod_gru_aux; ?>','<?php echo $hr_fin; ?>')">INICIAR</button>
+                                                                ?>                                                                
+                                                                <div class="course-card-footer">
+                                                                    <div align="center">
+                                                                        <button  class="btn btn-success btn-sm" onclick="terminos_condiciones('<?php echo $cod_act; ?>','<?php echo $id_ban; ?>','<?php echo $codest; ?>','<?php echo $cod_gru_aux; ?>','<?php echo $hr_fin; ?>')">INICIAR
+                                                                        </button>
+                                                                    </div>
+                                                                </div>                                                            
                                                                 <?php
                                                             }
                                                         }else{
-                                                            ?>
-                                                            <button  data-toggle="modal" data-target="#myModal" class="btn btn-success btn-sm" onclick="terminos_condiciones('<?php echo $cod_act; ?>','<?php echo $id_ban; ?>','<?php echo $codest; ?>','<?php echo $cod_gru_aux; ?>','<?php echo $hr_fin; ?>')">INICIAR</button>
+                                                            ?>                                                           
+                                                            <div align="center" class="course-card-footer">
+                                                                
+                                                                   <button class="btn btn-success btn-lg btn-block" onclick="terminos_condiciones('<?php echo $cod_act; ?>','<?php echo $id_ban; ?>','<?php echo $codest; ?>','<?php echo $cod_gru_aux; ?>','<?php echo $hr_fin; ?>')">INICIAR</button>
+                                                               
+                                                            </div>                                                           
                                                             <?php
                                                         }
                                                     }
@@ -444,18 +450,20 @@
                                 /*if ($codest1=='43903') {
                                     echo $obserado;
                                 }*/
-                                ?>
-                               </div>
-                            </a>
-                    </div> 
-                </div>
-                <!--  Se trabaja hasta aqui -->  
-                        <?php
-                        $cod_act=0;
-                        $i++;
+                                ?> 
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div> 
+                  <?php
+                    $cod_act=0;
+                    $i++;
                     }
-                    ?>                                
-            </div>
+                  ?>                                
+           </div>
+      </div>
+   </div>
             <br> 
             <br> 
-            <br>  
+            <br> 

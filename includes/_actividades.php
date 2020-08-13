@@ -445,6 +445,7 @@
         private $error;
 
         public function __construct(){
+            $this->clases=null;
             $this->error='';
         }
         public function getClases(){
@@ -467,8 +468,6 @@
             $d_grupo=new grupo();
             $d_grupo->getDatosGrupo($_grupos);
             
-            // $this->error.='<br>---'.$q.'---';
-
             $_idperiodo=$d_grupo->getPeriodo();
 
             try{
@@ -485,9 +484,9 @@
                         $peri=$cort_gestion."01";
 
                         $id_gru=$d_grupo->getDatoGrupo("periodo='$peri' and CodCarrera='".$d_grupo->getIdcarrera()."' and CodMateria='".$d_grupo->getIdmateria()."' and Descripcion=".$d_grupo->getIdgrupo()."'",'CodGrupo');
-
-                        $this->error.='<br>---'."periodo='$peri' and CodCarrera='".$d_grupo->getIdcarrera()."' and CodMateria='".$d_grupo->getIdmateria()."' and Descripcion=".$d_grupo->getIdgrupo()."'".'---';
-
+                        
+                        // $this->error.='<br>---'."periodo='$peri' and CodCarrera='".$d_grupo->getIdcarrera()."' and CodMateria='".$d_grupo->getIdmateria()."' and Descripcion=".$d_grupo->getIdgrupo()."'".'---';
+                        
                         if ($id_gru=='') {
                             $mat_nm=$d_grupo->getDatoEquivalencia("codca_ma='$car' and sigla_ma='$sigla'",'sigla_mn');
                             $car_nm=$d_grupo->getDatoEquivalencia("codca_ma='$car' and sigla_ma='$sigla'",'codca_mn');
@@ -496,22 +495,31 @@
                         }
                     }else if ($cort_nro_periodo=='08') {
                             $peri=$cort_gestion."02";
-                            $_grupos=$d_grupo->getDatoGrupo("periodo='$peri' and CodCarrera='$car' and CodMateria='$sigla' and Descripcion='$_grupos'",'CodGrupo');	
+                            $_grupos=$d_grupo->getDatoGrupo("periodo='$peri' and CodCarrera='$car' and CodMateria='$sigla' and Descripcion='$_grupos'",'CodGrupo');
+                            // $this->error.='<br>Idgrupo='.$_grupos;
                     }
 
                         $q="SELECT * FROM aa_clases_virtuales where id_grupo=$_grupos and estado=1 order by fecha_pub";
                         $class = $bdcon->prepare($q);
                         $class->execute();
-                    
                     //-------------
                 }
-                while ($row = $class->fetch(PDO::FETCH_ASSOC)) {
-                    $this->item+=1;
-                    $clase = new cvirtual();
-                    $clase->set_init_cvirtual($this->item, $row['cod_clase'], $row['titulo'], $row['embed'], $row['fecha_pub'], $row['nb_tema'], $row['nro_clase'], $row['codcla'], $_grupos);
-                    $this->clases[]=$clase;
-                    //$this->error.=$this->item.'-Step<br>';
+
+                if($class->rowCount()){
+                    while ($row = $class->fetch(PDO::FETCH_ASSOC)) {
+                        $this->item+=1;
+                        $clase = new cvirtual();
+                        $clase->set_init_cvirtual($this->item, $row['cod_clase'], $row['titulo'], $row['embed'], $row['fecha_pub'], $row['nb_tema'], $row['nro_clase'], $row['codcla'], $_grupos);
+                        $this->clases[]=$clase;
+                        //$this->error.=$this->item.'-Step<br>';
+                        // $this->error.='<br>CON REGISTROS DE CLASES';
+                    }
+                }else{
+                    // $this->error.='<br>SIN REGISTROS DE CLASES';
+                    $this->clases=null;
                 }
+
+                
 
             }
             catch(PDOException $e){

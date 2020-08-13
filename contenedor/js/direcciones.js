@@ -18,7 +18,7 @@ if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
 }
 function terminos_condiciones(cod_act, cod_ban, codest, cod_gru_aux,hora_fin){		
 	var res = document.getElementById('page-content-inner');	
-	res.innerHTML = "<img src='contenedor/js/carga.gif' width='50%' class='img-fluid' alt='Responsive image'>";	
+	res.innerHTML = "<img src='contenedor/js/carga.gif' class='img-fluid' alt='Responsive image'>";	
 	ajax = objetoAjax();
 	ajax.open("GET", "contenedor/terminos_condiciones.php?cod_act="+cod_act+"&cod_ban="+cod_ban+"&codest="+codest+"&cod_gru_aux="+cod_gru_aux+"&hora_fin="+hora_fin+"", true);
 	//window.open("ver_actividades_eval.php?cod_eval="+cod_eval+"&cod_ban="+cod_ban+"&codest="+codest+"",'_blank');
@@ -29,8 +29,9 @@ function terminos_condiciones(cod_act, cod_ban, codest, cod_gru_aux,hora_fin){
 	}
 	ajax.send(null);
 }
-function iniciar_evaluacion(cod_act, cod_ban, codest, cod_gru_aux,horacompleta,hora_fin){	
-	var resultado = document.getElementById('contenedor');
+function iniciar_evaluacion(cod_act, cod_ban, codest, cod_gru_aux,horacompleta,hora_fin){
+	
+	var resultado = document.getElementById('page-content-inner');
 	resultado.innerHTML = "<img src='contenedor/js/carga.gif' class='img-fluid' alt='Responsive image'>";
 	ajax = objetoAjax();
 	ajax.open("GET", "contenedor/ver_actividades_evaluacion.php?cod_act="+cod_act+"&cod_ban="+cod_ban+"&codest="+codest+"&cod_gru_aux="+cod_gru_aux+"&h_fin="+hora_fin+"",true);
@@ -39,7 +40,7 @@ function iniciar_evaluacion(cod_act, cod_ban, codest, cod_gru_aux,horacompleta,h
 			resultado.innerHTML = ajax.responseText;
 		}
 	}
-	var end = new Date(horacompleta);
+	var end = new Date('08/12/2020 11:35 PM');
     var _second = 1000;
     var _minute = _second * 60;
     var _hour = _minute * 60;
@@ -105,11 +106,9 @@ function ver_materias_examenes(codest){
 
 }
 function guardar_evaluacion(){
-	var formdata = new FormData(document.getElementById('form_eval'));
-	var res = document.getElementById('cuerpo_modal');
-	var titu=document.getElementById('myModalLabel');
-	res.innerHTML = "<img src='contenedor/js/carga.gif' class='img-fluid' alt='Responsive image'>";
-	titu.innerHTML="Examén Online Resultado";
+	var formdata = new FormData(document.getElementById('form_eval'));	
+	var res = document.getElementById('page-content-inner');
+	formdata.innerHTML = "<img src='contenedor/js/carga.gif' class='img-fluid' alt='Responsive image'>";	
 	ajax = objetoAjax();
 	ajax.open("POST", "contenedor/frm_guarda_evaluacion.php", true);
 	ajax.onreadystatechange = function(){

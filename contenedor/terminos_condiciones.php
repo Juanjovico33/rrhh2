@@ -45,7 +45,7 @@ include "../includes/conexion.php";
                 ////hacemos la tranformacion de la fecha y hora para mandar al java script////////////////
                     $fecha2=date("m/d/Y");
                     $newDateTime = date('h:i A', strtotime($hora_fin));
-                    $hora_completa=$fecha2." ".$newDateTime;
+                   echo $hora_completa=$fecha2." ".$newDateTime;
                 ?>
                 <div align="center">
                     <button class="btn btn-success" data-dismiss="modal" onclick="iniciar_evaluacion('<?php echo $cod_act; ?>','<?php echo $cod_ban; ?>','<?php echo $codest; ?>','<?php echo $cod_gru_aux; ?>','<?php echo $hora_completa; ?>','<?php echo $hora_fin; ?>')">Estoy de acuerdo</button>

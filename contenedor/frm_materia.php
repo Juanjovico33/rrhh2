@@ -10,18 +10,19 @@
     $o_enl=new linkMeet();
     $grupo=new grupo();
 
-    
     $grupo->getDatosGrupo($id_grupo);
-   
+    $_idgrupoRaiz=0;
+
     if($grupo->es_rama()){
-        // echo "Es rama";
-        $o_enl->getDatosEnlace($grupo->getIdramaRaiz());
+        // echo "Es rama ".$_idgrupoRaiz;
+        $_idgrupoRaiz=$grupo->getIdramaRaiz();
+        $o_enl->getDatosEnlace($_idgrupoRaiz);
     }else{
-        // echo "NO es rama";
+        // echo "NO es rama ".$_idgrupoRaiz;
+        $_idgrupoRaiz=0;
         $o_enl->getDatosEnlace($id_grupo);
     }
     // echo $grupo->getError();
-    // exit;
     //enlace_meet ->preguntar si existe enlace meet
     //si existe y el estudiante clic se debe registrar la asistencia
     // echo $o_enl->getError();
@@ -100,11 +101,11 @@
                         <div class="course-card course-card-list">
                             <div class="course-card-thumbnail">
                                 <img src="img/iconos/recursos.png">
-                                <a href="#" class="play-button-trigger" onclick="ver_clasesvirtuales(<?=$id_grupo;?>, <?=$codest;?>)"></a>
+                                <a href="#" class="play-button-trigger" onclick="ver_clasesvirtuales(<?=$id_grupo;?>, <?=$_idgrupoRaiz?>, <?=$codest;?>)"></a>
                             </div>
 
                             <div class="course-card-body" >
-                                <a href="#" onclick="ver_clasesvirtuales(<?=$id_grupo;?>, <?=$codest;?>)">
+                                <a href="#" onclick="ver_clasesvirtuales(<?=$id_grupo;?>, <?=$_idgrupoRaiz?>, <?=$codest;?>)">
                                     <h4>Recursos didacticos </h4>
                                 </a>
                                 <p>Todos los recursos didacticos, material de apoyo, clases virtuales grabadas en la plataforma de Google Meet!</p>

@@ -56,13 +56,14 @@ function cargar_datos_clase(item, grupo, clase, estudiante){
 // 	ajax.send(datos);
 // }
 
-function ver_clasesvirtuales(idgrupo, codest){
+function ver_clasesvirtuales(idgrupo, idgrupoRaiz, codest){
 	var mainpage = document.getElementById('wrapper');
 	var clasesvirtuales = document.getElementById('wrapper_cv');
 	mainpage.style.display ="none";
 	datos = new FormData();
 	datos.append("_idgrupo", idgrupo);
 	datos.append("_codest", codest);
+	datos.append("_idgrupoRaiz", idgrupoRaiz);
 	// datos.append("_codmat", mat);
 	// datos.append("_per", per);
 	ajax = objetoAjax();

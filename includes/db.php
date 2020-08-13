@@ -12,7 +12,7 @@ class DB{
         $this->user     = 'soporte';
         $this->password = "usoporte.2020u";
         // $this->host     = 'mysql:host=localhost;dbname=sainc;charset=UTF8mb4';
-        // $this->db       = 'sainc';
+        $this->db       = 'sainc';
         // $this->user     = 'root';
         // $this->password = "";
         // $this->charset  = 'utf8mb4';

@@ -6,7 +6,7 @@ include "../includes/conexion.php";
 	$cod_gru_aux=$_REQUEST['cod_gru_aux'];
 	$parcial=$_REQUEST['parcial'];
 	$preg=$_REQUEST['preg'];
-	$hr_fin=$_REQUEST['hr_fin'];
+	echo $hr_fin=$_REQUEST['hr_fin'];
 	$ponde=$_REQUEST['ponde'];
 	$not_conv=0;
 	@$num_preg=$_REQUEST['num_preg'];
