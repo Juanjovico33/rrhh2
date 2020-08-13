@@ -2,7 +2,7 @@
     include "../includes/conexion.php";
     include "../includes/_estudiante.php";
     include "../includes/_gestion.php";
-    
+
     function nombre_periodos($nb){
                 if($nb=="TUTO"){
                     $nbper="CURSO TUTORIAL";
@@ -112,7 +112,11 @@
                             //$fec_act=date("Y-m-d");
                             //$hr_act=date("H:i");
                             $cod_gru_aux=0;    
-                    //while($fcons=mysql_fetch_array($qrg)){                           
+
+                    //while($fcons=mysql_fetch_array($qrg)){   
+                    ?>
+                         <p><?php echo "Hora Actual SERVER: ".$hr_act;?></p>
+                    <?php                        
                      while ($fcons = $qrg->fetch(PDO::FETCH_ASSOC)) {
                          //echo "entra";
                         $per=$fcons['periodo'];
@@ -319,8 +323,6 @@
                             ?>                            
                             <div class="col-md-12">
                                 <h6> <?php echo nombre_periodos($per);?></h6>
-                                <p><?php echo $hr_act;?></p>
-
                             </div>  
                             <?php
                                 $per_aux=$per;
