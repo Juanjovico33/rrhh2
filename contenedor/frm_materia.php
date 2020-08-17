@@ -13,28 +13,28 @@
     $grupo->getDatosGrupo($id_grupo);
     $_idgrupoRaiz=0;
     // echo $id_grupo.'<br>';
-    if($grupo->esNormal()){
+    // if($grupo->esNormal()){
         if($grupo->es_rama()){
-            echo "Es rama ".$_idgrupoRaiz;
+            // echo "Es rama ".$_idgrupoRaiz;
             $_idgrupoRaiz=$grupo->getIdramaRaiz();
             $o_enl->getDatosEnlace($_idgrupoRaiz);
         }else{
-            echo "NO es rama ".$id_grupo;
+            // echo "NO es rama ".$id_grupo;
             $_idgrupoRaiz=0;
             $o_enl->getDatosEnlace($id_grupo);
         }
-    }else{
-        if($grupo->esNivelacion()){
-            echo "Es nivelacion";
-        }else{
-            echo "No es nivelación";
-        }
-    }
+    // }else{
+    //     if($grupo->esNivelacion()){
+    //         echo "Es nivelacion";
+    //     }else{
+    //         echo "No es nivelación";
+    //     }
+    // }
    
-    echo $grupo->getError();
+    // echo $grupo->getError();
     // echo $o_enl->getError();
     // echo "<br>".$o_enl->getEnlace();
-    exit;
+    // exit;
 ?>
 <div class="page-content">
 
