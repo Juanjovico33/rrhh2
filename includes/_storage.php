@@ -16,6 +16,8 @@
             $this->bucketName="une_segmento-one";
  
             // Credecial para la forma manual
+            //C:\\wamp64\\www\\plataforma_estudiante2.0\\includes\\credentials\\My First Project-043934006766.json
+            // putenv("GOOGLE_APPLICATION_CREDENTIALS=D:\\wamp64\\www\\plataforma_estudiante2.0\\includes\\credentials\\My First Project-043934006766.json");
             // putenv("GOOGLE_APPLICATION_CREDENTIALS=D:\\wamp64\\www\\plataforma_estudiante2.0\\includes\\credentials\\My First Project-043934006766.json");
         }
         

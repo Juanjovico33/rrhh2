@@ -134,10 +134,10 @@
                                                 $fecha=$aux_clase->getFecha_pub();
                                                 if($iclase==1){
                                                     ?>
-                                                    <li class="watched"><a href="#" onclick="cargar_datos_clase(<?=$iclase;?>, <?=$id_grupo;?>, <?=$clase;?>, <?=$cod_est;?>)"><i class="uil-file-alt"></i> Clase <?=$iclase;?> (<?=$fecha;?>)</a></li> 
+                                                    <li class="watched"><a href="#" onclick="cargar_datos_clase(<?=$iclase;?>, <?=$id_grupo;?>, <?=$clase;?>, <?=$cod_est;?>, <?=$_idgrupoRaiz;?>)"><i class="uil-file-alt"></i> Clase <?=$iclase;?> (<?=$fecha;?>)</a></li> 
                                                     <?php
                                                 }else{?>
-                                                    <li><a href="#" onclick="cargar_datos_clase(<?=$iclase;?>, <?=$id_grupo;?>, <?=$clase;?>, <?=$cod_est;?>)"><i class="uil-file-alt"></i> Clase <?=$iclase;?> (<?=$fecha;?>)</a> </li><?php  
+                                                    <li><a href="#" onclick="cargar_datos_clase(<?=$iclase;?>, <?=$id_grupo;?>, <?=$clase;?>, <?=$cod_est;?>, <?=$_idgrupoRaiz;?>)"><i class="uil-file-alt"></i> Clase <?=$iclase;?> (<?=$fecha;?>)</a> </li><?php  
                                                 }
                                         ?>
                                         <?php 

@@ -75,7 +75,7 @@
             include "conexion.php";
             try {
                 $_carrera=""; $_periodo=""; $_resulocion=0;
-                $s_carreraest=$bdcon->prepare("SELECT carrera, periodo, id_resolucion FROM sainc.estudiante_codigo where codigo_estudiante=$codigoest;");
+                $s_carreraest=$bdcon->prepare("SELECT carrera, periodo, id_resolucion FROM estudiante_codigo where codigo_estudiante=$codigoest;");
                 $s_carreraest->execute();
                 while ($srow = $s_carreraest->fetch(PDO::FETCH_ASSOC)) {
                     $_carrera=$srow['carrera'];

@@ -13,22 +13,24 @@
     $grupo->getDatosGrupo($id_grupo);
     $_idgrupoRaiz=0;
     // echo $id_grupo.'<br>';
+    
+    // Verificando si está fusionado el grupo
+    if($grupo->es_rama()){
+        // echo "Es rama ".$_idgrupoRaiz;
+        $_idgrupoRaiz=$grupo->getIdramaRaiz();
+        $o_enl->getDatosEnlace($_idgrupoRaiz);
+    }else{
+        // if($grupo->esNivelacion()){
+        //         echo "Es nivelacion";
+        //     }else{
+        //         echo "No es nivelación";
+        //     }
+        // echo "NO es rama ".$id_grupo;
+        $_idgrupoRaiz=0;
+        $o_enl->getDatosEnlace($id_grupo);
+    }
     // if($grupo->esNormal()){
-        if($grupo->es_rama()){
-            // echo "Es rama ".$_idgrupoRaiz;
-            $_idgrupoRaiz=$grupo->getIdramaRaiz();
-            $o_enl->getDatosEnlace($_idgrupoRaiz);
-        }else{
-            // echo "NO es rama ".$id_grupo;
-            $_idgrupoRaiz=0;
-            $o_enl->getDatosEnlace($id_grupo);
-        }
     // }else{
-    //     if($grupo->esNivelacion()){
-    //         echo "Es nivelacion";
-    //     }else{
-    //         echo "No es nivelación";
-    //     }
     // }
    
     // echo $grupo->getError();
@@ -89,13 +91,6 @@
                                 <div class="course-details-info">
                                     <ul>
                                         <li> Registrada por <a href="#"> Docente de la materia </a> </li>
-                                        <li>
-                                            <div class="star-rating"><span class="avg"> 5 </span> <span
-                                                    class="star"></span><span class="star"></span><span
-                                                    class="star"></span><span class="star"></span><span
-                                                    class="star"></span>
-                                            </div>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -119,15 +114,7 @@
                                 <p>Todos los recursos didacticos, material de apoyo, clases virtuales grabadas en la plataforma de Google Meet!</p>
                                 <div class="course-details-info">
                                     <ul>
-                                        <li> <i class="icon-feather-sliders"></i> Advance level </li>
-                                        <li> By <a href="user-profile-1.html">Jonathan Madano </a> </li>
-                                        <li>
-                                            <div class="star-rating"><span class="avg"> 5 </span> <span
-                                                    class="star"></span><span class="star"></span><span
-                                                    class="star"></span><span class="star"></span><span
-                                                    class="star"></span>
-                                            </div>
-                                        </li>
+                                        
                                     </ul>
                                 </div>
 
@@ -146,15 +133,7 @@
                                 <p>Visualizacion de la planificacion academica, cargada por el docente.</p>
                                 <div class="course-details-info">
                                     <ul>
-                                        <li> <i class="icon-feather-sliders"></i> Binginner level </li>
-                                        <li> By <a href="user-profile-1.html"> Stella Johnson</a> </li>
-                                        <li>
-                                            <div class="star-rating"><span class="avg"> 5 </span> <span
-                                                    class="star"></span><span class="star"></span><span
-                                                    class="star"></span><span class="star"></span><span
-                                                    class="star half"></span>
-                                            </div>
-                                        </li>
+                                        
                                     </ul>
                                 </div>
 
@@ -173,15 +152,7 @@
                                 <p>Ver las notas obtenidas en detalle por parcial.</p>
                                 <div class="course-details-info">
                                     <ul>
-                                        <li> <i class="icon-feather-sliders"></i> Advance level </li>
-                                        <li> By <a href="user-profile-1.html"> Adrian Mohani </a> </li>
-                                        <li>
-                                            <div class="star-rating"><span class="avg"> 5 </span> <span
-                                                    class="star"></span><span class="star"></span><span
-                                                    class="star"></span><span class="star"></span><span
-                                                    class="star half"></span>
-                                            </div>
-                                        </li>
+                                        
                                     </ul>
                                 </div>
 

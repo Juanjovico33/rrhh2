@@ -5,6 +5,16 @@ $item=$_POST['_item'];
 $id_grupo=$_POST['_idgrupo'];
 $id_clase=$_POST['_idclase'];
 $cod_est=$_POST['_codest'];
+$grupo_aux=$_POST['_grupoAux'];
+
+if($grupo_aux!=0){
+    $id_grupo=$_POST['_grupoAux'];
+    $grupo_aux=$_POST['_idgrupo'];
+}else{
+    $id_grupo=$_POST['_idgrupo'];
+    $grupo_aux=$_POST['_idgrupo']; 
+}
+
 $fec_act=date("Y-m-d");
 $direccion_espejo="http://190.186.233.212/plataformaDocente/assets/docente/grupos/clases_virtuales/";
 
@@ -126,7 +136,7 @@ try{
                 <tr><input type="text" id="text_pregunta_<?=$id_clase;?>" /></tr>
 
                 <div id="msjm2<?=$id_clase; ?>">
-                    <tr><button class="btn btn-success" onclick="set_M2preguntaforo(<?=$id_grupo;?>, <?=$id_clase;?>, <?=$cod_est;?>, <?=$row['cod'];?>)">PREGUNTAR</button></tr>
+                    <tr><button class="btn btn-success" onclick="set_M2preguntaforo(<?=$grupo_aux;?>, <?=$id_clase;?>, <?=$cod_est;?>, <?=$row['cod'];?>)">PREGUNTAR</button></tr>
                 </div>
                 
             </form>
@@ -204,7 +214,7 @@ try{
                         <tr><th>Rellene su resumen en el cuadro:</th></tr>
                         <tr><td colspan="2">
                             <div id="msj<?=$id_clase; ?>">
-                                <button class="btn btn-success" onclick="set_resumen_m3(<?=$id_clase;?>, <?=$id_grupo;?>,<?=$cod_est;?>, <?=$row['cod'];?>)">GUARDAR RESUMEN</button>
+                                <button class="btn btn-success" onclick="set_resumen_m3(<?=$id_clase;?>, <?=$grupo_aux;?>,<?=$cod_est;?>, <?=$row['cod'];?>)">GUARDAR RESUMEN</button>
                             </div>
                             <textarea name="textarea" id="resumen<?=$id_clase.$row['cod']; ?>" rows="6" cols="50"></textarea>
                         </td></tr>

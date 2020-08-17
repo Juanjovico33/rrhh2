@@ -40,7 +40,7 @@ function iniciar_evaluacion(cod_act, cod_ban, codest, cod_gru_aux,horacompleta,h
 			resultado.innerHTML = ajax.responseText;
 		}
 	}
-	var end = new Date('08/12/2020 11:35 PM');
+	var end = new Date(horacompleta);
     var _second = 1000;
     var _minute = _second * 60;
     var _hour = _minute * 60;

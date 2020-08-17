@@ -16,7 +16,7 @@ if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
 	}
 	return xmlhttp;
 }
-function cargar_datos_clase(item, grupo, clase, estudiante){
+function cargar_datos_clase(item, grupo, clase, estudiante, grupo_aux){
 	var resultado=document.getElementById('contenido_cv');
 
 	datos = new FormData();
@@ -24,6 +24,7 @@ function cargar_datos_clase(item, grupo, clase, estudiante){
 	datos.append("_idgrupo", grupo);
 	datos.append("_idclase", clase);
 	datos.append("_codest", estudiante);
+	datos.append("_grupoAux", grupo_aux)
 
 	ajax = objetoAjax();
 	ajax.open("POST", "contenedor/cv_momentos_all.php", true);
