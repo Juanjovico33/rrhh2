@@ -12,21 +12,29 @@
 
     $grupo->getDatosGrupo($id_grupo);
     $_idgrupoRaiz=0;
-
-    if($grupo->es_rama()){
-        // echo "Es rama ".$_idgrupoRaiz;
-        $_idgrupoRaiz=$grupo->getIdramaRaiz();
-        $o_enl->getDatosEnlace($_idgrupoRaiz);
+    // echo $id_grupo.'<br>';
+    if($grupo->esNormal()){
+        if($grupo->es_rama()){
+            echo "Es rama ".$_idgrupoRaiz;
+            $_idgrupoRaiz=$grupo->getIdramaRaiz();
+            $o_enl->getDatosEnlace($_idgrupoRaiz);
+        }else{
+            echo "NO es rama ".$id_grupo;
+            $_idgrupoRaiz=0;
+            $o_enl->getDatosEnlace($id_grupo);
+        }
     }else{
-        // echo "NO es rama ".$_idgrupoRaiz;
-        $_idgrupoRaiz=0;
-        $o_enl->getDatosEnlace($id_grupo);
+        if($grupo->esNivelacion()){
+            echo "Es nivelacion";
+        }else{
+            echo "No es nivelación";
+        }
     }
-    // echo $grupo->getError();
-    //enlace_meet ->preguntar si existe enlace meet
-    //si existe y el estudiante clic se debe registrar la asistencia
+   
+    echo $grupo->getError();
     // echo $o_enl->getError();
     // echo "<br>".$o_enl->getEnlace();
+    exit;
 ?>
 <div class="page-content">
 

@@ -79,6 +79,7 @@
                                                     </div>
                                                 </div>
                                                 <h4><?php echo $n_mat=$materias[$j]['materias_array'][$i]['nb_materia'];?> </h4>
+                                                <P><?= 'GRUPO - '.$materias[$j]['materias_array'][$i]['grupo'];?> </P>
                                                 <p> <?php echo $materias[$j]['nbperiodo'];?></p>
                                                 <div class="course-card-footer">
                                                     <h5> <i class="icon-feather-film"></i> Hrs Pr. </h5>

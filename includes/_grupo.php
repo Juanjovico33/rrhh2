@@ -82,8 +82,10 @@
             include "conexion.php";
 
             try {
-                $s_gestion = $bdcon->prepare("SELECT * FROM grupos where CodGrupo=$_grupo");
+                $q_grupo="SELECT * FROM grupos where CodGrupo=$_grupo";
+                $s_gestion = $bdcon->prepare($q_grupo);
                 $s_gestion->execute();
+                // $this->error.=$q_grupo;
             } catch (PDOException $e) {
                 $this->error .= 'La conexión para obtener la fecha actual ha fallado' . $e->getMessage().'<br>';
             }
@@ -147,6 +149,15 @@
             $per=$this->periodo;
             $percor=substr($per, 4, 5);
             if($percor=='06' || $percor=='08'){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        function esNormal(){
+            $per=$this->periodo;
+            $percor=substr($per, 4, 5);
+            if($percor=='01' || $percor=='02'){
                 return true;
             }else{
                 return false;

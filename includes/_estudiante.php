@@ -110,8 +110,10 @@
             $carrera = new carrera();
             
             try {
-                $student = $bdcon->prepare("SELECT codEstudiante, nombres, apellidos, nombcompleto, gestion, codest, carrera, planpago from estudiante where codEstudiante='$this->codest' or codest='$this->codest' limit 1");
+                $q_datosest="SELECT codEstudiante, nombres, apellidos, nombcompleto, gestion, codest, carrera, planpago from estudiante where (codEstudiante='$this->codest' or codest='$this->codest') AND codest!=0 limit 1";
+                $student = $bdcon->prepare($q_datosest);
                 $student->execute();
+                // $this->error.=$q_datosest;
             } catch (PDOException $e) {
                 $this->error .= 'La conexión para CLASS::Estudiante ha fallado, intente realizar su solicitud nuevamente: ' . $e->getMessage().'<br>';
             }
@@ -215,6 +217,7 @@
 
         function getdatosgrupos($query){
             $materias=null;
+            // $this->error.=$query;
             include "conexion.php";
             try{
                 $grupos = $bdcon->prepare($query);
@@ -227,7 +230,7 @@
                         $periodo=$row['periodo'];//--
                         $gestion=$row['gestion'];//--
                         $cod_carrera=$row['carrera'];
-                        $idgrupo=$this->getIdGrupoDb($gestion, $periodo, $cod_carrera, $codmateria, $grupo);
+                        $idgrupo=$this->getIdGrupoDb($periodo, $cod_carrera, $codmateria, $grupo);
 
                         $semestre=$row['semestre'];
                         $nb_materia='';
@@ -252,11 +255,11 @@
             return $materias;
         }
 
-        function getIdGrupoDb($gestion, $periodo, $carrera, $materia, $_txgrupo){
+        function getIdGrupoDb($periodo, $carrera, $materia, $_txgrupo){
             include "conexion.php";
-            $query="SELECT CodGrupo FROM grupos WHERE periodo=$periodo AND codmateria='$materia' AND gestion=$gestion AND Descripcion='$_txgrupo' AND CodCarrera='$carrera'";
+            $query="SELECT CodGrupo FROM grupos WHERE periodo=$periodo AND codmateria='$materia' AND Descripcion='$_txgrupo' AND CodCarrera='$carrera'";
             $_idgrupo=0;
-            
+            // $this->error.=$query.'<br>';
             try{
                 $_qcod = $bdcon->prepare($query);
                 $_qcod->execute();

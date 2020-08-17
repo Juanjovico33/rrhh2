@@ -257,14 +257,60 @@ function set_archivo_m4(cod_tarea){
 }
 
 function msj_error(cod_eval, cod_ban, codest){
-	// var resultado = document.getElementById('cuerpo_mod');
-	// resultado.innerHTML = "cargando...";
-	// ajax = objetoAjax();
-	// ajax.open("GET", "frm_error.php", true);
-	// ajax.onreadystatechange = function(){
-	// 	if (ajax.readyState == 4) {
-	// 		resultado.innerHTML = ajax.responseText;
-	// 	}
-	// }
-	// ajax.send(null);
+	var resultado = document.getElementById('contenido_cv');
+	resultado.innerHTML = "cargando...";
+	ajax = objetoAjax();
+	ajax.open("GET", "contenedor/frm_error.php", true);
+	//window.open("ver_actividades_eval.php?cod_eval="+cod_eval+"&cod_ban="+cod_ban+"&codest="+codest+"",'_blank');
+	ajax.onreadystatechange = function(){
+		if (ajax.readyState == 4) {
+			resultado.innerHTML = ajax.responseText;
+		}
+	}
+	ajax.send(null);
+}
+
+function iniciar_eval(cod_eval, cod_ban, codest){
+	var resultado = document.getElementById('contenido_cv');
+	resultado.innerHTML = "cargando...";
+	ajax = objetoAjax();
+	ajax.open("GET", "contenedor/ver_actividades_eval.php?cod_eval="+cod_eval+"&cod_ban="+cod_ban+"&codest="+codest+"", true);
+	//window.open("ver_actividades_eval.php?cod_eval="+cod_eval+"&cod_ban="+cod_ban+"&codest="+codest+"",'_blank');
+	ajax.onreadystatechange = function(){
+		if (ajax.readyState == 4) {
+			resultado.innerHTML = ajax.responseText;
+		}
+	}
+	ajax.send(null);
+}
+
+function guardar_eval(){
+	var formdata = new FormData(document.getElementById('form_eval'));
+	var resultado = document.getElementById('contenido_cv');
+	resultado.innerHTML = "cargando...";
+	ajax = objetoAjax();
+	ajax.open("POST", "contenedor/frm_guarda_eval.php", true);
+	ajax.onreadystatechange = function(){
+		if (ajax.readyState == 4) {
+			resultado.innerHTML = ajax.responseText;
+		}
+	}
+	ajax.send(formdata);
+	return true;
+}
+
+function set_archivo_m4_cloud(cod_tarea){
+	var formdata = new FormData(document.getElementById('envio_arch'+cod_tarea));
+	var resultado = document.getElementById('msj_ta'+cod_tarea);
+	resultado.innerHTML = "cargando...";
+	ajax = objetoAjax();
+	ajax.open("POST", "contenedor/cvirtuales/frm_guarda_archivo_m4_bucketgoogle.php", true);
+	ajax.onreadystatechange = function(){
+		if (ajax.readyState == 4) {
+			resultado.innerHTML = ajax.responseText;
+		}
+	}
+	// ajax.setRequestHeader("Content-Type","multipart/form-data");
+	ajax.send(formdata);
+	return true;
 }

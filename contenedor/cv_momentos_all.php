@@ -6,9 +6,13 @@ $id_grupo=$_POST['_idgrupo'];
 $id_clase=$_POST['_idclase'];
 $cod_est=$_POST['_codest'];
 $fec_act=date("Y-m-d");
+$direccion_espejo="http://190.186.233.212/plataformaDocente/assets/docente/grupos/clases_virtuales/";
 
-?><h2>CLASE <?=$item;?></h2><?php 
+?><h2>CLASE <?=$item;?></h2>
+    
+<?php 
 // echo $item ." - ". $id_grupo ." - ". $id_clase ." - ". $cod_est;
+
 // -------------        MOMENTO 1 ------------
 ?>
 <div uk-grid>
@@ -29,9 +33,16 @@ $fec_act=date("Y-m-d");
             <?php
             while ($row = $class->fetch(PDO::FETCH_ASSOC)) {
                 if($row['direccion']!=''){
-                    ?>                   
+                    $_url=substr($row['direccion'], 0, 4);
+                    if($_url=='docs'){
+                        ?>                   
+                        URL: <a href='<?=$direccion_espejo.$row['direccion'];?>' target='_blank'><?=$row['direccion'];?></a><br>
+                        <?php
+                    }else{
+                         ?>                   
                     URL: <a href='<?=$row['direccion'];?>' target='_blank'><?=$row['direccion'];?></a><br>
                     <?php
+                    } 
                 }
                     // $row['cod']
                     // $row['direccion']
@@ -308,7 +319,7 @@ try{
 										<input type="hidden" name="cod_ta" id="cod_ta" value="<?php echo $cod_ta; ?>">
 										<input type="hidden" name="codest" id="codest" value="<?php echo $cod_est; ?>">
 										<input type="file" name="mate_apo<?=$cod_ta;?>" id="mate_apo<?=$cod_est;?>">
-										<div id="msj_ta<?php echo $cod_ta; ?>"><button class="btn btn-success" onclick="set_archivo_m4('<?=$cod_ta;?>')" <?=$desabil;?>>ENVIAR</button> <?=$msj_m4;?></div>
+										<div id="msj_ta<?php echo $cod_ta; ?>"><button class="btn btn-success" onclick="set_archivo_m4_cloud('<?=$cod_ta;?>')" <?=$desabil;?>>ENVIAR</button> <?=$msj_m4;?></div>
 									</form>
 								</td>
 							</tr> 
@@ -399,26 +410,20 @@ try{
                 if ($cod_ban==0) {
                     echo "No se seleccionó un banco de preguntas.";
                 }else{
-                    echo "<br>".$cod_ban;
-                    $catbanco='';
-                    $q_catbanco="SELECT categoria FROM plat_doc_banco_cat WHERE id=$cod_ban;";
-                    try{
-                        $_cat_banco = $bdcon->prepare($q_catbanco);
-                        $_cat_banco->execute();
-                        while ($row = $class->fetch(PDO::FETCH_ASSOC)) {
-                            $catbanco=$row['categoria'];
-                        }
-                    }catch(PDOException $e){
-                        echo 'Error al obtener la categoria del banco en el momento 5 : ' . $e->getMessage();
+                    //echo "<br>".$cod_ban;
+                    $catbanco='';                 
+               
+                    $query_cat = $bdcon->prepare("SELECT categoria FROM plat_doc_banco_cat WHERE id='$cod_ban'");
+                    $query_cat->execute(); 
+                    while ($fact = $query_cat->fetch(PDO::FETCH_ASSOC)) {   
+                        echo $cate=$fact['categoria'];
                     }
-
-                    echo $catbanco;	
                 }
                 ?>
             </td>
         </tr>
         <tr>
-            <td colspan="2"><a href="#myModal" role="button" data-toggle="modal" data-target=".bd-example-modal-lg" class="btn btn-success" <?php echo $disab; ?> onclick="<?php echo $func; ?>('<?php echo $cod_eval; ?>','<?php echo $cod_ban; ?>','<?php echo $cod_est; ?>')">INICIAR</a></td>
+        <td colspan="2"><a href="#" role="button" class="btn btn-success" <?php echo $disab; ?> onclick="<?php echo $func; ?>('<?php echo $cod_eval; ?>','<?php echo $cod_ban; ?>','<?php echo $cod_est; ?>')">INICIAR</a></td>
         </tr>
     </table>
 
