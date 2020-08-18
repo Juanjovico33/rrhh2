@@ -14,8 +14,10 @@ if($grupo_aux!=0){
     $id_grupo=$_POST['_idgrupo'];
     $grupo_aux=$_POST['_idgrupo']; 
 }
-
-$fec_act=date("Y-m-d");
+$fecha=new DateTime();
+$fecha->setTimezone(new DateTimeZone('America/La_Paz'));
+$fec_act=$fecha->format('Y-m-d');
+// $fec_act=date("Y-m-d");
 $direccion_espejo="http://190.186.233.212/plataformaDocente/assets/docente/grupos/clases_virtuales/";
 
 ?><h2>CLASE <?=$item;?></h2>
@@ -373,7 +375,10 @@ try{
             <hr class="m-0">
             <div class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid>
         <?php
-        $fec_act=date("Y-m-d");
+        $fecha=new DateTime();
+        $fecha->setTimezone(new DateTimeZone('America/La_Paz'));
+        $fec_act=$fecha->format('Y-m-d');
+        // $fec_act=date("Y-m-d");
         try{
             $q_bpreguntas="SELECT * FROM aa_clases_virtuales_m5 where cod_gru=$id_grupo and cod_clase=$id_clase";
             // echo $q_bpreguntas;
