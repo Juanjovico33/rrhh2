@@ -8,15 +8,15 @@ class DB{
     private $charset;
 
     public function __construct(){
-        $this->host     = 'unix_socket=/cloudsql/pelagic-pod-279916:southamerica-east1:bdsainco';       
-        $this->user     = 'soporte';
-        $this->password = "usoporte.2020u";
-        $this->db       = 'sainc';
-        // $this->host     = 'mysql:host=localhost;dbname=sainc;charset=UTF8mb4';
+        // $this->host     = 'unix_socket=/cloudsql/pelagic-pod-279916:southamerica-east1:bdsainco';       
+        // $this->user     = 'soporte';
+        // $this->password = "usoporte.2020u";
         // $this->db       = 'sainc';
-        // $this->user     = 'root';
-        // $this->password = "";
-        // $this->charset  = 'utf8mb4';
+        $this->host     = 'mysql:host=localhost;dbname=sainc_stu;charset=UTF8mb4';
+        $this->db       = 'sainc_stu';
+        $this->user     = 'root';
+        $this->password = "";
+        $this->charset  = 'utf8mb4';
        
     }
 

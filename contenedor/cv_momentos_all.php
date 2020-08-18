@@ -104,28 +104,30 @@ try{
             $pre->execute(); 
             if($pre->rowCount()>0){
                 while ($rowpre = $pre->fetch(PDO::FETCH_ASSOC)) {
-                    $i=$i+1;
-                    $pregunta=''; $respuestas=' R. ';
-                    $pregunta= $i.'P. '. $rowpre['pregunta'];
-                        // $rowpre['cod']
-                        // $rowpre['pregunta']
-                        // $rowpre['tipo']
-                        $q_respuesta="SELECT * FROM aa_clases_virtuales_m2_respuestas where cod_pregunta=".$rowpre['cod'];
-                    $res = $bdcon->prepare($q_respuesta);
-                    $res->execute();
-                        if($res->rowCount()>0){
-                            
-                            while ($rowres = $res->fetch(PDO::FETCH_ASSOC)) {
-                                $respuestas.=$rowres['respuesta'].' - ';
-                                // $rowres['cod']
-                                // $rowres['respuesta']
-                                // $rowres['codest']
+                    if($rowpre['pregunta']!=''||$rowpre['pregunta']!=' '){
+                         $i=$i+1;
+                        $pregunta=''; $respuestas=' R. ';
+                        $pregunta= $i.'P. '. $rowpre['pregunta'];
+                            // $rowpre['cod']
+                            // $rowpre['pregunta']
+                            // $rowpre['tipo']
+                            $q_respuesta="SELECT * FROM aa_clases_virtuales_m2_respuestas where cod_pregunta=".$rowpre['cod'];
+                        $res = $bdcon->prepare($q_respuesta);
+                        $res->execute();
+                            if($res->rowCount()>0){
+                                
+                                while ($rowres = $res->fetch(PDO::FETCH_ASSOC)) {
+                                    $respuestas.=$rowres['respuesta'].' - ';
+                                    // $rowres['cod']
+                                    // $rowres['respuesta']
+                                    // $rowres['codest']
+                                }
+                            }else{
+                                $respuestas.="No tiene respuesta";
                             }
-                        }else{
-                            $respuestas.="No tiene respuesta";
-                        }
-                    $pregunta='<tr>'.$pregunta.$respuestas.'</tr><br>';
-                    echo $pregunta;
+                        $pregunta='<tr>'.$pregunta.$respuestas.'</tr><br>';
+                        echo $pregunta;
+                    }
                 }
                 // $row['cod']
                 // $row['nb_foro']

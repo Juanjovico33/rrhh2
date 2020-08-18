@@ -117,7 +117,7 @@
 
                 <div class="course-sidebar">
                     <div class="course-sidebar-title">
-                        <!-- <h3> Clases Virtuales</h3> --><div style="align-items:right;"><a href="#" onclick="regresarA_bandejaprincipal()">Regresar</div></p>
+                        <!-- <h3> Clases Virtuales</h3> --><div style="align-items:right;"><a href="#" onclick="regresarA_bandejaprincipal()"><button class="btn btn-primary"><i class="icon-feather-skip-back"></i>  Regresar</button></div></p>
                     </div>
                     <div class="course-sidebar-container" data-simplebar>
                         <ul class="course-video-list-section" uk-accordion>

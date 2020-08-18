@@ -80,8 +80,8 @@
                         ?>
                         <div id="div_googlemeet_link" class="course-card course-card-list">
                             <div class="course-card-thumbnail">
-                                <img src="img/iconos/googlemeet.png">
-                                <a href="<?=$o_enl->getEnlace();?>" onclick="registrar_asistencias_meet(<?=$id_grupo;?>,<?=$codest;?>)" target="_blank"></a>
+                                
+                                <a href="<?=$o_enl->getEnlace();?>" onclick="registrar_asistencias_meet(<?=$id_grupo;?>,<?=$codest;?>)" target="_blank"><img src="img/iconos/googlemeet.png"></a>
                             </div>
                             <div class="course-card-body">
                                 <a href="<?=$o_enl->getEnlace();?>" onclick="registrar_asistencias_meet(<?=$id_grupo;?>,<?=$codest;?>)" target="_blank">
@@ -91,6 +91,13 @@
                                 <div class="course-details-info">
                                     <ul>
                                         <li> Registrada por <a href="#"> Docente de la materia </a> </li>
+                                        <li>
+                                            <div class="star-rating"><span class="avg"> 5 </span> <span
+                                                    class="star"></span><span class="star"></span><span
+                                                    class="star"></span><span class="star"></span><span
+                                                    class="star"></span>
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -114,7 +121,14 @@
                                 <p>Todos los recursos didacticos, material de apoyo, clases virtuales grabadas en la plataforma de Google Meet!</p>
                                 <div class="course-details-info">
                                     <ul>
-                                        
+                                        <li> Registrada por <a href="#"> Docente de la materia </a> </li>
+                                        <li>
+                                            <div class="star-rating"><span class="avg"> 5 </span> <span
+                                                    class="star"></span><span class="star"></span><span
+                                                    class="star"></span><span class="star"></span><span
+                                                    class="star"></span>
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
 
@@ -133,7 +147,14 @@
                                 <p>Visualizacion de la planificacion academica, cargada por el docente.</p>
                                 <div class="course-details-info">
                                     <ul>
-                                        
+                                        <li> Registrada por <a href="#"> Docente de la materia </a> </li>
+                                        <li>
+                                            <div class="star-rating"><span class="avg"> 5 </span> <span
+                                                    class="star"></span><span class="star"></span><span
+                                                    class="star"></span><span class="star"></span><span
+                                                    class="star"></span>
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
 
@@ -152,7 +173,14 @@
                                 <p>Ver las notas obtenidas en detalle por parcial.</p>
                                 <div class="course-details-info">
                                     <ul>
-                                        
+                                        <li> Registrada por <a href="#"> Docente de la materia </a> </li>
+                                        <li>
+                                            <div class="star-rating"><span class="avg"> 5 </span> <span
+                                                    class="star"></span><span class="star"></span><span
+                                                    class="star"></span><span class="star"></span><span
+                                                    class="star"></span>
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
 

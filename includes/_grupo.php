@@ -108,7 +108,7 @@
 
         function getDatoGrupo($condicion, $campo){
             include "conexion.php";
-            $dato;
+            $dato='';
             try {
                 $s_gestion = $bdcon->prepare("SELECT $campo FROM grupos where $condicion");
                 $s_gestion->execute();

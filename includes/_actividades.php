@@ -488,14 +488,13 @@
                         // $this->error.='<br>---'."periodo='$peri' and CodCarrera='".$d_grupo->getIdcarrera()."' and CodMateria='".$d_grupo->getIdmateria()."' and Descripcion=".$d_grupo->getIdgrupo()."'".'---';
                         
                         if ($id_gru=='') {
-                            $mat_nm=$d_grupo->getDatoEquivalencia("codca_ma='$car' and sigla_ma='$sigla'",'sigla_mn');
-                            $car_nm=$d_grupo->getDatoEquivalencia("codca_ma='$car' and sigla_ma='$sigla'",'codca_mn');
+                            $mat_nm=$d_grupo->getDatoEquivalencia("codca_ma='".$d_grupo->getIdcarrera()."' and sigla_ma='".$d_grupo->getIdmateria()."'",'sigla_mn');
+                            $car_nm=$d_grupo->getDatoEquivalencia("codca_ma='".$d_grupo->getIdcarrera()."' and sigla_ma='".$d_grupo->getIdmateria()."'",'codca_mn');
                             $id_gru=$d_grupo->getDatoGrupo("periodo='$peri' and CodCarrera='$car_nm' and CodMateria='$mat_nm' and Descripcion='$_grupos'",'CodGrupo');
-                            
                         }
                     }else if ($cort_nro_periodo=='08') {
                             $peri=$cort_gestion."02";
-                            $_grupos=$d_grupo->getDatoGrupo("periodo='$peri' and CodCarrera='$car' and CodMateria='$sigla' and Descripcion='$_grupos'",'CodGrupo');
+                            $_grupos=$d_grupo->getDatoGrupo("periodo='$peri' and CodCarrera='".$d_grupo->getIdcarrera()."' and CodMateria='".$d_grupo->getIdmateria()."' and Descripcion='$_grupos'",'CodGrupo');
                             // $this->error.='<br>Idgrupo='.$_grupos;
                     }
 
