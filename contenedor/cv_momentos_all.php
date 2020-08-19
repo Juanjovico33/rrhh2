@@ -34,25 +34,38 @@ $direccion_espejo="http://190.186.233.212/plataformaDocente/assets/docente/grupo
             <h5 class="mb-0"> Momento 1 </h5>
         </div>
         <hr class="m-0">
-        <div class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid>
+        <div class="uk-grid-small p-4" uk-grid>
 <?php
     try{
         $class = $bdcon->prepare("SELECT * FROM aa_clases_virtuales_m1 where cod_grupo=$id_grupo and cod_clase=$id_clase");
         $class->execute();
         if($class->rowcount()>0){
             ?>
-                <hr><h3>Enlaces</h3>
+                <table width="100%"><tr><td colspan=2><h5>Enlaces</h5></td></tr>
             <?php
+            $e=0;
             while ($row = $class->fetch(PDO::FETCH_ASSOC)) {
                 if($row['direccion']!=''){
+                    $nombre_url='';
                     $_url=substr($row['direccion'], 0, 4);
+                    if($row['nb_maturl']==''||$row['nb_maturl']==' '){
+                        $e=$e+1;
+                        $nombre_url='Enlace '.$e;
+                    }else{
+                        $nombre_url=$row['nb_maturl'];
+                    }
+                    
                     if($_url=='docs'){
                         ?>                   
-                        URL: <a href='<?=$direccion_espejo.$row['direccion'];?>' target='_blank'><?=$row['direccion'];?></a><br>
+                        <tr>
+                            <td width="15%">URL:</td> <td width="85%"><a href='<?=$direccion_espejo.$row['direccion'];?>' target='_blank'><?=$nombre_url;?></a></td>
+                        </tr>
                         <?php
                     }else{
                          ?>                   
-                    URL: <a href='<?=$row['direccion'];?>' target='_blank'><?=$row['direccion'];?></a><br>
+                        <tr>
+                            <td>URL:</td> <td><a href='<?=$row['direccion'];?>' target='_blank'><?=$nombre_url;?></a></td>
+                        </tr>
                     <?php
                     } 
                 }
@@ -67,7 +80,7 @@ $direccion_espejo="http://190.186.233.212/plataformaDocente/assets/docente/grupo
     catch(PDOException $e){
         echo 'Error al obtener el registro de momento 1 : ' . $e->getMessage();
     }
-    ?>
+    ?></table>
      </div>
     </div>
     <?php
@@ -79,7 +92,7 @@ $direccion_espejo="http://190.186.233.212/plataformaDocente/assets/docente/grupo
             <h5 class="mb-0"> Momento 2 </h5>
         </div>
         <hr class="m-0">
-        <div class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid>
+        <div class="uk-grid-small p-4" uk-grid>
 <?php
 try{
     $class = $bdcon->prepare("SELECT * FROM aa_clases_virtuales_m2 where cod_gru=$id_grupo and cod_clase=$id_clase and estado=1");
@@ -169,7 +182,7 @@ try{
             <h5 class="mb-0"> Momento 3 </h5>
         </div>
         <hr class="m-0">
-        <div class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid>
+        <div class="uk-grid-small p-4" uk-grid>
     <?php
     try{
         $q_resumen="SELECT * FROM aa_clases_virtuales_m3 where cod_gru=$id_grupo and cod_cla=$id_clase  and embed!=''";
@@ -178,24 +191,25 @@ try{
         $class->execute();
         if($class->rowcount()>0){
             ?>
-                <table>
+                <table><tr><td><h5>Enlaces</h5></td></tr>
             <?php
+            $nbc=0;
             while ($row = $class->fetch(PDO::FETCH_ASSOC)) {
                 $nb_class='';
-                if($row['nbcla']==''){
-                    $nb_class='Sin nombre de clase'.' - '. $row['fec_pub'];
+                if($row['nbcla']=='' || $row['nbcla']==' '){
+                    $nbc=$nbc+1;
+                    $nb_class='Enlace de clase '. $nbc .' - '. $row['fec_pub'];
                 }else{
                     $nb_class=$row['nbcla'].' - '. $row['fec_pub'];
                 }
                 ?>
-                    <tr><td><?=$nb_class;?></td></tr>
                 <?php
                 if($row['embed']!=''){
                     $tiene_embed=strpos($row['embed'], 'embed');
                     if($tiene_embed>0){
                         ?><tr><td><?=$row['embed'];?></td></tr><?php
                     }else{
-                        ?><tr><td><a href="<?=$row['embed'];?>" target="_blank" ><?=$row['embed'];?></a></td></tr><?php
+                        ?><tr><td><a href="<?=$row['embed'];?>" target="_blank" ><strong><?=$nb_class;?></strong></a></td></tr><?php
                     }
                 }else{
                     ?><tr><td>Sin enlace de video</td></tr><?php
@@ -233,9 +247,6 @@ try{
                 // $row['resumen']
                 // $row['fec_pub']
             }
-            ?>
-                </table>
-            <?php
         }else{
             echo 'No tiene registros';
         }
@@ -243,7 +254,7 @@ try{
     catch(PDOException $e){
         echo 'Error al obtener el registro de momento 3 : ' . $e->getMessage();
     }
-    ?>
+    ?></table>
      </div>
     </div>
     <?php
@@ -256,7 +267,7 @@ try{
             <h5 class="mb-0"> Momento 4 </h5>
         </div>
         <hr class="m-0">
-        <div class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid>
+        <div class="uk-grid-small p-4" uk-grid>
     <?php
     
     try{

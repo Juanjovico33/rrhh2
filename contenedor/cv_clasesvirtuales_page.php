@@ -7,7 +7,9 @@
     $cod_est=$_POST['_codest'];
 
     $act=new actividad();
-    
+    $grupo=new grupo();
+    $grupo->getDatosGrupo($id_grupo);
+
     $_idgrupoRaiz=0;
 
     $clase=0;
@@ -15,17 +17,19 @@
         // echo "idgrupo=".$id_grupo;
         $_idgrupoRaiz=0;
         $act->getClasesVirtuales($id_grupo);
-    }else{
+    }else if($grupo->esNivelacion()){
         // echo "idgrupo=".$id_grupo.'-Raiz='.$id_grupoRaiz;
-        $grupo=new grupo();
-        $grupo->getDatosGrupo($id_grupo);
+        $_idgrupoRaiz=$id_grupoRaiz;
+        $act->getClasesVirtuales($_idgrupoRaiz);
+    }else{
         $_idgrupoRaiz=$grupo->getIdramaRaiz();
-        $act->getClasesVirtuales($id_grupoRaiz);
+        $act->getClasesVirtuales($_idgrupoRaiz);
     }
 
     $_actividades=null;
     $_actividades=$act->getClases();
-
+    // echo $id_grupo.'-'.$_idgrupoRaiz;
+    // exit;
     if(!is_null($_actividades)){
 ?>
 <!doctype html>

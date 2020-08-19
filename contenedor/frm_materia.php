@@ -9,30 +9,42 @@
 
     $o_enl=new linkMeet();
     $grupo=new grupo();
+    $grupo_aux=new grupo();
 
     $grupo->getDatosGrupo($id_grupo);
     $_idgrupoRaiz=0;
-    // echo $id_grupo.'<br>';
-    
-    // Verificando si está fusionado el grupo
+
     if($grupo->es_rama()){
         // echo "Es rama ".$_idgrupoRaiz;
         $_idgrupoRaiz=$grupo->getIdramaRaiz();
         $o_enl->getDatosEnlace($_idgrupoRaiz);
+    }else if($grupo->esNivelacion()){
+        $_idgrupoRaiz=$grupo->nivGetIdgrupoMain();
+        if($_idgrupoRaiz==0){
+            $_idgrupoRaiz=$grupo->getIdgrupo_otraMateriaMalla();
+            if($_idgrupoRaiz!=0){
+                $grupo_aux->getDatosGrupo($_idgrupoRaiz);
+                if($grupo_aux->es_rama()){
+                    $_idgrupoRaiz=$grupo->getIdramaRaiz();
+                }
+                $o_enl->getDatosEnlace($_idgrupoRaiz);        
+            }else{
+                $_idgrupoRaiz=0;
+                echo "El grupo no esta abierto.<br>";
+            }
+        }else{
+            //   echo "Es nivelacion -".$_idgrupoRaiz."<br>";
+            $grupo_aux->getDatosGrupo($_idgrupoRaiz);
+            if($grupo_aux->es_rama()){
+                $_idgrupoRaiz=$grupo->getIdramaRaiz();
+            }
+             $o_enl->getDatosEnlace($_idgrupoRaiz);
+        }
     }else{
-        // if($grupo->esNivelacion()){
-        //         echo "Es nivelacion";
-        //     }else{
-        //         echo "No es nivelación";
-        //     }
-        // echo "NO es rama ".$id_grupo;
+        // echo "NO es rama ".$id_grupo."<br>";echo "No es nivelación<br>";   //Si no es fusionada y no es nivelación entonces obtener enlace
         $_idgrupoRaiz=0;
         $o_enl->getDatosEnlace($id_grupo);
     }
-    // if($grupo->esNormal()){
-    // }else{
-    // }
-   
     // echo $grupo->getError();
     // echo $o_enl->getError();
     // echo "<br>".$o_enl->getEnlace();
