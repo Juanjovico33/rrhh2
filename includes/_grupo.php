@@ -179,10 +179,61 @@
             return $_periodo;
         }
          //Pendiente
-         function nivGetIdgrupoMain($idgrupo_main){
+         function nivGetIdgrupoMain(){
             include "conexion.php";
-            $idgrupo_main='';
-            
+
+            $idgrupo=0;
+            $carrera=$this->idcarrera;
+            $periodo=$this->nivGetPeriodoMain();
+            $materia=$this->idmateria;
+            $grupo_letra=$this->grupo;
+
+            try {
+                $q_idgrupo="SELECT CodGrupo FROM grupos WHERE periodo=$periodo AND codmateria='$materia' AND Descripcion='$grupo_letra' AND CodCarrera='$carrera'";
+                $resul = $bdcon->prepare($q_idgrupo);
+                $resul->execute();
+                while ($_row = $resul->fetch(PDO::FETCH_ASSOC)) {
+                    $idgrupo=$_row['CodGrupo'];
+                }
+                // $this->error.=$q_idgrupo."<br>";
+            } catch (PDOException $e) {
+                $this->error .= 'La conexión para obtener una consulta a fallado' . $e->getMessage().'<br>';
+            }
+            return $idgrupo;
+        }
+
+        function getIdgrupo_otraMateriaMalla(){
+            include "conexion.php";
+
+            $idgrupo=0;
+            $carrera=$this->idcarrera;
+            $materia=$this->idmateria;
+            $periodo=$this->periodo;
+            $grupo=$this->grupo;
+
+            $_codca_mn='';
+            $_codma_mn='';
+            try {
+                
+                $q_materiasequivalencia="SELECT * FROM sainc.materias_equivalencia WHERE codca_ma='$carrera' AND sigla_ma='$materia'";
+                $resul = $bdcon->prepare($q_materiasequivalencia);
+                $resul->execute();
+                while ($_row = $resul->fetch(PDO::FETCH_ASSOC)) {
+                    $_codca_mn=$_row['codca_mn'];
+                    $_codma_mn=$_row['sigla_mn'];
+                }
+
+                $q_idgrupo="SELECT CodGrupo FROM grupos WHERE periodo=$periodo AND codmateria='$_codma_mn' AND Descripcion='$grupo' AND CodCarrera='$_codca_mn'";
+                $resul = $bdcon->prepare($q_idgrupo);
+                $resul->execute();
+                while ($_row = $resul->fetch(PDO::FETCH_ASSOC)) {
+                    $idgrupo=$_row['CodGrupo'];
+                }
+                // $this->error.=$q_idgrupo."<br>";
+            } catch (PDOException $e) {
+                $this->error .= 'La conexión para obtener una consulta a fallado' . $e->getMessage().'<br>';
+            }
+            return $idgrupo;
         }
 
         function es_rama(){
