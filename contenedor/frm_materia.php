@@ -25,7 +25,7 @@
             if($_idgrupoRaiz!=0){
                 $grupo_aux->getDatosGrupo($_idgrupoRaiz);
                 if($grupo_aux->es_rama()){
-                    $_idgrupoRaiz=$grupo->getIdramaRaiz();
+                    $_idgrupoRaiz=$grupo_aux->getIdramaRaiz();
                 }
                 $o_enl->getDatosEnlace($_idgrupoRaiz);        
             }else{
@@ -36,7 +36,7 @@
             //   echo "Es nivelacion -".$_idgrupoRaiz."<br>";
             $grupo_aux->getDatosGrupo($_idgrupoRaiz);
             if($grupo_aux->es_rama()){
-                $_idgrupoRaiz=$grupo->getIdramaRaiz();
+                $_idgrupoRaiz=$grupo_aux->getIdramaRaiz();
             }
              $o_enl->getDatosEnlace($_idgrupoRaiz);
         }

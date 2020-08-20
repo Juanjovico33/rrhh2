@@ -22,6 +22,9 @@
         $_idgrupoRaiz=$id_grupoRaiz;
         $act->getClasesVirtuales($_idgrupoRaiz);
     }else{
+        // if($grupo->es_rama()){
+        //     $_idgrupoRaiz=$grupo->getIdramaRaiz();
+        // }
         $_idgrupoRaiz=$grupo->getIdramaRaiz();
         $act->getClasesVirtuales($_idgrupoRaiz);
     }

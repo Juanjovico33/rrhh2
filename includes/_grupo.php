@@ -195,7 +195,7 @@
                 while ($_row = $resul->fetch(PDO::FETCH_ASSOC)) {
                     $idgrupo=$_row['CodGrupo'];
                 }
-                // $this->error.=$q_idgrupo."<br>";
+                $this->error.=$q_idgrupo."<br>";
             } catch (PDOException $e) {
                 $this->error .= 'La conexión para obtener una consulta a fallado' . $e->getMessage().'<br>';
             }
@@ -268,7 +268,10 @@
             $periodo=$this->periodo;
             $materia=$this->idmateria;
             $grupo_letra=$this->grupo;
-
+            $_carrera='';
+            $_periodo='';
+            $_materia='';
+            $_grupo='';
             try {
 
                 $query="SELECT codcar_raiz, per_raiz, mat_raiz, gru_raiz FROM grupos_fusionados where codcar_rama='$carrera' AND per_rama=$periodo AND  mat_rama='$materia' AND gru_rama='$grupo_letra'";
@@ -286,6 +289,8 @@
                 while ($_row = $resul->fetch(PDO::FETCH_ASSOC)) {
                     $idgrupo=$_row['CodGrupo'];
                 }
+                // $this->error.=$query.'<br>';
+                // $this->error.=$q_idgrupo.'<br>';
             } catch (PDOException $e) {
                 $this->error .= 'La conexión para obtener una consulta a fallado' . $e->getMessage().'<br>';
             }
