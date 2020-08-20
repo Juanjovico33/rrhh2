@@ -54,9 +54,9 @@ include "../includes/conexion.php";
 	</tr>
 	<!--tr>
 		<th>Fecha Inicio: </th>
-		<td><?php echo $fec_ini; ?></td>
+		<td><?php //echo $fec_ini; ?></td>
 		<th>Fecha Conclusión: </th>
-		<td><?php echo $fec_fin; ?></td>
+		<td><?php //echo $fec_fin; ?></td>
 	</tr-->
 </table>
 <table class="table table-condensed">
@@ -137,8 +137,9 @@ include "../includes/conexion.php";
 								$cal=$fr['calif'];
 								$conten=$cal."|".$tipo."|".$idr;
 								?>
-								<td>
-									<input type="<?php echo $type; ?>" name="<?php echo $idp; ?>[]" value="<?php echo $conten; ?>"></td>
+								<td>									
+									<input class="form-check-input" type="<?php echo $type; ?>" name="<?php echo $idp; ?>[]" value="<?php echo $conten; ?>">									
+								</td>
 								<td><?php echo $fr['eleccion']; ?></td>
 								<?php
 							}
