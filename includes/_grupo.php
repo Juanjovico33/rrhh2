@@ -195,7 +195,7 @@
                 while ($_row = $resul->fetch(PDO::FETCH_ASSOC)) {
                     $idgrupo=$_row['CodGrupo'];
                 }
-                $this->error.=$q_idgrupo."<br>";
+                // $this->error.=$q_idgrupo."<br>";
             } catch (PDOException $e) {
                 $this->error .= 'La conexión para obtener una consulta a fallado' . $e->getMessage().'<br>';
             }

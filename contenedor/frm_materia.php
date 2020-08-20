@@ -15,8 +15,8 @@
     $_idgrupoRaiz=0;
 
     if($grupo->es_rama()){
-        // echo "Es rama ".$_idgrupoRaiz;
         $_idgrupoRaiz=$grupo->getIdramaRaiz();
+        //  echo "Es rama ".$_idgrupoRaiz.'<br>';
         $o_enl->getDatosEnlace($_idgrupoRaiz);
     }else if($grupo->esNivelacion()){
         $_idgrupoRaiz=$grupo->nivGetIdgrupoMain();
@@ -41,7 +41,7 @@
              $o_enl->getDatosEnlace($_idgrupoRaiz);
         }
     }else{
-        // echo "NO es rama ".$id_grupo."<br>";echo "No es nivelación<br>";   //Si no es fusionada y no es nivelación entonces obtener enlace
+        //echo "NO es rama ".$id_grupo."<br>";//echo "No es nivelación<br>";   //Si no es fusionada y no es nivelación entonces obtener enlace
         $_idgrupoRaiz=0;
         $o_enl->getDatosEnlace($id_grupo);
     }

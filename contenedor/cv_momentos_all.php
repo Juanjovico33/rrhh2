@@ -61,6 +61,13 @@ $direccion_espejo="http://190.186.233.212/plataformaDocente/assets/docente/grupo
                             <td width="15%">URL:</td> <td width="85%"><a href='<?=$direccion_espejo.$row['direccion'];?>' target='_blank'><?=$nombre_url;?></a></td>
                         </tr>
                         <?php
+                    }else if($_url=='<ifr'){
+                        ?>
+                        <tr>
+                            <?=$row['direccion'];?>
+                        </tr>
+                        <?php
+                        //enlace enbebido <ifr
                     }else{
                          ?>                   
                         <tr>
