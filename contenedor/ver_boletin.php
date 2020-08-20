@@ -91,7 +91,7 @@
             <div class="blog-post single-post">
                 <div class="blog-post-content">
                     <div align="center">
-                      <h6>Boletin de notas</h6>
+                      <h3>Boletin de notas</h3>
                       <h6>Estudiante: <?php echo $codest."-".$nombcompleto;?></h6>
                       <h6>Materia: <?php echo $n_mat; ?></h6>
                     </div>
@@ -102,6 +102,20 @@
                           <th class='text-muted small'><trong>2° Parcial</trong></th>
                           <th class='text-muted small'><trong>Examen Final</trong></th>
                           <th class='text-muted small'><trong>Nota Practica</trong></th>
+                          <!--****************para mostra instancia *****************-->
+                          <?php
+                                $ins_numero=2;
+                            for ($i=5; $i <=6 ; $i++) { 
+                                     $notains= $bdcon->prepare("SELECT reco from plat_doc_intentos_est where codest='$codest' and codgrupo='$idgrup' and parcial='$i' and estado='1'");
+                                     $notains->execute();
+                                      if ($notains->rowCount()>0) { 
+                                            ?>
+                                          <th class='text-muted small'><trong><?php echo $ins_numero;?>° Instancia</trong></th>
+                                          <?php
+                                     }                             
+                                $ins_numero ++;
+                            } 
+                          ?>
                           <th class='text-muted small'><trong>Nota Final</trong></th>
                         </tr>
                       </thead>
@@ -398,7 +412,37 @@
                       echo number_format($nota_prac,2);
           ?>
       </td>
-      <td class='text-muted small'><?php $nf=$pp+$sp+$ef; echo number_format($nf,2); ?></td>
+      <?php
+            $ins_numeros=2;
+            $einstancia=0;
+            for ($j=5; $j <=6 ; $j++) {
+              $notainsi= $bdcon->prepare("SELECT reco from plat_doc_intentos_est where codest='$codest' and codgrupo='$idgrup' and parcial='$j' and estado='1'");
+              $notainsi->execute();
+              if ($notainsi->rowCount()>0) { 
+                  while ($row10 = $notainsi->fetch(PDO::FETCH_ASSOC)) {
+                    $eins=$row10['reco']; 
+                      ?>
+                       <td class='text-muted small'><trong><?php echo $eins;?></trong></td>
+                    <?php
+                  }           
+               } 
+               $ins_numeros ++;
+               $einstancia=$einstancia + @$eins; 
+            } 
+            if ($einstancia==0) {
+                  $nf=$pp+$sp+$ef; 
+                  $nff=number_format($nf,2);
+                ?>
+                  <td class='text-muted small'><?php  echo $nff;?></td>
+                <?php              
+            }else{
+                if ($einstancia>=51) {
+                  ?>
+                  <td class='text-muted small'>51</td>
+                  <?php
+                }
+            }
+          ?>
     </tr>    
   </tbody>
 </table>
@@ -408,5 +452,3 @@
     </div> 
   </div>     
    </div>          
-   
-	
