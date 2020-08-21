@@ -9,7 +9,30 @@
     $nombcompleto=$user->getNombcompleto();
     $telefono=$user->getTelefono();
     $correo=$user->getCorreo();
+    $ci=$user->getci();
     $password=$user->getPassword();
+    $part_cel=explode(" ", $telefono);   
+    $part2=strtolower($part_cel[0]);     
+    $part_nomb=explode(" ", $nombre);   
+    $part1=strtolower($part_nomb[0]);    
+    if ($ci=='0' || $ci=='') {
+        $pass=$part2;
+    }else{
+        $pass=$ci;
+    }
+    $mail=$part1.$codigo."@uecologica.edu.bo"; 
+
+
+    if ($pass=='') {
+        $pass= $part1.$codest;
+    }else{        
+        $contar=strlen($pass);
+        if ($contar<8) {
+            $pass= $pass.$part1;
+        }else{
+            //echo $pass;
+        }
+    }
 ?>
 <head>
 
@@ -89,44 +112,7 @@
                     <li><a href="includes/logout.php"><i class="icon-feather-log-out"></i> <span> Salir</span></a> </li>
                     <!-- <li><a href="book.html"><i class="uil-book-alt"></i> <span> Book</span></a> </li>
                     <li><a href="blog-1.html"><i class="uil-file-alt"></i> <span> Blog</span></a> </li> -->
-                </ul>
-                <!--<ul data-submenu-title="Pages">
-                    <li><a href="page-pricing.html"><i class="uil-bill"></i> <span> Pricing</span> </a>
-                    </li>
-                    <li><a href="page-faq.html"><i class="uil-comment-dots"></i> <span> Faq </span></a></li>
-                    <li><a href="page-term.html"><i class="uil-info-circle"></i> <span>Terms</span> </a></li>
-                    <li><a href="page-privacy.html"><i class="uil-shield-question"></i><span>Privecy</span> </a>
-                    </li>
-                </ul>
-                <ul data-submenu-title="Development">
-                    <li><a href="development-elements.html"><i class="uil-layers"></i><span> Elements </span></a></li>
-                    <li><a href="development-compounents.html"><i class="uil-layer-group"></i><span> Compounents</span>
-                        </a>
-                    </li>
-                    <li><a href="development-icons.html"><i class="icon-feather-flag"></i><span> Icons </span></a></li>
-                </ul>
-                <ul data-submenu-title="User Account">
-                    <li><a href="user-profile.html"><i class="uil-user-circle"></i><span> Profile </span></a></li>
-                    <li><a href="user-profile-edit.html"><i class="uil-edit-alt"></i> <span>Account</span> </a>
-                    </li>
-                    <li><a href="#"><i class="uil-check-circle"></i> <span>Forms</span> </a>
-                        <ul>
-                            <li>
-                                <a href="form-login.html"> Login </a>
-                                <a href="form-register.html"> Register </a>
-                                <a href="form-modern-login.html"> Simple Register</a>
-                                <a href="form-modern-singup.html"> Simple Register</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul data-submenu-title="Specialty pages">
-                    <li><a href="specialty-comming-soon.html"><i class="icon-material-outline-dashboard"></i>
-                            <span> Comming-soon</span> </a></li>
-                    <li><a href="specialty-maintanence.html"><i
-                                class="icon-feather-help-circle"></i><span>Maintanence</span>
-                        </a></li>
-                </ul>-->
+                </ul>                
             </div>
         </div>
 
@@ -185,180 +171,7 @@
                                             uk-tooltip="title: Notifications settings ; pos: left"></i>
                                     </a>
                                 </div>
-
-                                <!-- notification contents -->
-                                <!-- <div class="dropdown-notifications-content" data-simplebar> -->
-
-                                    <!-- notiviation list -->
-                                    <!-- <ul>
-                                        <li class="notifications-not-read">
-                                            <a href="course-intro.html">
-                                                <span class="notification-image">
-                                                    <img src="../assets/images/course/1.png" alt=""> </span>
-                                                <span class="notification-text">
-                                                    <span class="course-title">Ultimate Web Designer & Web Developer
-                                                    </span>
-                                                    <span class="course-number">6/35 </span>
-                                                    <span class="course-progressbar">
-                                                        <span class="course-progressbar-filler"
-                                                            style="width:95%"></span>
-                                                    </span>
-                                                </span> -->
-
-                                                <!-- option menu -->
-                                                <!-- <span class="btn-option">
-                                                    <i class="icon-feather-more-vertical"></i>
-                                                </span>
-                                                <div class="dropdown-option-nav"
-                                                    uk-dropdown="pos: bottom-right ;mode : hover">
-                                                    <ul>
-                                                        <li>
-                                                            <span>
-                                                                <i class="icon-material-outline-dashboard"></i>
-                                                                Course Dashboard</span>
-                                                        </li>
-                                                        <li>
-                                                            <span>
-                                                                <i class="icon-feather-video"></i>
-                                                                Resume Course</span>
-                                                        </li>
-                                                        <li>
-                                                            <span>
-                                                                <i class="icon-feather-x"></i>
-                                                                Remove Course</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </a>
-
-                                        </li>
-                                        <li>
-                                            <a href="course-intro.html">
-                                                <span class="notification-image">
-                                                    <img src="../assets/images/course/3.png" alt=""> </span>
-                                                <span class="notification-text">
-                                                    <span class="course-title">The Complete JavaScript Course Build Real
-                                                        Projects !</span>
-                                                    <span class="course-number">6/35 </span>
-                                                    <span class="course-progressbar">
-                                                        <span class="course-progressbar-filler"
-                                                            style="width:95%"></span>
-                                                    </span>
-                                                </span> -->
-
-                                                <!-- option menu -->
-                                                <!-- <span class="btn-option">
-                                                    <i class="icon-feather-more-vertical"></i>
-                                                </span>
-                                                <div class="dropdown-option-nav"
-                                                    uk-dropdown="pos: bottom-right ;mode : hover">
-                                                    <ul>
-                                                        <li>
-                                                            <span>
-                                                                <i class="icon-material-outline-dashboard"></i>
-                                                                Course Dashboard</span>
-                                                        </li>
-                                                        <li>
-                                                            <span>
-                                                                <i class="icon-feather-video"></i>
-                                                                Resume Course</span>
-                                                        </li>
-                                                        <li>
-                                                            <span>
-                                                                <i class="icon-feather-x"></i>
-                                                                Remove Course</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="course-intro.html">
-                                                <span class="notification-image">
-                                                    <img src="../assets/images/course/2.png" alt=""> </span>
-                                                <span class="notification-text">
-                                                    <span class="course-title">Learn Angular Fundamentals From The
-                                                        Beginning</span>
-                                                    <span class="course-number">6/35 </span>
-                                                    <span class="course-progressbar">
-                                                        <span class="course-progressbar-filler"
-                                                            style="width:95%"></span>
-                                                    </span>
-                                                </span> -->
-
-                                                <!-- option menu -->
-                                                <!-- <span class="btn-option">
-                                                    <i class="icon-feather-more-vertical"></i>
-                                                </span>
-                                                <div class="dropdown-option-nav"
-                                                    uk-dropdown="pos: bottom-right ;mode : hover">
-                                                    <ul>
-                                                        <li>
-                                                            <span>
-                                                                <i class="icon-material-outline-dashboard"></i>
-                                                                Course Dashboard</span>
-                                                        </li>
-                                                        <li>
-                                                            <span>
-                                                                <i class="icon-feather-video"></i>
-                                                                Resume Course</span>
-                                                        </li>
-                                                        <li>
-                                                            <span>
-                                                                <i class="icon-feather-x"></i>
-                                                                Remove Course</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="course-intro.html">
-                                                <span class="notification-image">
-                                                    <img src="../assets/images/course/1.png" alt=""> </span>
-                                                <span class="notification-text">
-                                                    <span class="course-title">Ultimate Web Designer & Web Developer
-                                                    </span>
-                                                    <span class="course-number">6/35 </span>
-                                                    <span class="course-progressbar">
-                                                        <span class="course-progressbar-filler"
-                                                            style="width:95%"></span>
-                                                    </span>
-                                                </span> -->
-
-                                                <!-- option menu -->
-                                                <!-- <span class="btn-option">
-                                                    <i class="icon-feather-more-vertical"></i>
-                                                </span>
-                                                <div class="dropdown-option-nav"
-                                                    uk-dropdown="pos: top-right ;mode : hover">
-                                                    <ul>
-                                                        <li>
-                                                            <span>
-                                                                <i class="icon-material-outline-dashboard"></i>
-                                                                Course Dashboard</span>
-                                                        </li>
-                                                        <li>
-                                                            <span>
-                                                                <i class="icon-feather-video"></i>
-                                                                Resume Course</span>
-                                                        </li>
-                                                        <li>
-                                                            <span>
-                                                                <i class="icon-feather-x"></i>
-                                                                Remove Course</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-
-                                </div>
-                                <div class="dropdown-notifications-footer">
-                                    <a href="#"> sell all</a>
-                                </div> -->
+                            
                             </div>
 
                             <!-- notificiation icon  -->
@@ -380,59 +193,7 @@
                                             uk-tooltip="title: Notifications settings ; pos: left"></i>
                                     </a>
                                 </div>
-
-                                <!-- notification contents -->
-                                <!-- <div class="dropdown-notifications-content" data-simplebar> -->
-
-                                    <!-- notiviation list -->
-                                    <!-- <ul>
-                                        <li class="notifications-not-read">
-                                            <a href="#">
-                                                <span class="notification-icon btn btn-soft-danger disabled">
-                                                    <i class="icon-feather-thumbs-up"></i></span>
-                                                <span class="notification-text">
-                                                    <strong>Adrian Mohani</strong> Like Your Comment On Course
-                                                    <span class="text-primary">Javascript Introduction </span>
-                                                    <br> <span class="time-ago"> 9 hours ago </span>
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="notification-icon btn btn-soft-primary disabled">
-                                                    <i class="icon-feather-message-circle"></i></span>
-                                                <span class="notification-text">
-                                                    <strong>Stella Johnson</strong> Replay Your Comments in
-                                                    <span class="text-primary">Programming for Games</span>
-                                                    <br> <span class="time-ago"> 12 hours ago </span>
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="notification-icon btn btn-soft-success disabled">
-                                                    <i class="icon-feather-star"></i></span>
-                                                <span class="notification-text">
-                                                    <strong>Alex Dolgove</strong> Added New Review In Course
-                                                    <span class="text-primary">Full Stack PHP Developer</span>
-                                                    <br> <span class="time-ago"> 19 hours ago </span>
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li class="notifications-not-read">
-                                            <a href="#">
-                                                <span class="notification-icon btn btn-soft-danger disabled">
-                                                    <i class="icon-feather-share-2"></i></span>
-                                                <span class="notification-text">
-                                                    <strong>Jonathan Madano</strong> Shared Your Discussion On Course
-                                                    <span class="text-primary">Css Flex Box </span>
-                                                    <br> <span class="time-ago"> Yesterday </span>
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul> -->
-
-                                <!-- </div> -->
+                             
 
 
                             </div>
@@ -457,69 +218,6 @@
                                     </a>
                                 </div>
 
-                                <!-- notification contents -->
-                                <!-- <div class="dropdown-notifications-content" data-simplebar> -->
-
-                                    <!-- notiviation list -->
-                                    <!-- <ul>
-                                        <li class="notifications-not-read">
-                                            <a href="#">
-                                                <span class="notification-avatar">
-                                                    <img src="img/avatar-2.jpg" alt="">
-                                                </span>
-                                                <div class="notification-text notification-msg-text">
-                                                    <strong>Jonathan Madano</strong>
-                                                    <p>Okay.. Thanks for The Answer I will be waiting for your...
-                                                    </p>
-                                                    <span class="time-ago"> 2 hours ago </span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="notification-avatar">
-                                                    <img src="assets/images/avatars/avatar-3.jpg" alt="">
-                                                </span>
-                                                <div class="notification-text notification-msg-text">
-                                                    <strong>Stella Johnson</strong>
-                                                    <p> Alex will explain you how to keep the HTML structure and all
-                                                        that...</p>
-                                                    <span class="time-ago"> 7 hours ago </span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="notification-avatar">
-                                                    <img src="assets/images/avatars/avatar-1.jpg" alt="">
-                                                </span>
-                                                <div class="notification-text notification-msg-text">
-                                                    <strong>Alex Dolgove</strong>
-                                                    <p> Alia Joseph just joined Messenger! Be the first to send a
-                                                        welcome message..</p>
-                                                    <span class="time-ago"> 19 hours ago </span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="notification-avatar">
-                                                    <img src="assets/images/avatars/avatar-4.jpg" alt="">
-                                                </span>
-                                                <div class="notification-text notification-msg-text">
-                                                    <strong>Adrian Mohani</strong>
-                                                    <p> Okay.. Thanks for The Answer I will be waiting for your...
-                                                    </p>
-                                                    <span class="time-ago"> Yesterday </span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul> -->
-
-                                <!-- </div>
-                                <div class="dropdown-notifications-footer">
-                                    <a href="#"> sell all <i class="icon-line-awesome-long-arrow-right"></i> </a>
-                                </div> -->
                             </div>
 
 
@@ -541,31 +239,11 @@
                                 <!-- User menu -->
 
                                 <ul class="dropdown-user-menu">
-                                    <!-- <li>
-                                        <a href="#">
-                                            <i class="icon-material-outline-dashboard"></i> Dashboard</a>
-                                    </li>
-                                    <li><a href="#">
-                                            <i class="icon-feather-bookmark"></i> Bookmark </a>
-                                    </li> -->
+                                   
                                     <li><a href="#">
                                             <i class="icon-feather-settings"></i> Editar Cuenta</a>
                                     </li>
-                                    <!-- <li><a href="#" style="color:#62d76b">
-                                            <i class="icon-feather-star"></i> Upgrade To Premium</a>
-                                    </li> -->
-                                    <!-- <li>
-                                        <a href="#" id="night-mode" class="btn-night-mode">
-                                            <i class="icon-feather-moon"></i> Night mode
-                                            <span class="btn-night-mode-switch">
-                                                <span class="uk-switch-button"></span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="menu-divider">
-                                    <li><a href="#">
-                                            <i class="icon-feather-help-circle"></i> Help</a>
-                                    </li> -->
+                                 
                                     <li><a href="includes/logout.php">
                                             <i class="icon-feather-log-out"></i> Salir</a>
                                     </li>
@@ -621,145 +299,54 @@
 
                         </div>
 
-                        <!-- <div class="uk-card-default rounded mt-5">
-                            <div class="uk-flex uk-flex-between uk-flex-middle py-3 px-4">
-                                <h5 class="mb-0"> Progress </h5>
-                                    <a href="#"> more </a>
-                            </div>
-                            <hr class="m-0">
-                            <div class="p-3">
-
-                                <div class="uk-grid-small uk-flex-middle" uk-grid>
-
-                                    <div class="uk-width-auto">
-                                        <button type="button" class="btn btn-danger btn-icon-only">
-                                            <span class="d-flex justify-content-center">
-                                       <i class="icon-brand-angular icon-small"></i>
-                                            </span>
-                                          </button>
-                                    </div>
-                                    <div class="uk-width-expand">
-                                        <h5 class="mb-2"> Angular </h5>
-                                        <div class="course-progressbar">
-                                            <div class="course-progressbar-filler" style="width:100%"></div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="uk-grid-small uk-flex-middle" uk-grid>
-
-                                    <div class="uk-width-auto">
-                                        <button type="button" class="btn btn-warning btn-icon-only">
-                                            <span class="d-flex justify-content-center">
-                                                <i class="icon-brand-html5 icon-small"></i>
-                                            </span>
-                                          </button>
-                                    </div>
-                                    <div class="uk-width-expand">
-                                        <h5 class="mb-2"> html5 </h5>
-                                        <div class="course-progressbar">
-                                            <div class="course-progressbar-filler" style="width:35%"></div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="uk-grid-small uk-flex-middle" uk-grid>
-
-                                    <div class="uk-width-auto">
-                                        <button type="button" class="btn btn-primary btn-icon-only">
-                                            <span class="d-flex justify-content-center">
-                                                <i class="icon-brand-css3-alt icon-small"></i>
-                                            </span>
-                                          </button>
-                                    </div>
-                                    <div class="uk-width-expand">
-                                        <h5 class="mb-2"> css3 </h5>
-                                        <div class="course-progressbar">
-                                            <div class="course-progressbar-filler" style="width:65%"></div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div> -->
-
                     </div>                   
                     <div class="uk-width-expand@m">
-
                         <div class="uk-card-default rounded">
                             <div class="uk-flex uk-flex-between uk-flex-middle py-3 px-4">
-                                <h6 class="uk-text-bold">Detalles Del/La Estudiante</h6>                                                                   
+                                <h6 class="uk-text-bold">Datos adicionales Del Estudiante</h6>  
                                 <a href="#" uk-tooltip="title:Editar Cuenta; pos: left"> 
                                     <i class="icon-feather-settings"></i> </a>
                             </div>                            
                             <hr class="m-0">                                
                             <div class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid> 
-                                <table class="table ">
-                                    <tr>
-                                        <td colspan="2"><h6 class="uk-text-bold"> Nombre completo </h6></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2"><p> <?php echo $nombcompleto;?> </p></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h6 class="uk-text-bold">Carrera</h6></td><td><h6 class="uk-text-bold">Código</h6></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $carrera;?></td><td><?php echo $codigo;?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h6 class="uk-text-bold">Correo</h6></td><td><h6 class="uk-text-bold">Celular</h6></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $correo;?></td><td><?php echo $telefono;?></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2"><h6 class="uk-text-bold"> Contraseña </h6></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2"><?php echo $password;?></td>
-                                    </tr>
-                                </table>                             
+                                   <div>
+                                        <h6 class="uk-text-bold">Carrera</h6>
+                                        <p><?php echo $carrera;?></p>
+                                    </div>
+                                    <div>
+                                        <h6 class="uk-text-bold">Código</h6>
+                                        <p><?php echo $codigo;?></p>
+                                    </div>
+                                    <div>
+                                        <h6 class="uk-text-bold">Correo</h6>
+                                        <p><?php 
+                                        if ($correo=="") {
+                                            echo $mail;
+                                        }else{
+                                            echo $correo;
+                                        }
+                                        ?>
+                                        </p>
+                                    </div>  
+                                    <div>
+                                        <h6 class="uk-text-bold">Celular</h6>
+                                        <p><?php echo $telefono;?></p>
+                                    </div>
+                                    <div>
+                                        <h6 class="uk-text-bold">Contraseña</h6>
+                                        <p><?php 
+                                        if ($password=="") {
+                                            echo $pass;
+                                            echo "<br>";
+                                            echo "<div class='alert alert-warning'><strong>¡Atención!</strong> Para activar su correo solicitelo a su agente de marketing</div>";
+                                        }else{
+                                            echo $password; 
+                                        }
+                                        ?>
+                                        </p>
+                                    </div>                                                           
                             </div>
                         </div>
-
-                        <!-- <div class="uk-card-default rounded mt-4">
-                            <div class="uk-flex uk-flex-between uk-flex-middle py-3 px-4">
-                                <h5 class="mb-0"></h5>
-                                <a href="#" uk-tooltip="title: Edit Billing address; pos: left"> <i
-                                        class="icon-feather-settings"></i> </a>
-                            </div>
-                            <hr class="m-0">
-                            <div class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid>
-                                <div>
-                                    <h6 class="uk-text-bold"> Number </h6>
-                                        <p> 23, Block C2 </p>
-                                </div>
-                                <div>
-                                    <h6 class="uk-text-bold"> Street </h6>
-                                        <p> Church Street </p>
-                                </div>
-                                <div>
-                                    <h6 class="uk-text-bold"> City </h6>
-                                        <p> Los Angeles </p>
-                                </div>
-                                <div>
-                                    <h6 class="uk-text-bold"> Postal Code </h6>
-                                        <p> 100065 </p>
-                                </div>
-                                <div>
-                                    <h6 class="uk-text-bold"> State </h6>
-                                        <p> CA </p>
-                                </div>
-                                <div>
-                                    <h6 class="uk-text-bold"> Country </h6>
-                                    <p> United States </p>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>  
             </div>
