@@ -41,6 +41,11 @@ include "../includes/conexion.php";
     </ul>
   </div>
 </div-->
+<style type="text/css">
+	input[type=checkbox]{
+		-webkit-appearance:checkbox;
+	}
+</style>
 <form method="post" onsubmit="return false;" id="form_eval">
 	<input type="hidden" name="cod_eval" value="<?php echo $cod_eval; ?>">
 	<input type="hidden" name="cod_ban" value="<?php echo $cod_ban; ?>">
@@ -129,22 +134,21 @@ include "../includes/conexion.php";
 					}
 					?>
 					<table class="table table-condensed">
-						<tr>
+						
 							<?php
 							//while ($fr=mysql_fetch_array($q_r)) {
 							while ($fr = $q_r->fetch(PDO::FETCH_ASSOC)) {
 								$idr=$fr['id'];
 								$cal=$fr['calif'];
 								$conten=$cal."|".$tipo."|".$idr;
-								?>
-								<td>									
-									<input class="form-check-input" type="<?php echo $type; ?>" name="<?php echo $idp; ?>[]" value="<?php echo $conten; ?>">									
-								</td>
-								<td><?php echo $fr['eleccion']; ?></td>
+								?><tr><td>&nbsp;</td>
+									<td><input type="<?=$type;?>" id="<?=$idp;?>[]" name="<?=$idp;?>[]" value="<?=$conten;?>"/></td>
+									<td><?=$fr['eleccion'];?></td>		
+								</tr>
 								<?php
 							}
 							?>
-						</tr>
+						
 					</table>
 					<?php
 					$nb_uov="";
