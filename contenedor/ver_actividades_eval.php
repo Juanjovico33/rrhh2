@@ -41,11 +41,6 @@ include "../includes/conexion.php";
     </ul>
   </div>
 </div-->
-<style type="text/css">
-	input[type=checkbox]{
-		-webkit-appearance:checkbox;
-	}
-</style>
 <form method="post" onsubmit="return false;" id="form_eval">
 	<input type="hidden" name="cod_eval" value="<?php echo $cod_eval; ?>">
 	<input type="hidden" name="cod_ban" value="<?php echo $cod_ban; ?>">
@@ -142,13 +137,24 @@ include "../includes/conexion.php";
 								$cal=$fr['calif'];
 								$conten=$cal."|".$tipo."|".$idr;
 								?><tr><td>&nbsp;</td>
-									<td><input type="<?=$type;?>" id="<?=$idp;?>[]" name="<?=$idp;?>[]" value="<?=$conten;?>"/></td>
-									<td><?=$fr['eleccion'];?></td>		
+									<td>
+										<form>							 
+											  <div class="form-check">											 
+											    <input type="<?=$type;?>" class="form-check-input" id="<?=$idp;?>[]" name="<?= $idp;?>[]" value="<?php $conten;?>"/>
+											  </div>							 
+										</form>	
+									</td>
+									<td>
+										<form>							 
+											  <div class="form-check">
+										 	 		<label class="form-check-label" for="exampleCheck1"><?=$fr['eleccion'];?></label>
+											   </div>
+										</form>											
+									</td>		
 								</tr>
 								<?php
 							}
-							?>
-						
+							?>						
 					</table>
 					<?php
 					$nb_uov="";

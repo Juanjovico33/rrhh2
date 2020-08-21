@@ -508,7 +508,8 @@ button::-moz-focus-inner,
   border-style: none;
 }
 
-input[type="radio"]{
+input[type="radio"],
+input[type="checkbox"] {
   box-sizing: border-box;
   padding: 0;
 }
@@ -896,6 +897,10 @@ input[type="submit"] {
   border: none;
   padding: 11px 18px;
   width: auto;
+}
+
+input[type="checkbox"] {
+  display: inline;
 }
 
 input[type="radio"] {
@@ -5609,7 +5614,7 @@ ul.sec-list {
 .sec-list-item * p {
   margin-bottom: 0
 }
-.sec-list-item {box-shadow: none;background-color: white;}
+.sec-list-item .uk-checkbox {box-shadow: none;background-color: white;}
 .action-btn {
     position: absolute;
     right: 45px;
@@ -10609,17 +10614,17 @@ select.selectpicker {
 
 .form-inline .bootstrap-select.btn-group,
 .form-horizontal .bootstrap-select.btn-group,
-.bootstrap-select.btn-group {
+.checkbox .bootstrap-select.btn-group {
   margin-bottom: 0;
 }
 
-.bootstrap-select.btn-group.form-control,
-.bootstrap-select.btn-group.form-control {
+.checkbox-lg .bootstrap-select.btn-group.form-control,
+.checkbox-sm .bootstrap-select.btn-group.form-control {
   padding: 0;
 }
 
-.bootstrap-select.btn-group.form-control .dropdown-toggle,
-.bootstrap-select.btn-group.form-control .dropdown-toggle {
+.checkbox-lg .bootstrap-select.btn-group.form-control .dropdown-toggle,
+.checkbox-sm .bootstrap-select.btn-group.form-control .dropdown-toggle {
   height: 100%;
   font-size: inherit;
   line-height: inherit;
