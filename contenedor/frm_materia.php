@@ -274,10 +274,10 @@
 
 
                     </div>
-                    <div class="uk-width-expand">
+                    <!-- <div class="uk-width-expand">
                         <button class="btn-sidebar-filter"
                             uk-toggle="target: .sidebar-filter; cls: sidebar-filter-visible">Filter </button>
-                        <div class="sidebar-filter" uk-sticky="offset:30 ; media : @s: bottom: true">
+                        <div class="sidebar-filter" uk-sticky="offset:30 ; media : @s: bottom: true"> -->
 
                             <!--<div class="sidebar-filter-contents">
 
@@ -353,9 +353,9 @@
 
                             </div>-->
 
-                        </div>
+                        <!-- </div>
 
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- footer
@@ -363,7 +363,7 @@
                 <div class="footer">
                     <div class="uk-grid-collapse" uk-grid>
                         <div class="uk-width-expand@s uk-first-column">
-                            <p>© 2019 <strong>Courseplus</strong>. All Rights Reserved. </p>
+                            <p>© 2020 <strong>Universidad Nacional Ecologica</strong>. All Rights Reserved. </p>
                         </div>
                         <div class="uk-width-auto@s">
                             <nav class="footer-nav-icon">
