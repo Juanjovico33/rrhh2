@@ -129,32 +129,22 @@ include "../includes/conexion.php";
 					}
 					?>
 					<table class="table table-condensed">
-						
+						<tr>
 							<?php
 							//while ($fr=mysql_fetch_array($q_r)) {
 							while ($fr = $q_r->fetch(PDO::FETCH_ASSOC)) {
 								$idr=$fr['id'];
 								$cal=$fr['calif'];
 								$conten=$cal."|".$tipo."|".$idr;
-								?><tr><td>&nbsp;</td>
-									<td>
-										<form>							 
-											  <div class="form-check">											 
-											    <input type="<?=$type;?>" class="form-check-input" id="<?=$idp;?>[]" name="<?= $idp;?>[]" value="<?php $conten;?>"/>
-											  </div>							 
-										</form>	
-									</td>
-									<td>
-										<form>							 
-											  <div class="form-check">
-										 	 		<label class="form-check-label" for="exampleCheck1"><?=$fr['eleccion'];?></label>
-											   </div>
-										</form>											
-									</td>		
-								</tr>
+								?>
+								<td>									
+									<input class="form-check-input" type="<?php echo $type; ?>" name="<?php echo $idp; ?>[]" value="<?php echo $conten; ?>">									
+								</td>
+								<td><?php echo $fr['eleccion']; ?></td>
 								<?php
 							}
-							?>						
+							?>
+						</tr>
 					</table>
 					<?php
 					$nb_uov="";
