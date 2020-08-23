@@ -68,16 +68,23 @@ function iniciar_evaluacion(cod_act, cod_ban, codest, cod_gru_aux,horacompleta,h
 	/*window.open("ver_actividades_evaluacion.php?cod_act="+cod_act+"&cod_ban="+cod_ban+"&codest="+codest+"&cod_gru_aux="+cod_gru_aux+"","_self");*/
 }
 function abrir_cerrar(codmat,codest,periodo,idgrupo){
-	var res = document.getElementById('page-content-inner');	
+	var res = document.getElementById('page-content-inner');
+	var datos = new FormData();
+
+	datos.append("_codmat", codmat);
+	datos.append("_codest", codest);
+	datos.append("_per", periodo);
+	datos.append("_idgrupo", idgrupo);
+	
 	res.innerHTML = "<img src='contenedor/js/carga.gif' class='img-fluid' alt='Responsive image'>";		
 	otro = objetoAjax();
-	otro.open("GET", "contenedor/ver_boletin.php?_codmat="+codmat+"&_codest="+codest+"&_per="+periodo+"&_idgrupo="+idgrupo+"", true);
+	otro.open("POST", "contenedor/ver_boletin.php", true);
 	otro.onreadystatechange = function(){
 		if (otro.readyState == 4) {
 			res.innerHTML = otro.responseText;
 		}
 	}
-	otro.send(null);
+	otro.send(datos);
 }
 function ver_materias(codest){
 	var resultado = document.getElementById('page-content-inner');

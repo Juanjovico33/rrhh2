@@ -1,10 +1,10 @@
 <?php	
   include "../includes/conexion.php";
 //include "../includes/_estudiante.php";
-	$codest = $_GET['_codest'];	
-	$codmat = $_GET['_codmat'];
-	$periodo = $_GET['_per'];	
-  $idgrup=$_GET['_idgrupo']; 
+$codest = $_POST['_codest'];	
+$codmat = $_POST['_codmat'];
+$periodo = $_POST['_per'];	
+$idgrup = $_POST['_idgrupo'];  
 
   $pp=0;
   $sp=0;
