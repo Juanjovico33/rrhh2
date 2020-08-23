@@ -413,6 +413,7 @@
           ?>
       </td>
       <?php
+            
             $einstancia=0;
             for ($j=5; $j <=6 ; $j++) {
               $notainsi= $bdcon->prepare("SELECT reco from plat_doc_intentos_est where codest='$codest' and codgrupo='$idgrup' and parcial='$j' and estado='1'");
@@ -426,12 +427,14 @@
                   } 
                    $einstancia=$einstancia + @$eins;          
                } 
-             }         //    $q_test.='pp='.$pp.'|'.'sp='.$sp.'|'.'ef='.$ef.'|'.'einstancia='.$einstancia.'<br>';  
-                $nf=$pp+$sp+$ef+$einstancia; 
-                $nff=number_format($nf,2);
+            }     
+
+                $nf=array($pp,$sp,$ef,$einstancia); 
+                $nff=array_sum($nf);
+                $nfff=number_format($nff,2);
             if ($einstancia==0) {                
                 ?>
-                  <td class='text-muted small'><?php  echo $nff;?></td>
+                  <td class='text-muted small'><?php  echo $nfff;?></td>
                 <?php              
             }else{
                 if ($einstancia>=51) {
@@ -440,7 +443,7 @@
                   <?php
                 }else{
                   ?>
-                     <td class='text-muted small'><?php  echo $nff;?></td>
+                     <td class='text-muted small'><?php  echo $nfff;?></td>
                   <?php  
                 }
             }
@@ -454,4 +457,5 @@
     </div> 
   </div>     
    </div>          
+   
 	
