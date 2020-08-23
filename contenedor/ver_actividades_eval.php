@@ -41,6 +41,10 @@ include "../includes/conexion.php";
     </ul>
   </div>
 </div-->
+<div uk-grid>
+        <div class="uk-width-6-7@m">
+            <div class="blog-post single-post">
+                <div class="blog-post-content">
 <form method="post" onsubmit="return false;" id="form_eval">
 	<input type="hidden" name="cod_eval" value="<?php echo $cod_eval; ?>">
 	<input type="hidden" name="cod_ban" value="<?php echo $cod_ban; ?>">
@@ -128,23 +132,29 @@ include "../includes/conexion.php";
 						$type="checkbox";
 					}
 					?>
-					<table class="table table-condensed">
-						<tr>
+					<table class="table">
+						
+						<tr>	
+																		 
+							
+
 							<?php
 							//while ($fr=mysql_fetch_array($q_r)) {
-							while ($fr = $q_r->fetch(PDO::FETCH_ASSOC)) {
-								$idr=$fr['id'];
-								$cal=$fr['calif'];
-								$conten=$cal."|".$tipo."|".$idr;
-								?>
-								<td>									
-									<input class="form-check-input" type="<?php echo $type; ?>" name="<?php echo $idp; ?>[]" value="<?php echo $conten; ?>">									
-								</td>
-								<td><?php echo $fr['eleccion']; ?></td>
-								<?php
-							}
+								while ($fr = $q_r->fetch(PDO::FETCH_ASSOC)) {
+									$idr=$fr['id'];
+									$cal=$fr['calif'];
+									$conten=$cal."|".$tipo."|".$idr;
+									?>												
+						<td>
+						  <input class="checkbox-success" type="<?php echo $type;?>" id="<?php echo $idp;?>[]" name="<?php echo $idp;?>[]" value="<?php echo $conten;?>"/>
+						
+						  <label class="form-check-label" for="<?php echo $conten;?>"><?php echo $fr['eleccion'];?></label>
+						</td>								
+																				
+									<?php
+								}						
 							?>
-						</tr>
+						</tr>							
 					</table>
 					<?php
 					$nb_uov="";
@@ -210,3 +220,7 @@ include "../includes/conexion.php";
 </table>
 <button class="btn btn-success" onclick="guardar_eval()">GUARDAR EVALUACION</button>
 </form>
+</div>
+</div>
+</div>
+</div>
