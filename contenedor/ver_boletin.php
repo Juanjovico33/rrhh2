@@ -1,10 +1,10 @@
 <?php	
   include "../includes/conexion.php";
 //include "../includes/_estudiante.php";
-$codest = $_POST['_codest'];	
-$codmat = $_POST['_codmat'];
-$periodo = $_POST['_per'];	
-$idgrup = $_POST['_idgrupo'];  
+	$codest = $_GET['_codest'];	
+	$codmat = $_GET['_codmat'];
+	$periodo = $_GET['_per'];	
+  $idgrup=$_GET['_idgrupo']; 
 
   $pp=0;
   $sp=0;
@@ -413,7 +413,7 @@ $idgrup = $_POST['_idgrupo'];
           ?>
       </td>
       <?php
-            
+            $q_test='';
             $einstancia=0;
             for ($j=5; $j <=6 ; $j++) {
               $notainsi= $bdcon->prepare("SELECT reco from plat_doc_intentos_est where codest='$codest' and codgrupo='$idgrup' and parcial='$j' and estado='1'");
@@ -427,7 +427,7 @@ $idgrup = $_POST['_idgrupo'];
                   } 
                    $einstancia=$einstancia + @$eins;          
                } 
-            }             
+            }             $q_test.='pp='.$pp.'|'.'sp='.$sp.'|'.'ef='.$ef.'|'.'einstancia='.$einstancia.'<br>';  
                 $nf=$pp+$sp+$ef+$einstancia; 
                 $nff=number_format($nf,2);
             if ($einstancia==0) {                
@@ -455,5 +455,5 @@ $idgrup = $_POST['_idgrupo'];
     </div> 
   </div>     
    </div>          
-   
+   <?=$q_test;?>
 	
