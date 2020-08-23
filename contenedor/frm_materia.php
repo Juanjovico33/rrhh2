@@ -150,10 +150,10 @@
                         <div class="course-card course-card-list">
                             <div class="course-card-thumbnail">
                                 <img src="img/iconos/planificacion.png">
-                                <a href="#" onclick="ver_plamat(<?=$id_grupo;?>)" class="play-button-trigger"></a>
+                                <a href="#" onclick="ver_plamat(<?=$id_grupo;?>, <?=$_idgrupoRaiz?>)" class="play-button-trigger"></a>
                             </div>
                             <div class="course-card-body">
-                                <a href="#" onclick="ver_plamat(<?=$id_grupo;?>)">
+                                <a href="#" onclick="ver_plamat(<?=$id_grupo;?>, <?=$_idgrupoRaiz?>)">
                                     <h4> Planificacion academica </h4>
                                 </a>
                                 <p>Visualizacion de la planificacion academica, cargada por el docente.</p>

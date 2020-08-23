@@ -139,11 +139,12 @@ function ver_descmat(codmat,codest,periodo,idgrupo, nbmat){
 	}
 	ajax.send(datos);
 }
-function ver_plamat(idgrupo){
+function ver_plamat(idgrupo, idgrupo_raiz){
 	var resultado = document.getElementById('page-content-inner');
 
 	var datos = new FormData();
 	datos.append("_idgrupo", idgrupo);
+	datos.append("_idgruporaiz", idgrupo_raiz);
 
 	resultado.innerHTML = "<img src='contenedor/js/carga.gif' class='img-fluid' alt='Responsive image'>";
 	ajax = objetoAjax();

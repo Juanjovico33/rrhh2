@@ -3,14 +3,30 @@ include ("../includes/_actividades.php");
 include ("../includes/_planificacion.php");
 
 $id_grupo=$_POST['_idgrupo'];
-// $grupo = new grupo();
-// $grupo->getDatosGrupo($id_grupo);
+$otro_grupo=$_POST['_idgruporaiz'];
+$grupo = new grupo();
+$grupo->getDatosGrupo($id_grupo);
+$_idgrupoRaiz=0;
+
+if($otro_grupo!=0){
+	if($grupo->esNivelacion()){
+		$_idgrupoRaiz=$otro_grupo;
+	}else{
+		$_idgrupoRaiz=$grupo->getIdramaRaiz();
+		if($_idgrupoRaiz==0){
+			$_idgrupoRaiz=$id_grupo;
+		}
+	}
+}else{
+	$_idgrupoRaiz=$id_grupo;
+}
+
 
 $plan=new planificacion();
 $plan->getAllModalidades();
 $plan->getAllEvaluaciones();
-$plan->getUnidades($id_grupo);
-$plan->getTemas($id_grupo);
+$plan->getUnidades($_idgrupoRaiz);
+$plan->getTemas($_idgrupoRaiz);
 
 // echo '<br>'.$id_grupo;
 
@@ -18,6 +34,7 @@ $plan->getTemas($id_grupo);
 // echo '<br>Se ejecuto';
 // echo 'Count'.$plan->nro;
 // exit;
+
 	function code2utf($num)
 	{
 	   if($num<128)return chr($num);
