@@ -5,7 +5,8 @@ $carrera=$_REQUEST['_carrera'];
 $intsemestre = (int)$semestre + 1;
 $anio=date("Y");
 include "../includes/conexion.php";
-
+$per=$anio."02";
+$perdo=$anio."08";
 $q_resol= $bdcon->prepare("SELECT id_resolucion,tipo_pre FROM estudiante_codigo WHERE codigo_estudiante='$codest'");
 $q_resol->execute();   
 while ($r_resol = $q_resol->fetch(PDO::FETCH_ASSOC)) {       
@@ -79,9 +80,20 @@ $q_pensum->execute();
         <div class="uk-width-6-7@m">
             <div class="blog-post single-post">
                 <div class="blog-post-content">
+
+                <?php
+                     $q_regesmat= $bdcon->prepare("SELECT * FROM aca_registroestmat WHERE codest='$codest' and periodo='$per' or periodo='$perdo'");
+                      $q_regesmat->execute(); 
+                      if ($q_regesmat->rowCount()>0) {
+                             echo "<div class='alert alert-success'><strong>¡Registrado! </strong> Ya tiene materias registradas para este periodo</div>";
+                             exit();
+                         }   
+                 ?>     
                     <div align="center">
                         <b>Materias Ofertadas Para el Periodo 2/2020</b>
                     </div>
+
+
                     <table class="table table-hover"> 
                             <tr align="center">
                                 <td><strong>MATERIA</strong></td><td><strong>GRUPO</strong></td>
