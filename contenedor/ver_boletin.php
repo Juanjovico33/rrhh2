@@ -174,7 +174,7 @@
       </td>
       <td class='text-muted small'>
           <?php 
-               $nota_practica= $bdcon->prepare("SELECT SUM(grupos_sub_notas.nota)as noti,grupos_sub_notas.parcial,grupos_sub.descripcion,grupos_sub_notas.fecha, grupos_sub.prac_prog from grupos_sub INNER JOIN grupos_sub_notas ON (grupos_sub.cod=grupos_sub_notas.cod_subgrupo) WHERE grupos_sub.idgrupo_padre='$idgrup' and grupos_sub_notas.codest='$codest' GROUP BY grupos_sub_notas.fecha, grupos_sub_notas.codest, grupos_sub.descripcion ORDER BY grupos_sub.descripcion ASC");
+               /*$nota_practica= $bdcon->prepare("SELECT SUM(grupos_sub_notas.nota)as noti,grupos_sub_notas.parcial,grupos_sub.descripcion,grupos_sub_notas.fecha, grupos_sub.prac_prog from grupos_sub INNER JOIN grupos_sub_notas ON (grupos_sub.cod=grupos_sub_notas.cod_subgrupo) WHERE grupos_sub.idgrupo_padre='$idgrup' and grupos_sub_notas.codest='$codest' GROUP BY grupos_sub_notas.fecha, grupos_sub_notas.codest, grupos_sub.descripcion ORDER BY grupos_sub.descripcion ASC");
                  $nota_practica->execute();
                  while ($rows = $nota_practica->fetch(PDO::FETCH_ASSOC)){                   
                     $notita=$rows['noti'];
@@ -408,9 +408,10 @@
                             }
                           }
                           $nota_prac=$prac+$inves+$inter+$proce+$invinte;
-                        }
-                      echo number_format($nota_prac,2);
+                        }*/
+                      //echo number_format($nota_prac,2);
           ?>
+          0
       </td>
       <?php
             
