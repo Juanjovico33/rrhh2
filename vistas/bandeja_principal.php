@@ -10,6 +10,7 @@
     $telefono=$user->getTelefono();
     $correo=$user->getCorreo();
     $ci=$user->getci();
+    $foto=$user->getfoto();
     $password=$user->getPassword();
     $part_cel=explode(" ", $telefono);   
     $part2=strtolower($part_cel[0]);     
@@ -52,7 +53,17 @@
     <link rel="stylesheet" href="css/night-mode.css">
     <link rel="stylesheet" href="css/framework.css">
     <link rel="stylesheet" href="css/bootstrap.css"> 
-
+    <style type="text/css">
+            body {
+                  /*background-image: url("img/hojas.jpg");*/
+                  background: url(img/hojas.jpg) no-repeat center center fixed; 
+                    -webkit-background-size: cover;
+                    -moz-background-size: cover;
+                    -o-background-size: cover;
+                    -ms-background-size: cover;
+                    background-size: cover;
+                }
+    </style>
     <!-- icons
     ================================================== -->
     <link rel="stylesheet" href="css/icons.css">
@@ -91,7 +102,6 @@
             <a class="uk-navbar-toggle" uk-close uk-toggle="target: .nav-overlay; animation: uk-animation-fade"
                 href="#"></a>
         </div>
-
         <!-- menu -->
         <div class="page-menu">
             <!-- btn close on small devices -->
@@ -165,7 +175,7 @@
 
                                 <!-- notivication header -->
                                 <div class="dropdown-notifications-headline">
-                                    <h4>Your Courses</h4>
+                                    <h4>Tus Clases</h4>
                                     <a href="#">
                                         <i class="icon-feather-settings"
                                             uk-tooltip="title: Notifications settings ; pos: left"></i>
@@ -187,7 +197,7 @@
 
                                 <!-- notivication header -->
                                 <div class="dropdown-notifications-headline">
-                                    <h4>Notifications </h4>
+                                    <h4>Notificaciones </h4>
                                     <a href="#">
                                         <i class="icon-feather-settings"
                                             uk-tooltip="title: Notifications settings ; pos: left"></i>
@@ -211,7 +221,7 @@
 
                                 <!-- notivication header -->
                                 <div class="dropdown-notifications-headline">
-                                    <h4>Messages</h4>
+                                    <h4>Mensajes</h4>
                                     <a href="#">
                                         <i class="icon-feather-settings"
                                             uk-tooltip="title: Message settings ; pos: left"></i>
@@ -223,7 +233,18 @@
 
                             <!-- profile-icon-->
                             <a href="#" class="header-widget-icon profile-icon">
-                                <img src="img/avatar-2.jpg" alt="" class="header-profile-icon">
+                                <?php
+                                    if ($foto=="") {
+                                        ?>
+                                            <img src="img/archivo/sin_imagen.jpg" alt="" class="header-profile-icon">
+                                        <?php
+                                    }else{
+                                        ?>
+                                            <img src="http://190.186.233.212/plataformaDocente/<?php echo $foto;?>" alt="" class="header-profile-icon">
+                                        <?php
+                                    }
+                                ?>
+                               
                             </a>
                             <div uk-dropdown="pos: top-right ;mode:click" class="dropdown-notifications small">
 
@@ -279,19 +300,31 @@
         </header>
             <!-- Div para trabajar los contenidos-->
             <div class="page-content-inner" id="page-content-inner">
-                <h2>Estudiante</h2>
                 <!--<nav class="responsive-tab mb-4">
                     <li class="uk-active"><a href="#">Account</a></li>
                     <li><a href="#">Billing</a></li>
                     <li><a href="user-profile-edit.html">Setting</a></li>
                 </nav>-->
                 <div class="uk-grid">
+
                     <div class="uk-width-2-5@m">
 
                         <div class="uk-card-default rounded text-center p-4">
-
+                            <h2>Estudiante</h2>
                             <div class="user-profile-photo  m-auto">
-                                <img src="img/archivo/sin_imagen.jpg" alt="">
+                                <?php
+                                    if ($foto=="") {
+                                        ?>
+                                            <img src="img/archivo/sin_imagen.jpg" alt="">
+                                        <?php
+                                    }else{
+                                        ?>
+                                            <img src="http://190.186.233.212/plataformaDocente/<?php echo $foto;?>" alt="">
+                                        <?php
+                                    }
+                                ?>
+                                
+
                             </div>
 
                             <h6 class="mb-2 mt-3"><?php echo $nombcompleto;?></h6>
@@ -303,7 +336,7 @@
                     <div class="uk-width-expand@m">
                         <div class="uk-card-default rounded">
                             <div class="uk-flex uk-flex-between uk-flex-middle py-3 px-4">
-                                <h6 class="uk-text-bold">Datos adicionales Del Estudiante</h6>  
+                                <h6 class="uk-text-bold">DATOS ADICIONALES DEL ESTUDIANTE</h6>  
                                 <a href="#" uk-tooltip="title:Editar Cuenta; pos: left"> 
                                     <i class="icon-feather-settings"></i> </a>
                             </div>                            
@@ -318,7 +351,7 @@
                                         <p><?php echo $codigo;?></p>
                                     </div>
                                     <div>
-                                        <h6 class="uk-text-bold">Correo</h6>
+                                        <h6 class="uk-text-bold">Correo institucional</h6>
                                         <p><?php 
                                         if ($correo=="") {
                                             echo $mail;
