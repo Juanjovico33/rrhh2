@@ -1,109 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
 <?php
-   // require '../js/kint.phar';
+    $nombre=$user->getNombre();
+    $apellido=$user->getApellido();
+    $codigo=$user->getCodigo();
+    $carrera=$user->getCarrera();
+    $semestre=$user->getSemestre();
+    $nombcompleto=$user->getNombcompleto();
+    $telefono=$user->getTelefono();
+    $correo=$user->getCorreo();
+    $ci=$user->getci();
+    $foto=$user->getfoto();
+    $password=$user->getPassword();
+    $part_cel=explode(" ", $telefono);   
+    $part2=strtolower($part_cel[0]);     
+    $part_nomb=explode(" ", $nombre);   
+    $part1=strtolower($part_nomb[0]);    
+    if ($ci=='0' || $ci=='') {
+        $pass=$part2;
+    }else{
+        $pass=$ci;
+    }
+    $mail=$part1.$codigo."@uecologica.edu.bo"; 
 
-    include "../includes/_estudiante.php";
-    include "../includes/_gestion.php";
-    $codest = $_GET['_codest'];
-    $estudiante =  new estudiante($codest);    
-    $gestion = new gestion();
-    $gestion->getgestionactual();
-    $estudiante->getdatosest($gestion->getGestion());
-    $materias=null;
-    // $materias=$estudiante->getmateriasporperiodo($estudiante->getperiodosregistrados($gestion->getId()), $gestion->getperiodoactuales(), $gestion->getId()); 
-    $materias=$estudiante->getmateriasporperiodo($estudiante->getperiodosregistrados($gestion->getId(), $gestion->getperiodoactuales()), $gestion->getId()); 
-    // $estudiante->getperiodosregistrados($gestion->getId(), $gestion->getperiodoactuales());
-    echo $estudiante->getError().'<br>';
-    // var_dump($materias);
+
+    if ($pass=='') {
+        $pass= $part1.$codest;
+    }else{        
+        $contar=strlen($pass);
+        if ($contar<8) {
+            $pass= $pass.$part1;
+        }else{
+            //echo $pass;
+        }
+    }
 ?>
-    <h1>Materias Registradas</h1>
+<head>
 
-    <h4> Elija una materia, para ver los materiales, registro de asistencia, planificacion academica y notas </h4>
-        <?php   
-            if (!is_null($materias)) {
-                         # code...                            
-            for($j=0;$j<count($materias);$j++){                
-            ?>
-            <?php 
-                $per=$materias[$j]['idperiodo'];
-                $perdos=substr($per, 4);
-                $peruno=substr($per, 0,4);
-            ?>     
-            <h1>PERIODO <?php echo $peruno."/".$perdos;?></h1>       
-            <div class="panel-body">
-                        <div class="section-small">
-                            <div class="uk-child-width-1-4@m uk-child-width-1-3@s course-card-grid" uk-grid>
-                        <?php              
-                            if(!is_null($materias[$j]['materias_array'])){
-                                $limite_mat=count($materias[$j]['materias_array']);
-                            }else{
-                                $limite_mat=0;
-                            }
-                            // print_r($materias[$j]['materias_array']);
-                            for($i=0;$i<$limite_mat;$i++){
-                                $id_grupo=$materias[$j]['materias_array'][$i]['idgrupo'];
-                                ?>
-                                <!--tr align="center">
-                                    <th scope="row" class="text-muted small"><?php echo $i+1;?></th>
-                                    <td class="text-muted small"><?php echo $codmat=$materias[$j]['materias_array'][$i]['codmateria'];?></td>
-                                    <td class="text-muted small"><?php echo $n_mat=$materias[$j]['materias_array'][$i]['nb_materia'];?></td>
-                                    <td class="text-muted small"><?php echo $materias[$j]['materias_array'][$i]['grupo'];?></td>
-                                    <td class="text-muted small">
-                                        <?php  $id_grupo=$materias[$j]['materias_array'][$i]['idgrupo'];?>
-                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" class="btn btn-info" onclick="abrir_cerrar('<?php echo $codmat ?>','<?php echo $codest ?>','<?php echo $per ?>','<?php echo $id_grupo ?>')">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-clipboard-data" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                              <path fill-rule="evenodd" d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
-                                              <path fill-rule="evenodd" d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
-                                              <path d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z"/>
-                                            </svg>
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" class="btn btn-info" onclick="abrir_cerrar('<?php echo $codmat ?>','<?php echo $codest ?>','<?php echo $per ?>','<?php echo $id_grupo ?>')">
-                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-clipboard-data" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                          <path fill-rule="evenodd" d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
-                                          <path fill-rule="evenodd" d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
-                                          <path d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z"/>
-                                        </svg>
-                                    </button>
-                                    </td>                                    
-                                </tr-->
-                                <div>
-                                    <a href="#" onclick="ver_descmat('<?=$codmat;?>','<?=$codest;?>','<?=$per;?>','<?=$id_grupo;?>', '<?=$n_mat;?>')">
-                                        <div class="course-card">
-                                            <div class="course-card-thumbnail ">
-                                                <img src="img/materias/<?php echo $i+1; ?>.png">
-                                                <span class="play-button-trigger"></span>
-                                            </div>
-                                            <div class="course-card-body">
-                                                <div class="course-card-info">
-                                                    <div>
-                                                        <span class="catagroy"><?php echo $codmat=$materias[$j]['materias_array'][$i]['codmateria'];?></span>
-                                                    </div>
-                                                    <div>
-                                                        <i class="icon-feather-bookmark icon-small"></i>
-                                                    </div>
-                                                </div>
-                                                <h4><?php echo $n_mat=$materias[$j]['materias_array'][$i]['nb_materia'];?> </h4>
-                                                <P><?= 'GRUPO - '.$materias[$j]['materias_array'][$i]['grupo'];?> </P>
-                                                <p> <?php echo $materias[$j]['nbperiodo'];?></p>
-                                                <div class="course-card-footer">
-                                                    <h5> <i class="icon-feather-film"></i> Hrs Pr. </h5>
-                                                    <h5> <i class="icon-feather-clock"></i> Hrs Te. </h5>
-                                                </div>
-                                            </div>
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title>UNE - Plataforma</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Plataforma estudiantil UNE">
 
-                                        </div>
+    <!-- Favicon -->
+    <link href="img/favicon.png" rel="icon" type="image/png">
+
+    <!-- CSS 
+    ================================================== -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/night-mode.css">
+    <link rel="stylesheet" href="css/framework.css">
+    <link rel="stylesheet" href="css/bootstrap.css"> 
+    <style type="text/css">
+            body {
+                  /*background-image: url("img/hojas.jpg");*/
+                  background: url(img/hojas.jpg) no-repeat center center fixed; 
+                    -webkit-background-size: cover;
+                    -moz-background-size: cover;
+                    -o-background-size: cover;
+                    -ms-background-size: cover;
+                    background-size: cover;
+                }
+    </style>
+    <!-- icons
+    ================================================== -->
+    <link rel="stylesheet" href="css/icons.css">
+
+
+</head>
+
+<body>
+    <div id="wrapper_cv">
+    </div>
+    <div id="wrapper"> 
+        <!-- search overlay-->
+        <div id="searchbox">
+            <div class="search-overlay"></div>
+            <div class="search-input-wrapper">
+                <div class="search-input-container">
+                    <div class="search-input-control">
+                        <span class="icon-feather-x btn-close uk-animation-scale-up"
+                            uk-toggle="target: #searchbox; cls: is-active"></span>
+                        <div class=" uk-animation-slide-bottom">
+                            <input type="text" name="search" autofocus required>
+                            <p class="search-help">Type the name of the Course and book you are looking for</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- overlay seach on mobile-->
+        <div class="nav-overlay uk-navbar-left uk-position-relative uk-flex-1 bg-grey uk-light p-2" hidden
+            style="z-index: 10000;">
+            <div class="uk-navbar-item uk-width-expand" style="min-height: 60px;">
+                <form class="uk-search uk-search-navbar uk-width-1-1">
+                    <input class="uk-search-input" type="search" placeholder="Search..." autofocus>
+                </form>
+            </div>
+            <a class="uk-navbar-toggle" uk-close uk-toggle="target: .nav-overlay; animation: uk-animation-fade"
+                href="#"></a>
+        </div>
+        <!-- menu -->
+        <div class="page-menu">
+            <!-- btn close on small devices -->
+            <span class="btn-menu-close" uk-toggle="target: #wrapper ; cls: mobile-active"></span>
+            <!-- traiger btn -->
+            <span class="btn-menu-trigger" uk-toggle="target: .page-menu ; cls: menu-large"></span>
+
+            <!-- logo -->
+            <div class="logo uk-visible@s">
+                <a href="index.php"><img src="img/trebol.png" alt=""> <span> U.N.E.</span> </a>
+            </div>
+            <div class="page-menu-inner" data-simplebar>
+                <ul data-submenu-title="Menú">
+                <li><a href="index.php"><i class="icon-material-outline-person-pin"></i><span>Inicio</span></a></li>
+                    <li><a href="#" onclick="inscripcion_online('<?php echo $codigo;?>','<?php echo $semestre;?>','<?php echo $carrera;?>')"><i class="icon-line-awesome-credit-card"></i><span> Inscripciones Online</span></a></li>
+                    <li><a href="#" onclick="ver_materias('<?php echo $codigo;?>')"><i class="uil-layer-group"></i><span> Materias Registradas</span></a> </li>
+                    <li><a href="#" onclick="ver_materias_examenes('<?php echo $codigo;?>')"><i class="uil-edit-alt"></i> <span> Mis Exámenes</span></a> </li>
+                    <li><a href="includes/logout.php"><i class="icon-feather-log-out"></i> <span> Salir</span></a> </li>
+                    <!-- <li><a href="book.html"><i class="uil-book-alt"></i> <span> Book</span></a> </li>
+                    <li><a href="blog-1.html"><i class="uil-file-alt"></i> <span> Blog</span></a> </li> -->
+                </ul>                
+            </div>
+        </div>
+
+
+        <!-- content -->
+        <div class="page-content">
+
+         <!-- Header Container
+        ================================================== -->
+        <header class="header" uk-sticky="top:20 ; cls-active:header-sticky">
+
+            <div class="container">
+                <nav uk-navbar>
+
+                    <!-- left Side Content -->
+                    <div class="uk-navbar-left">
+
+                        <span class="btn-mobile" uk-toggle="target: #wrapper ; cls: mobile-active"></span>
+
+
+
+                        <!-- logo -->
+                        <a href="dashboard.html" class="logo">
+                            <img src="../assets/images/logo-dark.svg" alt="">
+                            <span> Courseplus</span>
+                        </a>
+
+
+
+                    </div>
+
+
+                    <!--  Right Side Content   -->
+
+                    <div class="uk-navbar-right">
+
+                        <div class="header-widget">
+                            <!-- User icons close mobile-->
+                            <span class="icon-feather-x icon-small uk-hidden@s"
+                                uk-toggle="target: .header-widget ; cls: is-active"> </span>
+
+
+                            <a href="#" class="header-widget-icon">
+                                <i class="uil-youtube-alt"></i>
+                            </a>
+
+                            <!-- courses dropdown List -->
+                            <div uk-dropdown="pos: top;mode:click;animation: uk-animation-slide-bottom-small"
+                                class="dropdown-notifications my-courses-dropdown">
+
+                                <!-- notivication header -->
+                                <div class="dropdown-notifications-headline">
+                                    <h4>Tus Clases</h4>
+                                    <a href="#">
+                                        <i class="icon-feather-settings"
+                                            uk-tooltip="title: Notifications settings ; pos: left"></i>
                                     </a>
                                 </div>
+                            
+                            </div>
+
+                            <!-- notificiation icon  -->
+
+                            <a href="#" class="header-widget-icon">
+                                <i class="uil-bell"></i>
+                                
+                            </a>
+
+                            <!-- notificiation dropdown -->
+                            <div uk-dropdown="pos: top-right;mode:click ; animation: uk-animation-slide-bottom-small"
+                                class="dropdown-notifications">
+
+                                <!-- notivication header -->
+                                <div class="dropdown-notifications-headline">
+                                    <h4>Notificaciones </h4>
+                                    <a href="#">
+                                        <i class="icon-feather-settings"
+                                            uk-tooltip="title: Notifications settings ; pos: left"></i>
+                                    </a>
+                                </div>
+                             
+
+
+                            </div>
+
+
+                            <!-- Message  -->
+
+                            <a href="#" class="header-widget-icon" uk-tooltip="title: Message ; pos: bottom ;offset:21">
+                                <i class="uil-envelope-alt"></i>
+                                <!-- <span>1</span> -->
+                            </a>
+
+                            <!-- Message  notificiation dropdown -->
+                            <div uk-dropdown=" pos: top-right;mode:click" class="dropdown-notifications">
+
+                                <!-- notivication header -->
+                                <div class="dropdown-notifications-headline">
+                                    <h4>Mensajes</h4>
+                                    <a href="#">
+                                        <i class="icon-feather-settings"
+                                            uk-tooltip="title: Message settings ; pos: left"></i>
+                                    </a>
+                                </div>
+
+                            </div>
+
+
+                            <!-- profile-icon-->
+                            <a href="#" class="header-widget-icon profile-icon">
                                 <?php
-                            }
-                        ?>
+                                    if ($foto=="") {
+                                        ?>
+                                            <img src="img/archivo/sin_imagen.jpg" alt="" class="header-profile-icon">
+                                        <?php
+                                    }else{
+                                        ?>
+                                            <img src="http://190.186.233.212/plataformaDocente/<?php echo $foto;?>" alt="" class="header-profile-icon">
+                                        <?php
+                                    }
+                                ?>
+                               
+                            </a>
+                            <div uk-dropdown="pos: top-right ;mode:click" class="dropdown-notifications small">
+
+                                <!-- User Name / Avatar -->
+                                <a href="profile-1.html">
+                                    <div class="dropdown-user-details">                                        
+                                        <div class="dropdown-user-name">
+                                            <?php echo $nombre; ?> <span><?php echo $carrera; ?></span>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <!-- User menu -->
+
+                                <ul class="dropdown-user-menu">
+                                   
+                                    <li><a href="#">
+                                            <i class="icon-feather-settings"></i> Editar Cuenta</a>
+                                    </li>
+                                 
+                                    <li><a href="includes/logout.php">
+                                            <i class="icon-feather-log-out"></i> Salir</a>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- icon search-->
+                        <a class="uk-navbar-toggle uk-hidden@s"
+                            uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#">
+                            <i class="uil-search icon-small"></i>
+                        </a>
+                        
+                        <!-- User icons -->
+                            <a href="#" class="uil-user icon-small uk-hidden@s"
+                            uk-toggle="target: .header-widget ; cls: is-active">
+                            </a>
+
+                    </div>
+                    <!-- End Right Side Content / End -->
+
+
+                </nav>
+
+            </div>
+            <!-- container  / End -->
+        </header>
+            <!-- Div para trabajar los contenidos-->
+            <div class="page-content-inner" id="page-content-inner">
+                <!--<nav class="responsive-tab mb-4">
+                    <li class="uk-active"><a href="#">Account</a></li>
+                    <li><a href="#">Billing</a></li>
+                    <li><a href="user-profile-edit.html">Setting</a></li>
+                </nav>-->
+                <div class="uk-grid">
+
+                    <div class="uk-width-2-5@m">
+
+                        <div class="uk-card-default rounded text-center p-4">
+                            <h2>Estudiante</h2>
+                            <div class="user-profile-photo  m-auto">
+                                <?php
+                                    if ($foto=="") {
+                                        ?>
+                                            <img src="img/archivo/sin_imagen.jpg" alt="">
+                                        <?php
+                                    }else{
+                                        ?>
+                                            <img src="http://190.186.233.212/plataformaDocente/<?php echo $foto;?>" alt="">
+                                        <?php
+                                    }
+                                ?>
+                                
+
+                            </div>
+
+                            <h6 class="mb-2 mt-3"><?php echo $nombcompleto;?></h6>
+                            <p class="m-0"><?php echo $codigo;?></p>
+
+                        </div>
+
+                    </div>                   
+                    <div class="uk-width-expand@m">
+                        <div class="uk-card-default rounded">
+                            <div class="uk-flex uk-flex-between uk-flex-middle py-3 px-4">
+                                <h6 class="uk-text-bold">DATOS ADICIONALES DEL ESTUDIANTE</h6>  
+                                <a href="#" uk-tooltip="title:Editar Cuenta; pos: left"> 
+                                    <i class="icon-feather-settings"></i> </a>
+                            </div>                            
+                            <hr class="m-0">                                
+                            <div class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid> 
+                                   <div>
+                                        <h6 class="uk-text-bold">Carrera</h6>
+                                        <p><?php echo $carrera;?></p>
+                                    </div>
+                                    <div>
+                                        <h6 class="uk-text-bold">Código</h6>
+                                        <p><?php echo $codigo;?></p>
+                                    </div>
+                                    <div>
+                                        <h6 class="uk-text-bold">Correo institucional</h6>
+                                        <p><?php 
+                                        if ($correo=="") {
+                                            echo $mail;
+                                        }else{
+                                            echo $correo;
+                                        }
+                                        ?>
+                                        </p>
+                                    </div>  
+                                    <div>
+                                        <h6 class="uk-text-bold">Celular</h6>
+                                        <p><?php echo $telefono;?></p>
+                                    </div>
+                                    <div>
+                                        <h6 class="uk-text-bold">Contraseña</h6>
+                                        <p><?php 
+                                        if ($password=="") {
+                                            echo $pass;
+                                            echo "<br>";
+                                            echo "<div class='alert alert-warning'><strong>¡Atención!</strong> Para activar su correo solicitelo a su agente de marketing</div>";
+                                        }else{
+                                            echo $password; 
+                                        }
+                                        ?>
+                                        </p>
+                                    </div>                                                           
                             </div>
                         </div>
-                    <br>
+                    </div>
+                </div>  
             </div>
-        <?php }
-    }else {
-        echo "<div class='alert alert-warning alert-danger'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>¡Error! </strong> No tiene materias registradas</div>";
-    }  
-        ?>
+             <!-- footer
+               ================================================== -->
+                <!-- <div class="footer">
+                    <div class="uk-grid-collapse" uk-grid>
+                        <div class="uk-width-expand@s uk-first-column">
+                            <p>© 2020 <strong>SAINCO - Plataforma Estudiante </strong>Dept.Sistemas - Todos los Derechos Reservados. </p>
+                        </div> -->
+                        <!--<div class="uk-width-auto@s">
+                            <nav class="footer-nav-icon">
+                                <ul>
+                                    <li><a href="#"><i class="icon-brand-facebook"></i></a></li>
+                                    <li><a href="#"><i class="icon-brand-dribbble"></i></a></li>
+                                    <li><a href="#"><i class="icon-brand-youtube"></i></a></li>
+                                    <li><a href="#"><i class="icon-brand-twitter"></i></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>   --> 
+    <!-- javaScripts
+    ================================================== -->
+    <script src="js/framework.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/simplebar.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/bootstrap-select.min.js"></script>
+    <script src="contenedor/js/direcciones.js"></script>
+    <script src="contenedor/js/cv_funciones.js"></script>
+</body>
+</html>

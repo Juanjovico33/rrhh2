@@ -1,5 +1,5 @@
 <?php
-    require '../js/kint.phar';
+   // require '../js/kint.phar';
 
     include "../includes/_estudiante.php";
     include "../includes/_gestion.php";
@@ -21,9 +21,14 @@
         <?php   
             if (!is_null($materias)) {
                          # code...                            
-            for($j=0;$j<count($materias);$j++){
+            for($j=0;$j<count($materias);$j++){                
             ?>
-            <?php $per=$materias[$j]['idperiodo'];?>
+            <?php 
+                $per=$materias[$j]['idperiodo'];
+                $perdos=substr($per, 4);
+                $peruno=substr($per, 0,4);
+            ?>     
+            <h1>PERIODO <?php echo $peruno."/".$perdos;?></h1>       
             <div class="panel-body">
                         <div class="section-small">
                             <div class="uk-child-width-1-4@m uk-child-width-1-3@s course-card-grid" uk-grid>
