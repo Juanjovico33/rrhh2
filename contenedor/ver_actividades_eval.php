@@ -112,7 +112,7 @@ include "../includes/conexion.php";
 			<th><?php echo $nb_tipo."<br>".$nb_uov; ?></th>
 		</tr>
 		<?php
-		$q_r = $bdcon->prepare("SELECT id, eleccion, calif FROM plat_doc_banco_resp WHERE id_preg='$idp'");
+		$q_r = $bdcon->prepare("SELECT id, eleccion, calif, imagen FROM plat_doc_banco_resp WHERE id_preg='$idp'");
 		$q_r->execute(); 
 		//$q_r=mysql_query("SELECT id, eleccion, calif FROM plat_doc_banco_resp WHERE id_preg='$idp'");
 		$fil=$q_r->rowCount();
@@ -143,12 +143,20 @@ include "../includes/conexion.php";
 								while ($fr = $q_r->fetch(PDO::FETCH_ASSOC)) {
 									$idr=$fr['id'];
 									$cal=$fr['calif'];
+									$imgr=$fr['imagen'];
 									$conten=$cal."|".$tipo."|".$idr;
 									?>												
 						<td>
 						  <input class="checkbox-success" type="<?php echo $type;?>" id="<?php echo $idp;?>[]" name="<?php echo $idp;?>[]" value="<?php echo $conten;?>"/>
 						
 						  <label class="form-check-label" for="<?php echo $conten;?>"><?php echo $fr['eleccion'];?></label>
+						  <?php 									
+							if ($imgr!='') {
+								?>
+								<img src="http://190.186.233.212/plataformaDocente/assets/docente/banco/<?php echo $imgr; ?>">
+								<?php
+							}
+							?>
 						</td>								
 																				
 									<?php
