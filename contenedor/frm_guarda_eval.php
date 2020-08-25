@@ -54,8 +54,13 @@ include "../includes/conexion.php";
 			
 			$cont_preg++;
 		}
-		$fec_act=date("Y-m-d");
-		$hr_act=date("H:i:s");
+		$_fecha=new DateTime();
+		$_fecha->setTimezone(new DateTimeZone('America/La_Paz'));
+		$fec_act=$fecha->format('Y-m-d');
+		$hr_act=$fecha->format('H:i:s');
+
+		// $fec_act=date("Y-m-d");
+		// $hr_act=date("H:i:s");
 		$ponde_act=$cont_preg*100;
 		$nota=(($sum_resp*100)/$ponde_act);
 		$query_insert_m5 = $bdcon->prepare("INSERT INTO aa_clases_virtuales_m5_respuestas VALUES ('0','$cod_eval','$codest','$cod_ban','$nota','$fec_act','$hr_act')");

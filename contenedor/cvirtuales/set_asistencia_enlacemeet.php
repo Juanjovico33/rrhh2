@@ -13,8 +13,13 @@
     $materia=$grupo->getIdmateria();
     $g_descripcion=$grupo->getGrupo();
 
-    $fecha=date("Y-m-d");
-    $hora=date("H:i:s");
+    $_fecha=new DateTime();
+    $_fecha->setTimezone(new DateTimeZone('America/La_Paz'));
+    $fecha=$fecha->format('Y-m-d');
+    $hora=$fecha->format('H:i:s');
+
+    // $fecha=date("Y-m-d");
+    // $hora=date("H:i:s");
     
     $msj='';
 
