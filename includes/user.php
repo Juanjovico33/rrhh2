@@ -11,10 +11,12 @@ class User extends DB{
     private $correo;
     private $password;
     private $ci;
-    private $foto;
+    private $foto;   
+    private $codcarrera; 
+    private $nb_grupo;
     public function userExists($user, $pass){
        //$md5pass = md5($pass);
-        $query = $this->connect()->prepare('SELECT * FROM sainc.userest WHERE usuario = :user AND contrasena = :pass');
+        $query = $this->connect()->prepare('SELECT * FROM sisrrhh.usuarios WHERE usuario = :user AND contrasena = :pass');
         $query->execute(['user' => $user, 'pass' => $pass]);
         if($query->rowCount()){
             return true;
@@ -23,42 +25,25 @@ class User extends DB{
         }
     }
     public function setUser($user){
-        $query = $this->connect()->prepare('SELECT nombres, apellidos, telefono, correo, nombcompleto, codest, carrera, ci, foto FROM sainc.estudiante WHERE codest = :user');
+        $query = $this->connect()->prepare('SELECT nombres, apellidos, telefono, correo, nombcompleto, ci, foto FROM sisrrhh.persona WHERE usuario = :user');
         $query->execute(['user' => $user]);        
         foreach ($query as $currentUser) {
-            $this->nombcompleto = $currentUser['nombcompleto'];
-            $this->codigo = $currentUser['codest'];
-            $this->carrera = $currentUser['carrera'];
+            $this->nombcompleto = $currentUser['nombcompleto']; 
             $this->nombres = $currentUser['nombres'];
             $this->apellidos = $currentUser['apellidos'];
             $this->telefono = $currentUser['telefono'];
-            $this->getCorreoPlat($currentUser['codest']);
             $this->ci= $currentUser['ci'];
             $this->foto= $currentUser['foto'];
+            $this->correo= $currentUser['correo'];
         }
-    }
-    public function getCorreoPlat($codest){
-        $query = $this->connect()->prepare('SELECT * FROM sainc.plat_est_correos WHERE codest = :user');
-        $query->execute(['user' => $codest]);  
-        foreach ($query as $currentUser) {
-            $this->correo = $currentUser['correo'];
-            $this->password = $currentUser['password'];           
-        }
-    }
-
-    public function setSemestre($user){
-        $query = $this->connect()->prepare('SELECT semestre FROM sainc.aca_estudiantesemestre WHERE codest = :user ORDER BY semestre');
-        $query->execute(['user' => $user]);        
-        foreach ($query as $currentUser) {
-            $this->semestre = $currentUser['semestre'];           
-        }
-    }
+    }   
+    
     public function getNombre(){
         return $this->nombres;
     }
     public function getApellido(){
         return $this->apellidos;
-    }
+    }    
     public function getCodigo(){
         return $this->codigo;
     }   
@@ -85,7 +70,6 @@ class User extends DB{
     }
     public function getfoto(){
         return $this->foto;
-    }
+    }   
 }
-
 ?>

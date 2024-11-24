@@ -48,7 +48,7 @@
 
         function getDatosEnlace($_idgrupo){
             include "conexion.php";
-            $q_lnk="SELECT * FROM plat_doc_meet WHERE idgrupo=".$_idgrupo;
+            $q_lnk="SELECT * FROM plat_doc_meet WHERE idgrupo=".$_idgrupo." limit 1";
             $url="";
             try {
                 $lnk = $bdcon->prepare($q_lnk);
@@ -72,6 +72,34 @@
             }catch (PDOException $e) {
                 $this->error .= 'Error al desplegar los datos : ' . $e->getMessage();
             }
+        }
+        function getEnlaces(){
+            include "conexion.php";
+            $_links;
+            $q_lnk="SELECT url FROM plat_doc_meet WHERE idgrupo=".$this->idgrupo." AND url <> '' ORDER BY cod DESC LIMIT 2";
+            $url="";
+            try {
+                $lnk = $bdcon->prepare($q_lnk);
+                $lnk->execute();
+            } catch (PDOException $e) {
+                // $this->error .= $q_lnk;
+                $this->error .= 'La conexión para obtener el enlace MEET ha fallado' . $e->getMessage().'<br>';
+            }
+            try{
+                $_links=null;
+                while ($row = $lnk->fetch(PDO::FETCH_ASSOC)) {
+                    $url=$row['url'];
+                    $prim_let=substr($url, 0, 4);
+                    if ($prim_let!='http') {
+                        $url="https://".$url;
+                    }
+                    $_links[]=$url;
+                }
+                $this->error.=$q_lnk;
+            }catch (PDOException $e) {
+                $this->error .= 'Error al desplegar los datos : ' . $e->getMessage();
+            }
+            return $_links;
         }
     }
 ?>

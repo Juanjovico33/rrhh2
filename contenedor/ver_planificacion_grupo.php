@@ -1,11 +1,19 @@
 <?php 
 include ("../includes/_actividades.php");
 include ("../includes/_planificacion.php");
+include ("../includes/_event_log.php");
 
+$codest=$_POST['_codest'];
 $id_grupo=$_POST['_idgrupo'];
 $otro_grupo=$_POST['_idgruporaiz'];
+$sub_grupo=$_POST['_subgrupo'];
+
 $grupo = new grupo();
+$e = new evento();
 $grupo->getDatosGrupo($id_grupo);
+$e->setIdGrupo($id_grupo);
+$e->setIdSubGrupo($sub_grupo);
+$e->e_log_inicio_evento($codest, 21);
 $_idgrupoRaiz=0;
 
 if($otro_grupo!=0){
@@ -21,20 +29,11 @@ if($otro_grupo!=0){
 	$_idgrupoRaiz=$id_grupo;
 }
 
-
 $plan=new planificacion();
 $plan->getAllModalidades();
 $plan->getAllEvaluaciones();
-$plan->getUnidades($_idgrupoRaiz);
-$plan->getTemas($_idgrupoRaiz);
-
-// echo '<br>'.$id_grupo;
-
-// echo '<br>'.$plan->_temas[17]->getId_tema();
-// echo '<br>Se ejecuto';
-// echo 'Count'.$plan->nro;
-// exit;
-
+$plan->getUnidades($_idgrupoRaiz, $sub_grupo); 
+$plan->getTemas($_idgrupoRaiz, $sub_grupo);// aqui inicializamos el grupo que tiene la planificacion
 	function code2utf($num)
 	{
 	   if($num<128)return chr($num);
@@ -44,7 +43,11 @@ $plan->getTemas($_idgrupoRaiz);
 	   return '';
 	}
 	?>
-
+<div uk-grid>
+    <div class="uk-width-6-7@m">
+        <div class="blog-post single-post">
+             <div class="blog-post-content">
+             <div class="uk-overflow-auto">
 	<table class="table table-bordered table-condensed table-hover table-striped">
 		<tr class="success">
 			<th>N°</th>
@@ -92,3 +95,8 @@ $plan->getTemas($_idgrupoRaiz);
 	
 	?>
 	</table>
+	</div>
+		</div>
+	</div>
+</div>
+</div>

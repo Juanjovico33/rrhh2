@@ -9,16 +9,15 @@
         private $bucketName;
 
         function __construct(){
-            $this->projectId="pelagic-pod-279916";
+            $this->projectId="augmented-form-307209";
             $this->storage = new StorageClient([
                 'projectId' => $this->projectId
                 ]);
             $this->bucketName="une_segmento-one";
- 
-            // Credecial para la forma manual
             //C:\\wamp64\\www\\plataforma_estudiante2.0\\includes\\credentials\\My First Project-043934006766.json
             // putenv("GOOGLE_APPLICATION_CREDENTIALS=D:\\wamp64\\www\\plataforma_estudiante2.0\\includes\\credentials\\My First Project-043934006766.json");
-            // putenv("GOOGLE_APPLICATION_CREDENTIALS=D:\\wamp64\\www\\plataforma_estudiante2.0\\includes\\credentials\\My First Project-043934006766.json");
+            // putenv("GOOGLE_APPLICATION_CREDENTIALS=\\includes\\credentials\\augmented-form-307209-1d9de132598e.json");
+            
         }
         
         //Crea un nuevo segmento de almacenamiento
@@ -46,6 +45,7 @@
                     'contentLanguage' => 'es'
                     ]
             ];
+            //Fix -> Quitar nombre duplicado. Quitar .$objectName en la linea 40
 
             $object = $bucket->upload($file, $options);
 

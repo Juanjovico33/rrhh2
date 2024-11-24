@@ -1,12 +1,13 @@
 <?php
 include_once 'includes/user.php';
+include_once 'includes/_event_log.php';
 include_once 'includes/user_session.php';
 $userSession = new UserSession();
 $user = new User();
 if(isset($_SESSION['user'])){
     //echo "hay sesion";
     $user->setUser($userSession->getCurrentUser()); 
-    $user->setSemestre($userSession->getCurrentUser());
+   // $user->setSemestre($userSession->getCurrentUser());
     include_once 'vistas/bandeja_principal.php';
 }else if(isset($_POST['username']) && isset($_POST['password'])){    
     $userForm = $_POST['username'];
@@ -16,7 +17,7 @@ if(isset($_SESSION['user'])){
         //echo "Existe el usuario";
         $userSession->setCurrentUser($userForm);
         $user->setUser($userForm);   
-        $user->setSemestre($userForm);    
+        //$user->setSemestre($userForm);    
         include_once 'vistas/bandeja_principal.php';
     }else{
         //echo "No existe el usuario";

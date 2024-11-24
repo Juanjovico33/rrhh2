@@ -1,0 +1,155 @@
+[11-Jan-2021 15:24:47 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/includes/_gestion.php:54
+Stack trace:
+#0 /home/uecologi/public_html/estudiante/contenedor/panel.php(9): gestion->getgestionactual()
+#1 {main}
+  thrown in /home/uecologi/public_html/estudiante/includes/_gestion.php on line 54
+[11-Jan-2021 15:26:15 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/includes/_gestion.php:54
+Stack trace:
+#0 /home/uecologi/public_html/estudiante/contenedor/panel.php(9): gestion->getgestionactual()
+#1 {main}
+  thrown in /home/uecologi/public_html/estudiante/includes/_gestion.php on line 54
+[11-Jan-2021 15:26:16 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/includes/_gestion.php:54
+Stack trace:
+#0 /home/uecologi/public_html/estudiante/contenedor/panel.php(9): gestion->getgestionactual()
+#1 {main}
+  thrown in /home/uecologi/public_html/estudiante/includes/_gestion.php on line 54
+[11-Jan-2021 15:26:58 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/includes/_gestion.php:54
+Stack trace:
+#0 /home/uecologi/public_html/estudiante/contenedor/panel.php(9): gestion->getgestionactual()
+#1 {main}
+  thrown in /home/uecologi/public_html/estudiante/includes/_gestion.php on line 54
+[11-Jan-2021 15:27:12 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/contenedor/materias_examenes.php:86
+Stack trace:
+#0 {main}
+  thrown in /home/uecologi/public_html/estudiante/contenedor/materias_examenes.php on line 86
+[11-Jan-2021 15:27:18 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/contenedor/historico_pagos.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/uecologi/public_html/estudiante/contenedor/historico_pagos.php on line 10
+[11-Jan-2021 15:27:20 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/contenedor/estado_cuenta.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/uecologi/public_html/estudiante/contenedor/estado_cuenta.php on line 15
+[11-Jan-2021 15:27:39 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/includes/_gestion.php:54
+Stack trace:
+#0 /home/uecologi/public_html/estudiante/contenedor/panel.php(9): gestion->getgestionactual()
+#1 {main}
+  thrown in /home/uecologi/public_html/estudiante/includes/_gestion.php on line 54
+[12-Jan-2021 14:25:22 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getNombre() on null in /home/uecologi/public_html/estudiante/contenedor/ver_planificacion_grupo.php:62
+Stack trace:
+#0 {main}
+  thrown in /home/uecologi/public_html/estudiante/contenedor/ver_planificacion_grupo.php on line 62
+[13-Jan-2021 17:21:32 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/includes/_estudiante.php:264
+Stack trace:
+#0 /home/uecologi/public_html/estudiante/includes/_estudiante.php(233): estudiante->getIdGrupoDb('202002', '03IMA', 'TRS602', 'A')
+#1 /home/uecologi/public_html/estudiante/includes/_estudiante.php(201): estudiante->getdatosgrupos('SELECT * from a...')
+#2 /home/uecologi/public_html/estudiante/contenedor/panel.php(13): estudiante->getmateriasporperiodo(Object(PDOStatement), '31')
+#3 {main}
+  thrown in /home/uecologi/public_html/estudiante/includes/_estudiante.php on line 264
+[14-Jan-2021 00:25:35 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/includes/_actividades.php:151
+Stack trace:
+#0 /home/uecologi/public_html/estudiante/includes/_actividades.php(61): cvirtual->getMomento1('14620')
+#1 /home/uecologi/public_html/estudiante/includes/_actividades.php(511): cvirtual->set_init_cvirtual(7, '14620', 'UNIDAD I: INTRO...', '', '2020-09-03', 'CT 4. Jaula Tor...', '7', '82539', '228138')
+#2 /home/uecologi/public_html/estudiante/contenedor/cv_clasesvirtuales_page.php(19): actividad->getClasesVirtuales('228138')
+#3 {main}
+  thrown in /home/uecologi/public_html/estudiante/includes/_actividades.php on line 151
+[14-Jan-2021 16:33:02 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/includes/_actividades.php:233
+Stack trace:
+#0 /home/uecologi/public_html/estudiante/includes/_actividades.php(63): cvirtual->getMomento3('18756')
+#1 /home/uecologi/public_html/estudiante/includes/_actividades.php(511): cvirtual->set_init_cvirtual(16, '18756', 'Infecciones vir...', 'https://drive.g...', '2020-11-24', 'CT 16. Hepatiti...', '16', '79605', '227816')
+#2 /home/uecologi/public_html/estudiante/contenedor/cv_clasesvirtuales_page.php(19): actividad->getClasesVirtuales('227816')
+#3 {main}
+  thrown in /home/uecologi/public_html/estudiante/includes/_actividades.php on line 233
+[14-Jan-2021 19:41:47 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/includes/_estudiante.php:264
+Stack trace:
+#0 /home/uecologi/public_html/estudiante/includes/_estudiante.php(233): estudiante->getIdGrupoDb('202001', '01BYF', 'BYF907', 'A')
+#1 /home/uecologi/public_html/estudiante/includes/_estudiante.php(201): estudiante->getdatosgrupos('SELECT * from a...')
+#2 /home/uecologi/public_html/estudiante/contenedor/panel.php(13): estudiante->getmateriasporperiodo(Object(PDOStatement), '31')
+#3 {main}
+  thrown in /home/uecologi/public_html/estudiante/includes/_estudiante.php on line 264
+[15-Jan-2021 12:12:37 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/includes/_carrera.php:78
+Stack trace:
+#0 /home/uecologi/public_html/estudiante/includes/_estudiante.php(131): carrera->getcarreraest('BIOQUIMICA Y FA...', '2020', '45197')
+#1 /home/uecologi/public_html/estudiante/contenedor/panel.php(10): estudiante->getdatosest('2020')
+#2 {main}
+  thrown in /home/uecologi/public_html/estudiante/includes/_carrera.php on line 78
+[16-Jan-2021 00:17:39 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/includes/_estudiante.php:264
+Stack trace:
+#0 /home/uecologi/public_html/estudiante/includes/_estudiante.php(233): estudiante->getIdGrupoDb('202001', '03MED', 'FAR504', 'A')
+#1 /home/uecologi/public_html/estudiante/includes/_estudiante.php(201): estudiante->getdatosgrupos('SELECT * from a...')
+#2 /home/uecologi/public_html/estudiante/contenedor/panel.php(13): estudiante->getmateriasporperiodo(Object(PDOStatement), '31')
+#3 {main}
+  thrown in /home/uecologi/public_html/estudiante/includes/_estudiante.php on line 264
+[16-Jan-2021 14:33:22 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/includes/_actividades.php:254
+Stack trace:
+#0 /home/uecologi/public_html/estudiante/includes/_actividades.php(64): cvirtual->getMomento4('15319')
+#1 /home/uecologi/public_html/estudiante/includes/_actividades.php(511): cvirtual->set_init_cvirtual(6, '15319', 'UNIDAD 2 Patolo...', '', '2020-09-16', 'CT 6: Patolog\xC3\xAD...', '6', '80951', '227809')
+#2 /home/uecologi/public_html/estudiante/contenedor/cv_clasesvirtuales_page.php(19): actividad->getClasesVirtuales('227809')
+#3 {main}
+  thrown in /home/uecologi/public_html/estudiante/includes/_actividades.php on line 254
+[18-Jan-2021 14:13:22 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getNombre() on null in /home/uecologi/public_html/estudiante/contenedor/ver_planificacion_grupo.php:62
+Stack trace:
+#0 {main}
+  thrown in /home/uecologi/public_html/estudiante/contenedor/ver_planificacion_grupo.php on line 62
+[18-Jan-2021 15:26:20 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/includes/_estudiante.php:264
+Stack trace:
+#0 /home/uecologi/public_html/estudiante/includes/_estudiante.php(233): estudiante->getIdGrupoDb('202001', '03NUD', 'BIO303', 'A')
+#1 /home/uecologi/public_html/estudiante/includes/_estudiante.php(201): estudiante->getdatosgrupos('SELECT * from a...')
+#2 /home/uecologi/public_html/estudiante/contenedor/panel.php(13): estudiante->getmateriasporperiodo(Object(PDOStatement), '31')
+#3 {main}
+  thrown in /home/uecologi/public_html/estudiante/includes/_estudiante.php on line 264
+[18-Jan-2021 15:29:23 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getNombre() on null in /home/uecologi/public_html/estudiante/contenedor/ver_planificacion_grupo.php:62
+Stack trace:
+#0 {main}
+  thrown in /home/uecologi/public_html/estudiante/contenedor/ver_planificacion_grupo.php on line 62
+[19-Jan-2021 18:13:08 UTC] PHP Fatal error:  Uncaught Error: Call to a member function carrera_post() on null in /home/uecologi/public_html/estudiante/contenedor/historico_pagos.php:78
+Stack trace:
+#0 {main}
+  thrown in /home/uecologi/public_html/estudiante/contenedor/historico_pagos.php on line 78
+[20-Jan-2021 17:11:50 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/includes/_estudiante.php:264
+Stack trace:
+#0 /home/uecologi/public_html/estudiante/includes/_estudiante.php(233): estudiante->getIdGrupoDb('202002', '03MED', 'DII505', 'A')
+#1 /home/uecologi/public_html/estudiante/includes/_estudiante.php(201): estudiante->getdatosgrupos('SELECT * from a...')
+#2 /home/uecologi/public_html/estudiante/contenedor/panel.php(13): estudiante->getmateriasporperiodo(Object(PDOStatement), '31')
+#3 {main}
+  thrown in /home/uecologi/public_html/estudiante/includes/_estudiante.php on line 264
+[21-Jan-2021 14:28:20 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/includes/_estudiante.php:264
+Stack trace:
+#0 /home/uecologi/public_html/estudiante/includes/_estudiante.php(233): estudiante->getIdGrupoDb('202001', '03BYF', 'QGI101', 'P')
+#1 /home/uecologi/public_html/estudiante/includes/_estudiante.php(201): estudiante->getdatosgrupos('SELECT * from a...')
+#2 /home/uecologi/public_html/estudiante/contenedor/panel.php(13): estudiante->getmateriasporperiodo(Object(PDOStatement), '31')
+#3 {main}
+  thrown in /home/uecologi/public_html/estudiante/includes/_estudiante.php on line 264
+[24-Jan-2021 18:35:02 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/includes/_actividades.php:274
+Stack trace:
+#0 /home/uecologi/public_html/estudiante/includes/_actividades.php(65): cvirtual->getMomento5('15998')
+#1 /home/uecologi/public_html/estudiante/includes/_actividades.php(511): cvirtual->set_init_cvirtual(14, '15998', 'Unidad II. Meta...', '', '2020-09-24', 'CT 7. Relaci\xC3\xB3n...', '14', '85057', '227988')
+#2 /home/uecologi/public_html/estudiante/contenedor/cv_clasesvirtuales_page.php(19): actividad->getClasesVirtuales('227988')
+#3 {main}
+  thrown in /home/uecologi/public_html/estudiante/includes/_actividades.php on line 274
+[25-Jan-2021 01:41:22 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/includes/_actividades.php:170
+Stack trace:
+#0 /home/uecologi/public_html/estudiante/includes/_actividades.php(62): cvirtual->getMomento2('13920')
+#1 /home/uecologi/public_html/estudiante/includes/_actividades.php(511): cvirtual->set_init_cvirtual(2, '13920', 'UNIDAD I: INTRO...', '', '2020-08-22', 'CT 2: Anatom\xC3\xADa...', '2', '81426', '227825')
+#2 /home/uecologi/public_html/estudiante/contenedor/cv_clasesvirtuales_page.php(19): actividad->getClasesVirtuales('227825')
+#3 {main}
+  thrown in /home/uecologi/public_html/estudiante/includes/_actividades.php on line 170
+[25-Jan-2021 13:20:22 UTC] PHP Fatal error:  Uncaught Error: Call to a member function carrera_post() on null in /home/uecologi/public_html/estudiante/contenedor/historico_pagos.php:78
+Stack trace:
+#0 {main}
+  thrown in /home/uecologi/public_html/estudiante/contenedor/historico_pagos.php on line 78
+[26-Jan-2021 23:11:14 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/includes/_grupo.php:86
+Stack trace:
+#0 /home/uecologi/public_html/estudiante/contenedor/frm_materia.php(15): grupo->getDatosGrupo('227842')
+#1 {main}
+  thrown in /home/uecologi/public_html/estudiante/includes/_grupo.php on line 86
+[26-Jan-2021 23:35:43 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/includes/_gestion.php:55
+Stack trace:
+#0 /home/uecologi/public_html/estudiante/contenedor/panel.php(9): gestion->getgestionactual()
+#1 {main}
+  thrown in /home/uecologi/public_html/estudiante/includes/_gestion.php on line 55
+[26-Jan-2021 23:35:48 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/uecologi/public_html/estudiante/includes/_gestion.php:55
+Stack trace:
+#0 /home/uecologi/public_html/estudiante/contenedor/panel.php(9): gestion->getgestionactual()
+#1 {main}
+  thrown in /home/uecologi/public_html/estudiante/includes/_gestion.php on line 55

@@ -9,6 +9,7 @@
         private $idmateria;
         private $iddocente;
         private $grupo;
+         private $eGrupo;
         private $error;
 
         function __construct(){
@@ -20,6 +21,7 @@
             $this->idmateria='';
             $this->iddocente=0;
             $this->grupo='';
+            $this->eGrupo=0;
             $this->error='';
         }
 
@@ -77,12 +79,18 @@
         public function setError($error){
             $this->error=$error;
         }
+        public function getEGrupo(){
+            return $this->eGrupo;
+        }
+        public function setEGrupo($egrupo){
+            $this->eGrupo=$egrupo;
+        }
 
         function getDatosGrupo($_grupo){
             include "conexion.php";
 
             try {
-                $q_grupo="SELECT * FROM grupos where CodGrupo=$_grupo";
+                $q_grupo="SELECT CodGrupo, Gestion, periodo, CodCarrera, CodSemestre, CodMateria, CodDocente, Descripcion, Estado FROM grupos where CodGrupo=$_grupo";
                 $s_gestion = $bdcon->prepare($q_grupo);
                 $s_gestion->execute();
                 // $this->error.=$q_grupo;
@@ -99,6 +107,7 @@
                     $this->idmateria=$row['CodMateria'];
                     $this->iddocente=$row['CodDocente'];
                     $this->grupo=$row['Descripcion'];
+                    $this->eGrupo=$row['Estado'];
                 }
             }catch (PDOException $e) {
                 $this->error .= 'Error al desplegar los datos : ' . $e->getMessage();
@@ -215,7 +224,7 @@
             $_codma_mn='';
             try {
                 
-                $q_materiasequivalencia="SELECT * FROM sainc.materias_equivalencia WHERE codca_ma='$carrera' AND sigla_ma='$materia'";
+                $q_materiasequivalencia="SELECT codca_mn, sigla_mn FROM sainc.materias_equivalencia WHERE codca_ma='$carrera' AND sigla_ma='$materia'";
                 $resul = $bdcon->prepare($q_materiasequivalencia);
                 $resul->execute();
                 while ($_row = $resul->fetch(PDO::FETCH_ASSOC)) {
@@ -246,7 +255,7 @@
 
             try {
 
-                $query="SELECT * FROM grupos_fusionados where codcar_rama='$carrera' AND per_rama=$periodo AND  mat_rama='$materia' AND gru_rama='$grupo_letra'";
+                $query="SELECT codcar_rama FROM grupos_fusionados where codcar_rama='$carrera' AND per_rama=$periodo AND  mat_rama='$materia' AND gru_rama='$grupo_letra'";
                 $_consultando = $bdcon->prepare($query);
                 $_consultando->execute();
                 

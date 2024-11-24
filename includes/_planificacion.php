@@ -219,12 +219,12 @@
             }
         }
 
-        function getUnidades($idgrupo){
+        function getUnidades($idgrupo, $id_subgrupo){
             include "conexion.php";
             $unidad=null;
 
             try {
-                $q_unidades="SELECT * FROM aa_unidad_por_clase WHERE id_grupo=$idgrupo";
+                $q_unidades="SELECT * FROM aa_unidad_por_clase WHERE id_grupo=$idgrupo AND id_subgru=$id_subgrupo";
                 $s_uni = $bdcon->prepare($q_unidades);
                 $s_uni->execute();
 
@@ -296,12 +296,12 @@
 
 
         //pendiente
-        function getTemas($idgrupo){
+        function getTemas($idgrupo, $id_subgrupo){
             include "conexion.php";
             $tema=null;
 
             try {
-                $q_temas="SELECT * FROM aa_por_clase WHERE idgrupo=$idgrupo ORDER BY dia";
+                $q_temas="SELECT * FROM aa_por_clase WHERE idgrupo=$idgrupo AND id_subgru=$id_subgrupo ORDER BY dia";
                 $s_tem = $bdcon->prepare($q_temas);
                 $s_tem->execute();
 

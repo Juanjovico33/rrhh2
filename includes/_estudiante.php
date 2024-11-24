@@ -128,6 +128,7 @@
                     $this->planpago=$row['planpago'];
                     $this->nb_carrera=$row['carrera'];
                     // $this->semestre=$row['semestre'];
+                    $this->setSemestre($this->getSemestreEst());
                     $carrera->getcarreraest($this->nb_carrera, $gestion_actual, $this->codest);
                     $this->cod_carrera = $carrera->getCodigo();
                 }
@@ -146,6 +147,7 @@
             try {
                 if($this->getCodCarrera()=='02AUD' || $this->getCodCarrera()=='02DER' || $this->getCodCarrera()=='02ADM'){
                     $gestion_anterior=$gestion-1;
+                    $periodos_consulta.=$this->getCondicionORPeriodos_menosunagest($per_encurso);
                     $q_perregistrados="SELECT periodo FROM aca_registroestgest WHERE (codest='$this->codest' or codest='$this->codestudiante') and (gestion='$gestion' or gestion='$gestion_anterior') and ($periodos_consulta) group by periodo order by periodo";
                     // periodo=$per_encurso[0] or periodo=$per_encurso[1] or periodo=$per_encurso[2] or periodo=$per_encurso[3] or periodo=$per_encurso[4] or periodo=$per_encurso[5]
                 }else{
@@ -180,6 +182,25 @@
             return $_consulta;
         }
 
+        function getCondicionORPeriodos_menosunagest($periodos){
+            $_consulta='';
+            $anio = substr($periodos[0],0,4);
+            $anio = $anio -1;
+            if(!is_null($periodos)){
+                try{
+                    for($i=0;$i<count($periodos);$i++){
+                        $per2=substr($periodos[$i],4,2);
+                        if($per2=="02" || $per2=="08"){
+                            $_consulta.=' OR periodo='.$anio.$per2;
+                        }
+                    }
+                }catch(Exception $e){
+                    $this->error.="Error al obtener los periodos correspondientes:".$e->getMessage();
+                }
+            }
+            return $_consulta;
+        }
+
         function getmateriasporperiodo($periodos, $idgestion){
             // function getmateriasporperiodo($periodos, $per, $idgestion){
             include "conexion.php";
@@ -194,14 +215,14 @@
                         $selectnombreperiodo->execute();
                         while ($rowper = $selectnombreperiodo->fetch(PDO::FETCH_ASSOC)) {
                             $periodonombre=$rowper['opcion'];
-                            $q_matxper="SELECT * from aca_registroestmat inner join aca_pensum on (aca_registroestmat.codmateria=aca_pensum.materia) where (aca_registroestmat.codest='$this->codestudiante' or aca_registroestmat.codest='$this->codest') and (aca_registroestmat.periodo='$idperiodo') and aca_pensum.gestion='$idgestion' and aca_pensum.carrera='$this->cod_carrera'";
+                            $q_matxper="SELECT  mat.idgrupo, mat.codmateria, mat.periodo, mat.grupo, mat.gestion, pen.carrera, pen.semestre, pen.id_resolucion from aca_registroestmat mat inner join aca_pensum pen on (mat.codmateria=pen.materia) where (mat.codest='$this->codest') and (mat.periodo='$idperiodo') and pen.gestion='$idgestion' and pen.carrera='$this->cod_carrera'";
+
                             $pMaterias[] = array(
                                 'idperiodo'=>$idperiodo,
                                 'nbperiodo'=>$periodonombre,
                                 'materias_array'=>$this->getdatosgrupos($q_matxper)
                             );
-                            // $this->error=$q_matxper;
-                            // $this->error .="SELECT * from aca_registroestmat inner join aca_pensum on (aca_registroestmat.codmateria=aca_pensum.materia) where (aca_registroestmat.codest='$this->codestudiante' or aca_registroestmat.codest='$this->codest') and (aca_registroestmat.periodo='$per[0]' or aca_registroestmat.periodo='$per[1]' or aca_registroestmat.periodo='$per[2]') and aca_pensum.gestion='$idgestion' and aca_pensum.carrera='$this->cod_carrera';"; //Consulta con errores
+
                             // $this->error .= $q_matxper ;
                         }
                     }
@@ -210,6 +231,34 @@
                 }
             }else{
                 $pMaterias=null;
+            }
+            // $this->error.=var_dump($periodos);
+            return $pMaterias;
+        }
+
+        function getmateriaspor_UnSolo_periodo($idperiodo, $idgestion){
+            // function getmateriasporperiodo($periodos, $per, $idgestion){
+            include "conexion.php";
+            $q_matxper='';
+            $pMaterias=null;
+            try{
+                //---Oteniendo el nombre del periodo
+                $selectnombreperiodo = $bdcon->prepare("select opcion from periodo where id=$idperiodo;");
+                $selectnombreperiodo->execute();
+                while ($rowper = $selectnombreperiodo->fetch(PDO::FETCH_ASSOC)) {
+                    $periodonombre=$rowper['opcion'];
+                    $q_matxper="SELECT  mat.idgrupo, mat.codmateria, mat.periodo, mat.grupo, mat.gestion, pen.carrera, pen.semestre, pen.id_resolucion from aca_registroestmat mat inner join aca_pensum pen on (mat.codmateria=pen.materia) where (mat.codest='$this->codest') and (mat.periodo='$idperiodo') and pen.gestion='$idgestion' and pen.carrera='$this->cod_carrera'";
+
+                    $pMaterias[] = array(
+                        'idperiodo'=>$idperiodo,
+                        'nbperiodo'=>$periodonombre,
+                        'materias_array'=>$this->getdatosgrupos($q_matxper)
+                    );
+
+                    // $this->error .= $q_matxper ;
+                }
+            }catch (PDOException $e) {
+                $this->error .= 'Error al desplegar los datos : ' . $e->getMessage();
             }
             // $this->error.=var_dump($periodos);
             return $pMaterias;
@@ -233,10 +282,11 @@
                         $idgrupo=$this->getIdGrupoDb($periodo, $cod_carrera, $codmateria, $grupo);
 
                         $semestre=$row['semestre'];
+                        $this->setSemestre($semestre);
                         $nb_materia='';
                         $id_resolucion=$row['id_resolucion'];
 
-                        $select_materia=$bdcon->prepare("SELECT Descripcion FROM sainc.materias WHERE CodCarrera='$cod_carrera' AND id_resolucion='$id_resolucion' AND Sigla='$codmateria'");
+                        $select_materia=$bdcon->prepare("SELECT Descripcion FROM materias WHERE CodCarrera='$cod_carrera' AND id_resolucion='$id_resolucion' AND Sigla='$codmateria'");
                         $select_materia->execute();
                         while ($m_row = $select_materia->fetch(PDO::FETCH_ASSOC)) {
                             $nb_materia=$m_row['Descripcion'];}
@@ -271,6 +321,23 @@
                 $this->error .= 'Error al estructurar los datos a base de la conexion : ' . $e->getMessage();
             }
             return $_idgrupo;
+        }
+        function getSemestreEst(){
+            include "conexion.php";
+            $query="SELECT semestre FROM aca_estudiantesemestre WHERE codest=$this->codest order by periodo DESC limit 1";
+            $this->semestre=0;
+            // $this->error.=$query.'<br>';
+            try{
+                $_qcod = $bdcon->prepare($query);
+                $_qcod->execute();
+                    while ($row = $_qcod->fetch(PDO::FETCH_ASSOC)) {
+                        $this->semestre=$row['semestre'];
+                    }
+            }catch(PDOException $e){
+                return 0;
+                $this->error .= 'Error al estructurar los datos a base de la conexion : ' . $e->getMessage();
+            }
+            return $this->semestre;
         }
     }
 ?>

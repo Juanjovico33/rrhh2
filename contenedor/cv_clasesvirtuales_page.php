@@ -1,13 +1,16 @@
 <?php
     include ("../includes/_actividades.php");
+    include "../includes/_event_log.php";
     // include ("../includes/_grupo.php");
 
     $id_grupo=$_POST['_idgrupo'];
     $id_grupoRaiz=$_POST['_idgrupoRaiz'];
     $cod_est=$_POST['_codest'];
+    $sub_grupo=$_POST['_subgrupo'];
 
     $act=new actividad();
     $grupo=new grupo();
+    $e = new evento();
     $grupo->getDatosGrupo($id_grupo);
 
     $_idgrupoRaiz=0;
@@ -16,18 +19,21 @@
     if($id_grupoRaiz==0){
         // echo "idgrupo=".$id_grupo;
         $_idgrupoRaiz=0;
-        $act->getClasesVirtuales($id_grupo);
+        $act->getClasesVirtuales($id_grupo,$sub_grupo);
     }else if($grupo->esNivelacion()){
         // echo "idgrupo=".$id_grupo.'-Raiz='.$id_grupoRaiz;
         $_idgrupoRaiz=$id_grupoRaiz;
-        $act->getClasesVirtuales($_idgrupoRaiz);
+        $act->getClasesVirtuales($_idgrupoRaiz,$sub_grupo);
     }else{
         // if($grupo->es_rama()){
         //     $_idgrupoRaiz=$grupo->getIdramaRaiz();
         // }
         $_idgrupoRaiz=$grupo->getIdramaRaiz();
-        $act->getClasesVirtuales($_idgrupoRaiz);
+        $act->getClasesVirtuales($_idgrupoRaiz,$sub_grupo);
     }
+    $e->setIdGrupo($id_grupo);
+    $e->setIdSubGrupo($sub_grupo);
+    $e->e_log_inicio_evento($cod_est, 19);
 
     $_actividades=null;
     $_actividades=$act->getClases();
@@ -60,7 +66,20 @@
     <!-- icons
     ================================================== -->
     <link rel="stylesheet" href="css/icons.css">
-
+    <style>
+        .container{
+            width: 100%;
+            padding: 0.5em;
+            overflow: hidden;
+            /* background:blue; */
+        }
+        .left{
+            float: left;
+        }
+        .right{
+            float: right;
+        }
+    </style>
  
 </head>
 
@@ -124,7 +143,25 @@
 
                 <div class="course-sidebar">
                     <div class="course-sidebar-title">
-                        <!-- <h3> Clases Virtuales</h3> --><div style="align-items:right;"><a href="#" onclick="regresarA_bandejaprincipal()"><button class="btn btn-success"><i class="icon-feather-skip-back"></i>  Regresar</button></div></p>
+                        <!-- <h3> Clases Virtuales</h3> -->
+                        <div class="container">
+                            <div class="left">
+                                <a href="#" onclick="regresarA_bandejaprincipal()">
+                                    <button class="btn btn-success">
+                                        <i class="icon-feather-skip-back"></i>Regresar
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="center">
+                            </div>
+
+                            <div class="right">
+                                <button class="btn btn-success" onclick="ver_biblio(<?=$cod_est?>, <?=$id_grupo?>, <?=$id_grupoRaiz?>)">
+                                <i class="uil-books"> </i>Bibliografia
+                                </button>
+                            </div>
+                           
+                        </div>
                     </div>
                     <div class="course-sidebar-container" data-simplebar>
                         <ul class="course-video-list-section" uk-accordion>
@@ -136,15 +173,53 @@
                                         <?php
                                             for($i=0; $i<count($_actividades); $i++){
                                                 $aux_clase = $_actividades[$i];
-                                                $iclase=$aux_clase->getItem();
+                                                // $iclase=$aux_clase->getItem();
+                                                $iclase=$aux_clase->getPla_nroclase();
                                                 $clase=$aux_clase->getId_clase();
                                                 $fecha=$aux_clase->getFecha_pub();
+                                                $modalidad=$aux_clase->getModalidad();
+                                                $id_modalidad=$aux_clase->getIdModalidad();
+                                                $funcion_clase=""; // Normal/asincronica
+                                                $nb_clase=""; $m_salto="";
+                                                if($id_modalidad==8 || $id_modalidad==9){
+                                                    $color_modalidad="#008000"; // verde
+                                                    $funcion_clase="cargar_datos_clase_asincronica"; // ASINCRONICA
+                                                    $nb_clase="Autoaprendizaje ".$iclase;
+                                                    $m_salto="<br>";
+                                                }else if($id_modalidad==7 || ($aux_clase->getSubGrupo_Des()==7)){
+                                                    $color_modalidad="#008000"; // Verde
+                                                    $funcion_clase="cargar_datos_clase_invertida"; // INVERTIDA
+                                                    $nb_clase="Clase ".$iclase;
+                                                    $modalidad = "Aula Invertida";
+                                                    $m_salto="";
+                                                }else{
+                                                    $color_modalidad="#000000"; // negro
+                                                    $funcion_clase="cargar_datos_clase"; // NORMAL
+                                                    $nb_clase="Clase ".$iclase;
+                                                    $m_salto="";
+                                                }
                                                 if($iclase==1){
                                                     ?>
-                                                    <li class="watched"><a href="#" onclick="cargar_datos_clase(<?=$iclase;?>, <?=$id_grupo;?>, <?=$clase;?>, <?=$cod_est;?>, <?=$_idgrupoRaiz;?>)"><i class="uil-file-alt"></i> Clase <?=$iclase;?> (<?=$fecha;?>)</a></li> 
+                                                        <li class="watched">
+                                                            <a href="#" onclick="<?=$funcion_clase?>(<?=$iclase?>, <?=$id_grupo?>, <?=$clase?>, <?=$cod_est?>, <?=$_idgrupoRaiz?>, <?=$sub_grupo?>)">
+                                                                <i class="uil-file-alt"></i> <?=$nb_clase?> (<?=$fecha?>)&nbsp;&nbsp;&nbsp;<?=$m_salto?><font uk-tooltip="title: <?=$modalidad?>" size='0.2' color='<?=$color_modalidad?>'><?=$modalidad?></font><br>
+                                                                <small>
+                                                                    <font size='0.5'>Creado por : <?=$aux_clase->getDocente()?></font>
+                                                                </small>
+                                                            </a>
+                                                        </li> 
                                                     <?php
-                                                }else{?>
-                                                    <li class="watched"><a href="#" onclick="cargar_datos_clase(<?=$iclase;?>, <?=$id_grupo;?>, <?=$clase;?>, <?=$cod_est;?>, <?=$_idgrupoRaiz;?>)"><i class="uil-file-alt"></i> Clase <?=$iclase;?> (<?=$fecha;?>)</a> </li><?php  
+                                                }else{
+                                                    ?>
+                                                        <li class="watched">
+                                                            <a href="#" onclick="<?=$funcion_clase?>(<?=$iclase?>, <?=$id_grupo?>, <?=$clase?>, <?=$cod_est?>, <?=$_idgrupoRaiz?>, <?=$sub_grupo?>)">
+                                                                <i class="uil-file-alt"></i> <?=$nb_clase?> (<?=$fecha?>)&nbsp;&nbsp;&nbsp;<?=$m_salto?><font uk-tooltip="title: <?=$modalidad?>" size='0.2' color='<?=$color_modalidad?>'><?=$modalidad?></font><br>
+                                                                <small>
+                                                                    <font size='0.5'>Creado por : <?=$aux_clase->getDocente()?></font>
+                                                                </small>
+                                                            </a>
+                                                        </li>
+                                                    <?php  
                                                 }
                                         ?>
                                         <?php 

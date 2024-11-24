@@ -4,18 +4,28 @@ $cod_ban=$_REQUEST['cod_ban'];
 $codest=$_REQUEST['codest'];
 $cod_gru_aux=$_REQUEST['cod_gru_aux'];
 $hora_final=$_REQUEST['h_fin'];
-$parcial=3;
+$parcial=1;
+$ponde="";
 ?>
 <?php 
 include "../includes/conexion.php";
 	$query= $bdcon->prepare("SELECT cod FROM plat_doc_intentos_est WHERE cod_act='$cod_act' and cod_ban='$cod_ban' and codest='$codest'");
-    $query->execute();
-    $exis=0;
-    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {       
-        $exis=$row['cod'];                         
-    }
+    $query->execute();      
 //$exis=$cons->cons_simple('plat_doc_intentos_est',"cod_act='$cod_act' and cod_ban='$cod_ban' and codest='$codest'",'cod');
-	if ($exis>0) {
+    $query_periodo=$bdcon->prepare("SELECT periodo, CodCarrera, CodMateria, Descripcion FROM grupos WHERE CodGrupo='$cod_gru_aux'");
+    $query_periodo->execute();
+	$grupo_nb="";
+	    while ($rowperi = $query_periodo->fetch(PDO::FETCH_ASSOC)) { 
+			 $grupo_peri=$rowperi['periodo'];
+			 $grupo_car=$rowperi['CodCarrera'];
+			 $grupo_mat=$rowperi['CodMateria'];
+			 $grupo_nb=$rowperi['Descripcion'];
+		}
+	$car=substr($grupo_car, 2);
+	$per=substr($grupo_peri, 4);
+	$mat=$grupo_mat;
+	
+	if($query->rowCount()>0){
 		//ya existe registro de evaluacion de esa estudiante
 		?>
 	    <div class="alert alert-danger">
@@ -55,51 +65,170 @@ include "../includes/conexion.php";
 		$parcial=3;
 	}*/
 	if ($parcial=='' || $parcial=='0') {
-		$parcial=3;
+		$parcial=1;
 	}
-	$querypon= $bdcon->prepare("SELECT porcentaje FROM aca_ponderacion WHERE cod_grupo='$idgru' and num_parcial='$parcial' and (campo='2' or campo='20' or campo='29')");
+	$querypon= $bdcon->prepare("SELECT porcentaje FROM aca_ponderacion WHERE cod_grupo='$idgru' and num_parcial='$parcial' and (campo='1' or campo='2' or campo='20' or campo='29' or campo='14')");
 	//$ponde=$cons->cons_simple('aca_ponderacion',"cod_grupo='$idgru' and num_parcial='$parcial' and (campo='2' or campo='20' or campo='29')",'porcentaje');
     $querypon->execute(); 
     while ($rowpon = $querypon->fetch(PDO::FETCH_ASSOC)) {   
 		$ponde=$rowpon['porcentaje'];
 	}
-
-	if ($parcial=='5') {
-		# 2da instancia
-		$n_preg=50;
+	if ($per=='11') {
+		$n_preg=40;
 		$ponde=100;
 		$cond_cb="id_cat='$cod_ban'";
-		$q_ob= $bdcon->prepare("SELECT * FROM plat_doc_actividades_segundas WHERE codgrupo='$idgru' ORDER BY cod");
-	    $q_ob->execute(); 
-	    while ($fob = $q_ob->fetch(PDO::FETCH_ASSOC)) {   
-			$codban=$fob['codbanco'];
-			$cond_cb=$cond_cb." or id_cat=".$codban;
-		}
-		//$q_ob=$cons->cons_cond('plat_doc_actividades_segundas',"codgrupo='$idgru'",'cod');		
 	}else{
-		if ($ponde=='') {
-			$n_preg=15;
-			$ponde=15;
-		}else{
-			if ($ponde=='50') {
-				$n_preg=20;
-			}else{
-				if ($ponde=='70') {
-					$n_preg=35;
-				}else{
-					$n_preg=20;
-				}
+		
+		 // $car=="ENF" && $mat=="ENF705" else if($codest==43440 && $per==202204 && $mat=="ING307")
+		 // if ($per=='07' && $car="DER") {
+		 // $mat=="BYF507" && 
+		if ($codest==46449 && $per=='08') { // 43197,42004
+			$n_preg=50;
+			$ponde=100;
+			$cond_cb="id_cat='$cod_ban'";
+			$q_ob= $bdcon->prepare("SELECT codbanco FROM plat_doc_actividades_segundas WHERE codgrupo='$idgru' ORDER BY cod");
+			$q_ob->execute(); 
+			while ($fob = $q_ob->fetch(PDO::FETCH_ASSOC)) {   
+				$codban=$fob['codbanco'];
+				$cond_cb=$cond_cb." or id_cat=".$codban;
+			}
+		} else if ($grupo_nb=="TS" && $per=='08') { // NIVELACIÓN II/2022 --6? TS
+			$n_preg=50;
+			$ponde=100;
+			$cond_cb="id_cat='$cod_ban'";
+			$q_ob= $bdcon->prepare("SELECT codbanco FROM plat_doc_actividades_segundas WHERE codgrupo='$idgru' ORDER BY cod");
+			$q_ob->execute(); 
+			while ($fob = $q_ob->fetch(PDO::FETCH_ASSOC)) {   
+				$codban=$fob['codbanco'];
+				$cond_cb=$cond_cb." or id_cat=".$codban;
+			}
+		}else if (($codest==47873 || $codest==42907 || $codest==46897) && $per=='04') { // -- 46627
+			$n_preg=50;
+			$ponde=100;
+			$cond_cb="id_cat='$cod_ban'";
+			$q_ob= $bdcon->prepare("SELECT codbanco FROM plat_doc_actividades_segundas WHERE codgrupo='$idgru' ORDER BY cod");
+			$q_ob->execute(); 
+			while ($fob = $q_ob->fetch(PDO::FETCH_ASSOC)) {   
+				$codban=$fob['codbanco'];
+				$cond_cb=$cond_cb." or id_cat=".$codban;
 			}
 		}
-		$cond_cb="id_cat='$cod_ban'";
+		else if ($codest==44528 && $per=='04') {
+			$n_preg=50;
+			$ponde=100;
+			$cond_cb="id_cat='$cod_ban'";
+			$q_ob= $bdcon->prepare("SELECT codbanco FROM plat_doc_actividades_segundas WHERE codgrupo='$idgru' ORDER BY cod");
+			$q_ob->execute(); 
+			while ($fob = $q_ob->fetch(PDO::FETCH_ASSOC)) {   
+				$codban=$fob['codbanco'];
+				$cond_cb=$cond_cb." or id_cat=".$codban;
+			}
+		}
+		else if ($per=='06' && $ponde==100) {
+			$n_preg=50;
+			$ponde=100;
+			$cond_cb="id_cat='$cod_ban'";
+			$q_ob= $bdcon->prepare("SELECT codbanco FROM plat_doc_actividades_segundas WHERE codgrupo='$idgru' ORDER BY cod");
+			$q_ob->execute(); 
+			while ($fob = $q_ob->fetch(PDO::FETCH_ASSOC)) {   
+				$codban=$fob['codbanco'];
+				$cond_cb=$cond_cb." or id_cat=".$codban;
+			}
+		}
+		// RECUPERATORIOS
+		else if ($per=='05' || $per=='07') {
+			$n_preg=50;
+			$ponde=100;
+			
+			$cond_cb="id_cat='$cod_ban'";
+			$q_ob= $bdcon->prepare("SELECT codbanco FROM plat_doc_actividades_segundas WHERE codgrupo='$idgru' ORDER BY cod");
+			$q_ob->execute(); 
+			while ($fob = $q_ob->fetch(PDO::FETCH_ASSOC)) {   
+				$codban=$fob['codbanco'];
+				$cond_cb=$cond_cb." or id_cat=".$codban;
+			}
+		}else{
+			if ($parcial=='5') {
+				# 2da instancia
+				$n_preg=50;
+				$ponde=100;
+				$cond_cb="id_cat='$cod_ban'";
+				$q_ob= $bdcon->prepare("SELECT codbanco FROM plat_doc_actividades_segundas WHERE codgrupo='$idgru' ORDER BY cod");
+			    $q_ob->execute(); 
+			    while ($fob = $q_ob->fetch(PDO::FETCH_ASSOC)) {   
+					$codban=$fob['codbanco'];
+					$cond_cb=$cond_cb." or id_cat=".$codban;
+				}
+				//$q_ob=$cons->cons_cond('plat_doc_actividades_segundas',"codgrupo='$idgru'",'cod');		
+			}else{
+				if ($parcial=='6') {
+					# 3ra instancia
+					$n_preg=50;
+					$ponde=100;
+					$cond_cb="id_cat='$cod_ban'";
+					$q_ob= $bdcon->prepare("SELECT codbanco FROM plat_doc_actividades_segundas WHERE codgrupo='$idgru' ORDER BY cod");
+			    	$q_ob->execute(); 
+					//$q_ob=$cons->cons_cond('plat_doc_actividades_terceras',"codgrupo='$idgru'",'cod');
+					while ($fob = $q_ob->fetch(PDO::FETCH_ASSOC)) {
+						$codban=$fob['codbanco'];
+						$cond_cb=$cond_cb." or id_cat=".$codban;
+					}
+				}else if($parcial=="10"){
+					$n_preg=15;
+					$ponde=15;
+				}else{
+					if ($ponde=='') {
+						if($parcial=="9"){
+							$n_preg=10;
+							$ponde=10;
+						}else{
+							$n_preg=15;
+							$ponde=15;
+						}	
+					}else{
+						if ($ponde=='30') {
+							$n_preg=15;
+						}else{
+							if ($ponde=='50') {
+								$n_preg=20;
+							}else{
+								if ($ponde=='70') {
+									$n_preg=35;
+								}else{
+									if ($ponde=='100') {
+										$n_preg=50;
+									}else{
+										if($ponde=='60'){
+											$n_preg=20;
+										}else{
+											if($ponde=='40'){
+												$n_preg=20;
+											}else{
+												$n_preg=$ponde;	
+											}	
+										}
+									}
+								}
+							}
+						}
+					}
+				}		
+				$cond_cb="id_cat='$cod_ban'";
+			}
+		}
+			
 	}
 	
 	$fec_ini="";
 	$fec_fin="";
-	$q_p= $bdcon->prepare("SELECT id, pregunta, puntuacion, tipo, uov, imagen FROM plat_doc_banco_preg WHERE ($cond_cb) and pregunta!='' and (tipo='1' or tipo='3') ORDER BY rand() LIMIT $n_preg");
+	$q_p= $bdcon->prepare("SELECT id, pregunta, puntuacion, tipo, uov, imagen FROM plat_doc_banco_preg WHERE ($cond_cb) and (pregunta!='' or imagen!='') and (tipo='1' or tipo='3') ORDER BY rand() LIMIT $n_preg");
+	// $q_p= $bdcon->prepare("SELECT id, pregunta, puntuacion, tipo, uov, imagen FROM plat_doc_banco_preg WHERE ($cond_cb) and pregunta!='' and (tipo='1' or tipo='3') ORDER BY rand() LIMIT $n_preg");
 	$q_p->execute(); 
-	//$q_p=mysql_query("SELECT id, pregunta, puntuacion, tipo, uov, imagen FROM plat_doc_banco_preg WHERE ($cond_cb) and pregunta!='' and (tipo='1' or tipo='3') ORDER BY rand() LIMIT $n_preg");
 ?>
+<div uk-grid>
+        <div class="uk-width-6-7@m">
+            <div class="blog-post single-post">
+                <div class="blog-post-content">
 <table class="table table-hover">
 	<tr align="center">
 		<td><strong>TE QUEDA !!!</strong></td>
@@ -108,7 +237,6 @@ include "../includes/conexion.php";
 	</tr>
 </table>
 <?php 
-
 //$conver=convert_date($f_has, $h_has);
 //$conver=date($f_has, $h_has);
 //$conver=date_format($f_has, '$h_has');
@@ -122,6 +250,8 @@ echo $h_has;*/
 	<input type="hidden" name="codest" value="<?php echo $codest; ?>">
 	<input type="hidden" name="cod_gru_aux" value="<?php echo $cod_gru_aux; ?>">
 	<input type="hidden" name="parcial" value="<?php echo $parcial; ?>">
+	<input type="hidden" id="resul" name="resul" value="">
+<div class="table-responsive" class="panel-body" style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;"unselectable="on" onselectstart="return false;"  onmousedown="return false;">
 <table class="table table-sm">
 	<tr>
 		<th>Estudiante: </th>
@@ -151,6 +281,8 @@ echo $h_has;*/
 		<td><?php echo $ponde; ?></td>
 	</tr>
 </table>
+</div>
+<div class="table-responsive"  class="table-responsive" class="panel-body" style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;"unselectable="on" onselectstart="return false;"  onmousedown="return false;">
 <table class="table table-sm">
 	<tr>
 		<th>N°</th>
@@ -160,12 +292,15 @@ echo $h_has;*/
 	<?php 
 	$cont=1;
 	$nb_uov="";
-	while ($f_p = $q_p->fetch(PDO::FETCH_ASSOC)) {  
-	//while ($f_p=mysql_fetch_array($q_p)) {
+
+	// CICLO DE PREGUNTAS
+	while ($f_p = $q_p->fetch(PDO::FETCH_ASSOC)) {
 		$idp=$f_p['id'];
 		$tipo=$f_p['tipo'];
 		$uov=$f_p['uov'];
 		$img=$f_p['imagen'];
+
+		// Nombre para el tipo de pregunta
 		switch ($tipo) {
 			case '1':
 				$nb_tipo="Opción Multiple";
@@ -183,26 +318,28 @@ echo $h_has;*/
 				$nb_tipo="N/A";
 				break;
 		}
+
+		// Opciones a seleccionar respuestas
 		if ($uov=='1') {
 			//solo una respuesta radio
 			$nb_uov="(Una válida)";
+		}else if ($uov=='2') {
+			//varias respuestas check
+			$nb_uov="(2 válidas)";	
 		}else{
-			if ($uov=='2') {
-				//varias respuestas check
-				$nb_uov="(2 válidas)";	
-			}else{
-				$nb_uov="";
-			}
+			$nb_uov="";
 		}
+
 		?>
 		<tr class="active">
+			<!-- Se carga array con ids de las preguntas en la variable PREG -->
 			<th><?php echo $cont.".-"; ?><input type="hidden" name="preg[]" value="<?php echo $idp; ?>"></th>
 			<th>
 				<?php 
 				echo $f_p['pregunta']; 
 				if ($img!='') {
 					?>
-					<img src="../../../../plataformaDocente/assets/docente/banco/<?php echo $img; ?>">
+					<img src="https://storage.googleapis.com/une_segmento-one/docentes/<?php echo $img; ?>">
 					<?php
 				}
 				?>
@@ -211,11 +348,12 @@ echo $h_has;*/
 			<th><small><?php echo $nb_tipo."<br>".$nb_uov; ?></small></th>
 		</tr>
 		<?php
+
+		// OBTENER OPCIONES DEL ID PREGUNTA
 		$q_r= $bdcon->prepare("SELECT id, eleccion, calif, imagen FROM plat_doc_banco_resp WHERE  id_preg='$idp'");
 		$q_r->execute();
 		$fil=$q_r->rowCount();
-		//$q_r=mysql_query("SELECT id, eleccion, calif, imagen FROM plat_doc_banco_resp WHERE id_preg='$idp'");
-		//$fil=mysql_num_rows($q_r);
+
 		$fil=$fil*2;
 		?>
 		<tr>
@@ -223,7 +361,8 @@ echo $h_has;*/
 			<td>
 				<?php 
 				if ($tipo=='1') {
-					//opcion multiple
+
+					// OPCION MULTIPLE
 					if ($uov=='1') {
 						//solo una respuesta radio
 						$type="radio";
@@ -233,16 +372,20 @@ echo $h_has;*/
 						$type="checkbox";
 						$func="onclick='verificar_uno(".$idp.")'";
 					}
+
 					?>
 					<table class="table table-condensed">
 						<tr>
 							<?php
+
+							// OBTENER OPCIONES DE LA PREGUNTA
 							while ($fr = $q_r->fetch(PDO::FETCH_ASSOC)) {  
-							//while ($fr=mysql_fetch_array($q_r)) {
+
 								$idr=$fr['id'];
 								$cal=$fr['calif'];
 								$imgr=$fr['imagen'];
-								$conten=$cal."|".$tipo."|".$idr;
+								$conten=$idr."|".$tipo."|".$idr;
+								
 								if ($uov=='1') {
 									//solo una respuesta radio
 									$type="radio";
@@ -253,84 +396,72 @@ echo $h_has;*/
 									$func="onclick='verificar_uno(".$idp.",".$idr.")'";
 								}
 								?>
+
 								<td>
-									<input type="<?php echo $type; ?>" id="<?php echo $idr; ?>" name="<?php echo $idp; ?>[]" value="<?php echo $conten; ?>" <?php echo $func; ?>></td>
+									<input class="checkbox-success" type="<?=$type?>" id="<?=$idr?>" name="<?=$idp?>[]" value="<?=$conten?>" <?=$func?> onchange="set_respuesta(<?=$idp?>, <?=$cont?>, '<?=$idp?>[]')"/>
+									<label class="form-check-label" for="<?=$conten?>"><?=$fr['eleccion']?><?php 
+										//echo $fr['eleccion']; 
+										if ($imgr!='') { ?>
+											<img src="https://storage.googleapis.com/une_segmento-one/docentes/<?php echo $imgr; ?>"><?php
+										} ?>
+									</label>
+								</td>
+								<?php
+							} ?>
+						</tr>
+					</table>
+					<?php
+					$nb_uov="";
+				}else if ($tipo=='2') {
+					// RESPUESTA CORTA --sin usar
+					?>
+						<table class="table table-condensed">
+							<tr>
+								<td><input type="text" name="<?=$idp?>[]" class="form-control" value=""></td>
+							</tr>
+						</table>
+					<?php
+				}else if ($tipo=='3') {
+					// RESPUESTA VERDADERO/FALSO
+					?>
+					<table class="table table-condensed">
+						<tr>
+							<?php
+							while ($fr = $q_r->fetch(PDO::FETCH_ASSOC)) {
+
+								$idre=$fr['id'];
+								$val=$fr['calif'];
+								$imgr=$fr['imagen'];
+								$conten=$idre."|".$tipo."|".$idre;
+								?>
+								<td><input type="radio"  id="<?=$idre?>" name="<?=$idp?>[]" value="<?=$conten?>" onchange="set_respuesta(<?=$idp?>, <?=$cont?>, '<?=$idp?>[]')"/></td>
 								<td>
 									<?php 
 									echo $fr['eleccion']; 
-									if ($imgr!='') {
-										?>
-										<img src="../../../../plataformaDocente/assets/docente/banco/<?php echo $imgr; ?>">
-										<?php
+									if ($imgr!=''){
+										echo '<img src="https://storage.googleapis.com/une_segmento-one/docentes/'.$imgr.'"/>';
 									}
 									?>
-									</td>
+								</td>
 								<?php
+
 							}
 							?>
 						</tr>
 					</table>
 					<?php
-					$nb_uov="";
+				}else if ($tipo=='4') {
+					// RESPUESTAS DESCRIPCION -- sin usar
+					?>
+					<table class="table table-condensed">
+						<tr> <th colspan="<?=$fil?>">RESPUESTA</th> </tr>
+						<tr> 
+							<td><textarea name="<?=$idp?>[]" class="form-control" rows="3"></textarea></td>
+						</tr>
+					</table>
+					<?php
 				}else{
-					if ($tipo=='2') {
-						//respuesta corta
-						?>
-						<table class="table table-condensed">
-							<tr>
-								<td><input type="text" name="<?php echo $idp; ?>[]" class="form-control" value=""></td>
-							</tr>
-						</table>
-						<?php
-					}else{
-						if ($tipo=='3') {
-							//Verdadero Falso
-							?>
-							<table class="table table-condensed">
-								<tr>
-									<?php
-									while ($fr = $q_r->fetch(PDO::FETCH_ASSOC)) {  
-									//while ($fr=mysql_fetch_array($q_r)) {
-										$idre=$fr['id'];
-										$val=$fr['calif'];
-										$imgr=$fr['imagen'];
-										$conten=$val."|".$tipo."|".$idre;
-										?>
-										<td><input type="radio" name="<?php echo $idp; ?>[]" value="<?php echo $conten; ?>"></td>
-										<td>
-											<?php 
-											echo $fr['eleccion']; 
-											if ($imgr!=''){
-												?>
-												<img src="../../../../plataformaDocente/assets/docente/banco/<?php echo $imgr; ?>">
-												<?php
-											}
-											?>
-											</td>
-										<?php
-									}
-									?>
-								</tr>
-							</table>
-							<?php
-						}else{
-							if ($tipo=='4') {
-								//descripcion
-								?>
-								<table class="table table-condensed">
-									<tr>
-										<th colspan="<?php echo $fil; ?>">RESPUESTA</th>
-									</tr>
-									<tr>
-										<td><textarea name="<?php echo $idp; ?>[]" class="form-control" rows="3"></textarea></td>
-									</tr>
-								</table>
-								<?php
-							}else{
-								//no mostrar respuestas
-							}
-						}
-					}
+					//no mostrar respuestas
 				}
 				?>
 			</td>
@@ -339,114 +470,29 @@ echo $h_has;*/
 		$cont++;
 		$nb_uov="";
 		$uov="";
-	}
+	} // NEXT PREGUNTA
 	?>
 </table>
-<input type="hidden" name="num_preg" value="<?php echo $n_preg; ?>">
-<input type="hidden" name="hr_fin" id="hr_fin" value="<?php echo $h_has; ?>">
-<input type="hidden" name="ponde" id="ponde" value="<?php echo $ponde; ?>">
-<button class="btn btn-success" data-toggle="modal" data-target="#myModal" onclick="guardar_evaluacion()">GUARDAR EVALUACION</button>
-<br>
-<br>
-<br>
-<br>
-</form>
-<!--script type="text/javascript">
-	//Número máximo de casillas marcadas por cada fila
-	var maxi=2; 
-	//El contador es un arrayo de forma que cada posición del array es una linea del formulario
-	var contador=new Array(0,0);
-	function validar(check,grupo) {
-	   //Compruebo si la casilla está marcada
-	   if (check.checked==true){
-	       //está marcada, entonces aumento en uno el contador del grupo
-	       contador[grupo]++;
-	       //compruebo si el contador ha llegado al máximo permitido
-	       if (contador[grupo]>maxi) {
-	          //si ha llegado al máximo, muestro mensaje de error
-	          alert('No se pueden elegir más de '+maxi+' respuestas a la vez.');
-	          //desmarco la casilla, porque no se puede permitir marcar
-	          check.checked=false;
-	          //resto una unidad al contador de grupo, porque he desmarcado una casilla
-	          contador[grupo]--;
-	       }
-	   }else {
-	       //si la casilla no estaba marcada, resto uno al contador de grupo
-	       contador[grupo]--;
-	   }
-	} 
-</script-->
-<script languaje="javascript"> 
-function verificar_uno(nbp, idr){
-	//alert(nbp);
-	param=0;
-var cuales = param; 
-var suma = 0;
-var marcando;
-var checks = document.getElementsByName(nbp+'[]');
-for (var i = 0, j = checks.length; i < j; i++) { 
-    // sumar los marcados
-   if(checks[i].checked == true){
-    suma++;
-    }    
- // marcar desmarcar todos (la función recibe un parámetro   
-    if(cuales == 'todos'){
-    checks[i].checked = true;
-    marcando = 1; // ponemos marcando en 1 para saber que no nos interesa procesar el form por ahora
-    }    
-    if(cuales == 'nada'){
-    checks[i].checked = false;
-    marcando = 1;
-    }
-} 
-//alert(suma);
-	//if(marcando != 1){ 
-		// si no sumo suma = 0, entonces
-	    if(suma == 0){
-		    //alert('Debes seleccionar un registro');
-		   // return false;
-	    }else{
-	    //Confirmación para uno o varios    
-	        if(suma >= 3){
-	        	var texto = 'Solo puede seleccionar dos opciones';
-	        	document.getElementById(idr).checked=false;
-	        	var pregunta = alert(texto);
-	        }else{
-	        	var texto = '';
-	        }
-	    }
-  	//}
-}
-</script>
-<script language="Javascript" type="text/javascript">
-function disableselect(e){
-	return false
-}
-function reEnable(){
-	return true
-}
-document.onselectstart=new Function ("return false")
-if (window.sidebar){
-	document.onmousedown=disableselect
-	document.onclick=reEnable
-}
-</script>
 </div>
-
-<!--desde aqui empieza el otro modulo -->
-<!-- Modal -->
-<!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Respuesta</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" id="mos_Eval">        
-      </div>      
-    </div>
-  </div>
-</div>-->
-<!--script src="../../scripts/default.js" type="text/javascript"></script-->
+	<input type="hidden" name="num_preg" value="<?php echo $n_preg; ?>">
+	<input type="hidden" name="hr_fin" id="hr_fin" value="<?php echo $h_has; ?>">
+	<input type="hidden" name="ponde" id="ponde" value="<?php echo $ponde; ?>">
+	<!--<button class="btn btn-success" onclick="guardar_evaluacion()">GUARDAR EVALUACION</button>-->
+	<div align="center">
+		<button class="btn btn-success" type="button" uk-toggle="target: #modal-example" onclick="guardar_evaluacion2()">GUARDAR EVALUACION</button>
+	</div>
+	<div id="modal-example" uk-modal>
+	    <div class="uk-modal-dialog uk-modal-body">        
+	        <div class="modal-body" id="mos_Eval">
+	        	
+	     	</div>        
+	    </div>
+	</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+<script>
+	iniciar_preguntas();
+</script>

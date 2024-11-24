@@ -16,7 +16,7 @@ if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
 	}
 	return xmlhttp;
 }
-function cargar_datos_clase(item, grupo, clase, estudiante, grupo_aux){
+function cargar_datos_clase(item, grupo, clase, estudiante, grupo_aux, sub_grupo){
 	var resultado=document.getElementById('contenido_cv');
 
 	datos = new FormData();
@@ -25,9 +25,52 @@ function cargar_datos_clase(item, grupo, clase, estudiante, grupo_aux){
 	datos.append("_idclase", clase);
 	datos.append("_codest", estudiante);
 	datos.append("_grupoAux", grupo_aux)
+	datos.append("_subgrupo", sub_grupo)
 
 	ajax = objetoAjax();
 	ajax.open("POST", "contenedor/cv_momentos_all.php", true);
+	ajax.onreadystatechange = function(){
+		if (ajax.readyState == 4) {
+			resultado.innerHTML = ajax.responseText;
+		}
+	}
+	ajax.send(datos);
+}
+
+function cargar_datos_clase_asincronica(item, grupo, clase, estudiante, grupo_aux, sub_grupo){
+	var resultado=document.getElementById('contenido_cv');
+
+	datos = new FormData();
+	datos.append("_item", item);
+	datos.append("_idgrupo", grupo);
+	datos.append("_idclase", clase);
+	datos.append("_codest", estudiante);
+	datos.append("_grupoAux", grupo_aux)
+	datos.append("_subgrupo", sub_grupo)
+
+	ajax = objetoAjax();
+	ajax.open("POST", "contenedor/cv_momentos_asincronica.php", true);
+	ajax.onreadystatechange = function(){
+		if (ajax.readyState == 4) {
+			resultado.innerHTML = ajax.responseText;
+		}
+	}
+	ajax.send(datos);
+}
+
+function cargar_datos_clase_invertida(item, grupo, clase, estudiante, grupo_aux, sub_grupo){
+	var resultado=document.getElementById('contenido_cv');
+
+	datos = new FormData();
+	datos.append("_item", item);
+	datos.append("_idgrupo", grupo);
+	datos.append("_idclase", clase);
+	datos.append("_codest", estudiante);
+	datos.append("_grupoAux", grupo_aux)
+	datos.append("_subgrupo", sub_grupo)
+
+	ajax = objetoAjax();
+	ajax.open("POST", "contenedor/cv_momentos_invertida.php", true);
 	ajax.onreadystatechange = function(){
 		if (ajax.readyState == 4) {
 			resultado.innerHTML = ajax.responseText;
@@ -57,7 +100,7 @@ function cargar_datos_clase(item, grupo, clase, estudiante, grupo_aux){
 // 	ajax.send(datos);
 // }
 
-function ver_clasesvirtuales(idgrupo, idgrupoRaiz, codest){
+function ver_clasesvirtuales(idgrupo, idgrupoRaiz, codest, subgrupo){
 	var mainpage = document.getElementById('wrapper');
 	var clasesvirtuales = document.getElementById('wrapper_cv');
 	mainpage.style.display ="none";
@@ -65,6 +108,7 @@ function ver_clasesvirtuales(idgrupo, idgrupoRaiz, codest){
 	datos.append("_idgrupo", idgrupo);
 	datos.append("_codest", codest);
 	datos.append("_idgrupoRaiz", idgrupoRaiz);
+	datos.append("_subgrupo", subgrupo);
 	// datos.append("_codmat", mat);
 	// datos.append("_per", per);
 	ajax = objetoAjax();
@@ -181,18 +225,42 @@ function get_momentos(item, grupo, clase, estudiante){
 	
 }
 // function set_M2preguntaforo(grupo, clase, estudiante, foro, div){
-function set_M2preguntaforo(grupo, clase, estudiante, foro){
+function set_M2preguntaforo(grupo, raiz, clase, estudiante, foro, nbgrupo){
 	// var resultado = document.getElementById('div_cv');
 	var resultado = document.getElementById(nb_msj='msjm2'+clase);
 	var datos = new FormData();
 	datos.append("_grupo", grupo);
+	datos.append("_idraiz", raiz);
 	datos.append("_clase", clase);
 	datos.append("_estudiante", estudiante);
 	datos.append("_foro", foro);
+	datos.append("_nbgrupo", nbgrupo);
 	datos.append("_pregunta", document.getElementById('text_pregunta_'+clase).value);
 	
 	ajax = objetoAjax();
 	ajax.open("POST", "contenedor/cvirtuales/set_preguntaforo_m2.php", true);
+	ajax.onreadystatechange = function(){
+		if (ajax.readyState == 4) {
+			resultado.innerHTML = ajax.responseText;
+		}
+	}
+	ajax.send(datos);
+}
+
+function set_M2preguntaforo_snAsis(grupo, raiz, clase, estudiante, foro, nbgrupo){
+	// var resultado = document.getElementById('div_cv');
+	var resultado = document.getElementById(nb_msj='msjm2'+clase);
+	var datos = new FormData();
+	datos.append("_grupo", grupo);
+	datos.append("_idraiz", raiz);
+	datos.append("_clase", clase);
+	datos.append("_estudiante", estudiante);
+	datos.append("_foro", foro);
+	datos.append("_nbgrupo", nbgrupo);
+	datos.append("_pregunta", document.getElementById('text_pregunta_'+clase).value);
+	
+	ajax = objetoAjax();
+	ajax.open("POST", "contenedor/cvirtuales/set_preguntaforo_m2_snAsis.php", true);
 	ajax.onreadystatechange = function(){
 		if (ajax.readyState == 4) {
 			resultado.innerHTML = ajax.responseText;
@@ -222,18 +290,45 @@ function set_resumen_m3(clase, grupo,estudiante, video){
 	ajax.send(datos);
 	document.getElementById('resu'+cod_cla).disabled=true;
 }
-function set_resumen_m4(codtarea, codest){
+
+function set_resumen_m4(grupo, raiz, codtarea, codest, nbgrupo){
 	var resumen=document.getElementById('tarea'+codtarea).value;
 	var resultado = document.getElementById('msj_ta'+codtarea);
 
 	var datos = new FormData();
+	datos.append("_grupo", grupo);
+	datos.append("_raiz", raiz);
 	datos.append("_codtarea", codtarea);
 	datos.append("_resumen", resumen);
 	datos.append("_codest", codest);
+	datos.append("_nbgrupo", nbgrupo);
 
 	resultado.innerHTML = "cargando...";
 	ajax = objetoAjax();
 	ajax.open("POST", "contenedor/cvirtuales/frm_guarda_resumen_m4.php", true);
+	ajax.onreadystatechange = function(){
+		if (ajax.readyState == 4) {
+			resultado.innerHTML = ajax.responseText;
+		}
+	}
+	ajax.send(datos);
+}
+
+function set_resumen_m4_snAsis(grupo, raiz, codtarea, codest, nbgrupo){
+	var resumen=document.getElementById('tarea'+codtarea).value;
+	var resultado = document.getElementById('msj_ta'+codtarea);
+
+	var datos = new FormData();
+	datos.append("_grupo", grupo);
+	datos.append("_raiz", raiz);
+	datos.append("_codtarea", codtarea);
+	datos.append("_resumen", resumen);
+	datos.append("_codest", codest);
+	datos.append("_nbgrupo", nbgrupo);
+
+	resultado.innerHTML = "cargando...";
+	ajax = objetoAjax();
+	ajax.open("POST", "contenedor/cvirtuales/frm_guarda_resumen_m4_snAsis.php", true);
 	ajax.onreadystatechange = function(){
 		if (ajax.readyState == 4) {
 			resultado.innerHTML = ajax.responseText;
@@ -257,6 +352,21 @@ function set_archivo_m4(cod_tarea){
 	return true;
 }
 
+function set_archivo_m4_snAsis(cod_tarea){
+	var formdata = new FormData(document.getElementById('envio_arch'+cod_tarea));
+	var resultado = document.getElementById('msj_ta'+cod_tarea);
+	resultado.innerHTML = "cargando...";
+	ajax = objetoAjax();
+	ajax.open("POST", "contenedor/cvirtuales/frm_guarda_archivo_m4_snAsis.php", true);
+	ajax.onreadystatechange = function(){
+		if (ajax.readyState == 4) {
+			resultado.innerHTML = ajax.responseText;
+		}
+	}
+	ajax.send(formdata);
+	return true;
+}
+
 function msj_error(cod_eval, cod_ban, codest){
 	var resultado = document.getElementById('contenido_cv');
 	resultado.innerHTML = "cargando...";
@@ -271,15 +381,18 @@ function msj_error(cod_eval, cod_ban, codest){
 	ajax.send(null);
 }
 
-function iniciar_eval(cod_eval, cod_ban, codest){
+function iniciar_eval(cod_eval, cod_ban, codest, codgrupo, idclase, codgrupom5, subgrupo,tipos){
 	var resultado = document.getElementById('contenido_cv');
-	resultado.innerHTML = "cargando...";
+	resultado.innerHTML = "<img src='contenedor/js/carga.gif' class='img-fluid' alt='Responsive image'>";
 	ajax = objetoAjax();
-	ajax.open("GET", "contenedor/ver_actividades_eval.php?cod_eval="+cod_eval+"&cod_ban="+cod_ban+"&codest="+codest+"", true);
-	//window.open("ver_actividades_eval.php?cod_eval="+cod_eval+"&cod_ban="+cod_ban+"&codest="+codest+"",'_blank');
+	ajax.open("GET", "contenedor/ver_actividades_eval.php?cod_eval="+cod_eval+"&cod_ban="+cod_ban+"&codest="+codest+"&id_grupo="+codgrupo+"&id_clase="+idclase+"&cod_grupom5="+codgrupom5+"&sub_grupo="+subgrupo+"&tipoeval="+tipos+"", true);
 	ajax.onreadystatechange = function(){
 		if (ajax.readyState == 4) {
 			resultado.innerHTML = ajax.responseText;
+			var myScripts = resultado.getElementsByTagName("script");
+			if (myScripts.length > 0) {
+				eval(myScripts[0].innerHTML);
+			}
 		}
 	}
 	ajax.send(null);
@@ -312,6 +425,37 @@ function set_archivo_m4_cloud(cod_tarea){
 		}
 	}
 	// ajax.setRequestHeader("Content-Type","multipart/form-data");
+	ajax.send(formdata);
+	return true;
+}
+
+function set_archivo_m4_cloud_snAsis(cod_tarea){
+	var formdata = new FormData(document.getElementById('envio_arch'+cod_tarea));
+	var resultado = document.getElementById('msj_ta'+cod_tarea);
+	resultado.innerHTML = "cargando...";
+	ajax = objetoAjax();
+	ajax.open("POST", "contenedor/cvirtuales/frm_guarda_archivo_m4_bucketgoogle_snAsis.php", true);
+	ajax.onreadystatechange = function(){
+		if (ajax.readyState == 4) {
+			resultado.innerHTML = ajax.responseText;
+		}
+	}
+	// ajax.setRequestHeader("Content-Type","multipart/form-data");
+	ajax.send(formdata);
+	return true;
+}
+
+function guardar_diagnostico(){
+	var formdata = new FormData(document.getElementById('frm_diagnostico'));
+	var resultado = document.getElementById('contenido_cv');
+	resultado.innerHTML = "cargando...";
+	ajax = objetoAjax();
+	ajax.open("POST", "contenedor/frm_guarda_eval_daignostico.php", true);
+	ajax.onreadystatechange = function(){
+		if (ajax.readyState == 4) {
+			resultado.innerHTML = ajax.responseText;
+		}
+	}
 	ajax.send(formdata);
 	return true;
 }

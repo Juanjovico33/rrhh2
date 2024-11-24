@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>UNE Estudiante</title>
+    <title>UNE RRHH</title>
       <!-- CSS 
     ================================================== -->
     <link rel="stylesheet" href="css/style.css">
@@ -13,10 +13,17 @@
     <link rel="stylesheet" href="css/bootstrap.css"> 
       <!-- Favicon -->
     <link href="img/favicon.png" rel="icon" type="image/png">
-   <!-- <script src="vendor/bootstrap/js/jquery-1.11.1.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>   -->
-     <!-- icons
-    ================================================== -->
+   <style type="text/css">
+        body {
+              /*background-image: url("img/hojas.jpg");*/
+              background: url(img/fondo20243.png) no-repeat center center fixed; 
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                -ms-background-size: cover;
+                background-size: cover;
+            }
+    </style>
     <link rel="stylesheet" href="css/icons.css">
 </head>
 <body>  
@@ -28,26 +35,26 @@
 
                 <!-- column one -->
                 <div class="uk-margin-auto-vertical uk-text-center uk-animation-scale-up p-3 uk-light">
-                    <img src="img/logo.png" class="img-fluid" alt="Responsive image">
+                    <img src="img/logo25.png" class="img-fluid" alt="Responsive image">
                     <!--<p>The Place You can learn Every Thing. </p>-->
                 </div>
 
                 <!-- column two -->
                 <div class="uk-card-default p-5 rounded">
                     <div class="mb-4 uk-text-center">
-                        <h3 class="mb-0"> Bienvenid@</h3>
+                        <h3 class="mb-0"> Bienvenid@ Sistema De RRHH</h3>
                         <!--<p class="my-2">Inicio de Sessión</p>-->
                     </div>
                     <form action="" method="POST">
 
                         <div class="uk-form-group">
-                            <label class="uk-form-label"> Código de Estudiante:</label>
+                            <label class="uk-form-label">Usuario: </label>
 
                             <div class="uk-position-relative w-100">
                                 <span class="uk-form-icon">
                                     <i class="icon-feather-user"></i>
                                 </span>
-                                <input type="text" name="username" class="uk-input" placeholder="Código Estudiante" autocomplete="off">
+                                <input type="text" name="username" class="uk-input" placeholder="Usuario" autocomplete="off">
                             </div>
                         </div>
                         <div class="uk-form-group">
@@ -76,9 +83,9 @@
                         </div>
 
                         <div class="mt-4 uk-flex-middle uk-grid-small" uk-grid>
-                            <div class="uk-width-expand@s">
+                            <!--<div class="uk-width-expand@s">
                                 <p> Te olvidaste la contraseña? <a href="#">Pulsa Aquí</a></p>
-                            </div>
+                            </div>-->
                             <div class="uk-width-auto@s">
                                 <button type="submit" class="btn btn-success">Iniciar Sesión</button>
                             </div>
